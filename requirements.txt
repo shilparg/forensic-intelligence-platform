@@ -1,31 +1,37 @@
-# --- Orchestration ---
-dagster==1.12.19
-dagster-webserver==1.12.19
-dagster-graphql==1.12.19
-graphene>=3.2,<4
+# --- Core UI & Data (Install these first) ---
+streamlit==1.32.0
+pandas>=2.1.0
+numpy>=1.26.0
+
+# --- The Orchestration Layer (Pinned to avoid conflict) ---
+dagster==1.6.13
+dagster-webserver==1.6.13
+dagster-graphql==1.6.13
+meltano==3.2.0
+dagster-meltano==1.5.5
+graphene>=3.0
 
 # --- Extraction & Database ---
-requests
-beautifulsoup4
+requests==2.31.0
+beautifulsoup4==4.12.3
 lxml
-yfinance
-pymongo
+yfinance==0.2.37
+pymongo[srv]
 certifi
 python-dotenv
 
-# --- Data Transformation & Cloud ---
-google-cloud-bigquery
-db-dtypes
-dbt-core
-dbt-bigquery
+# --- Cloud & Transformation (Updated for Python 3.12) ---
+google-cloud-bigquery>=3.19.0
+db-dtypes>=1.2.0
+dbt-core>=1.8.0
+dbt-bigquery>=1.8.0
+pandas-gbq>=0.22.0
 
 # --- Machine Learning & NLP ---
-pandas
-numpy
 textblob
-scikit-learn
+scikit-learn>=1.4.0
 
-# --- Visualization & AI ---
+# --- Visualization & Alerting ---
 seaborn
 matplotlib
 google-generativeai

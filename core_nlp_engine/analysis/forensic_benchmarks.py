@@ -3,22 +3,35 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 
-# Load the merged SEC + Yahoo Finance data
-DATA_PATH = "ai_scored_forensic_dataset.csv"
+# --- 1. Bulletproof Pathing ---
+# Calculate the exact directories based on where this script is located
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))         # /core_nlp_engine/analysis
+ENGINE_DIR = os.path.abspath(os.path.join(CURRENT_DIR, ".."))    # /core_nlp_engine
+
+# Explicitly target the ml_engine folder for input and the local plots folder for output
+DATA_PATH = os.path.join(ENGINE_DIR, "ml_engine", "ai_scored_forensic_dataset.csv")
+OUTPUT_DIR = os.path.join(CURRENT_DIR, "plots")
 
 def run_benchmark_plots():
+    # 2. Safety Check before loading
+    if not os.path.exists(DATA_PATH):
+        raise FileNotFoundError(f"🚨 Could not find ML output at: {DATA_PATH}\nEnsure fraud_model.py ran successfully first.")
+
     df = pd.read_csv(DATA_PATH)
     sns.set_theme(style="white")
-    output_dir = "analysis/plots"
-    os.makedirs(output_dir, exist_ok=True)
+    
+    # Create the plots directory if it doesn't exist yet
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     # --- PLOT 1: Industry Sentiment Boxplot ---
     # Highlights the outliers (Z-Score anomalies)
     plt.figure(figsize=(10, 6))
     sns.boxplot(data=df, x='ticker', y='sentiment_score', palette="Set3")
     plt.title("Industry Sentiment Distribution: Identifying Outliers", fontsize=14)
-    plt.savefig(f"{output_dir}/industry_sentiment_boxplot.png")
-    print("✅ Saved Industry Boxplot.")
+    
+    # Save using the absolute output directory
+    plt.savefig(os.path.join(OUTPUT_DIR, "industry_sentiment_boxplot.png"))
+    print(f"✅ Saved Industry Boxplot to {OUTPUT_DIR}")
 
     # --- PLOT 2: Forensic Correlation Heatmap ---
     # Shows if Negative Sentiment correlates with High Debt or Short Interest
@@ -32,8 +45,10 @@ def run_benchmark_plots():
 
     sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f", linewidths=0.5)
     plt.title("Forensic Triangulation: SEC Metrics vs. Market Pressure", fontsize=14)
-    plt.savefig(f"{output_dir}/forensic_correlation_heatmap.png")
-    print("✅ Saved Correlation Heatmap.")
+    
+    # Save using the absolute output directory
+    plt.savefig(os.path.join(OUTPUT_DIR, "forensic_correlation_heatmap.png"))
+    print(f"✅ Saved Correlation Heatmap to {OUTPUT_DIR}")
 
 if __name__ == "__main__":
     run_benchmark_plots()

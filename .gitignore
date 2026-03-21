@@ -1,18 +1,26 @@
-# Security & Environments
+# --- Security & Environments ---
 .env
 gcp-service-account.json
 venv/
+.venv/
 
-# Python Cache
+# --- Python Cache ---
 __pycache__/
 *.pyc
 .pytest_cache/
 
-# Dagster & dbt artifacts
+# --- Pipeline Artifacts (Dagster, dbt, Meltano) ---
 *.egg-info/
 transform_dbt/target/
 transform_dbt/dbt_packages/
 transform_dbt/logs/
+.meltano/
+*.db
 
-# Raw Data (Don't push the heavy CSVs to GitHub)
+# --- Raw Data Outputs (Keep the repo lightweight) ---
 *.csv
+*.jsonl
+
+# --- OS System Files ---
+.DS_Store
+Thumbs.db

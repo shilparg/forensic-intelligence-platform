@@ -2,91 +2,139 @@ import os
 import json
 import subprocess
 import requests
-from dagster import Config, asset, Definitions
+import pandas as pd
+from dagster import Config, asset, Definitions, AssetExecutionContext, define_asset_job
+
+# --- 0. Bulletproof Pathing ---
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+ENGINE_DIR = os.path.abspath(os.path.join(CURRENT_DIR, ".."))
+PROJECT_ROOT = os.path.abspath(os.path.join(ENGINE_DIR, ".."))
+MELTANO_DIR = os.path.join(PROJECT_ROOT, "meltano_elt_engine")
 
 # --- 1. Web UI Configuration Panel ---
 class AuditConfig(Config):
     run_mode: str = "peer_group"  # Options: 'peer_group', 'all_sec', 'custom'
     custom_tickers: list[str] = ["AAPL", "MSFT"]
 
-# --- 2. PHASE 1: Target Identification ---
+# --- 2. PHASE 1: Target Identification & Sector Mapping ---
 @asset
-def determine_targets(config: AuditConfig) -> str:
-    """Fetches targets and creates a {Ticker: CIK} JSON map for the extractor."""
+def determine_targets(context: AssetExecutionContext, config: AuditConfig) -> str:
+    """
+    PHASE 1: Maps Tickers to CIKs and CODE-GENERATES sector_metadata.json.
+    """
     target_map = {}
+    sector_map = {} 
+    headers = {'User-Agent': os.getenv("SEC_USER_AGENT", "ForensicBot (test@test.com)")}
     
-    if config.run_mode == "peer_group":
-        # Standard Capstone Test Group
+    # Load SEC Master Index
+    response = requests.get("https://www.sec.gov/files/company_tickers.json", headers=headers)
+    sec_data = response.json()
+    master_lookup = {v['ticker']: str(v['cik_str']) for k, v in sec_data.items()}
+
+    if config.run_mode == "custom":
+        csv_path = os.path.join(PROJECT_ROOT, "target_tickers.csv")
+        if os.path.exists(csv_path):
+            df = pd.read_csv(csv_path)
+            for _, row in df.iterrows():
+                ticker = str(row['ticker']).upper().strip()
+                if ticker in master_lookup:
+                    target_map[ticker] = master_lookup[ticker]
+                    sector_map[ticker] = row.get('sector', 'Information Technology')
+        else:
+            context.log.warning("⚠️ target_tickers.csv not found. Falling back to manual list.")
+            for ticker in config.custom_tickers:
+                t = ticker.upper().strip()
+                if t in master_lookup:
+                    target_map[t] = master_lookup[t]
+                    sector_map[t] = "Information Technology"
+
+    elif config.run_mode == "peer_group":
         target_map = {"AAPL": "320193", "MSFT": "789019", "NVDA": "1045810", "GOOGL": "1652044"}
+        sector_map = {t: "Information Technology" for t in target_map}
+
+    # Save Sector Metadata Bridge for the ML Engine
+    metadata_dir = os.path.join(ENGINE_DIR, "analysis")
+    os.makedirs(metadata_dir, exist_ok=True)
+    metadata_path = os.path.join(metadata_dir, "sector_metadata.json")
+    
+    with open(metadata_path, "w") as f:
+        json.dump(sector_map, f)
         
-    elif config.run_mode == "all_sec":
-        # Dynamic fetch from SEC Master API
-        headers = {'User-Agent': os.getenv("SEC_USER_AGENT", "ForensicBot (test@test.com)")}
-        response = requests.get("https://www.sec.gov/files/company_tickers.json", headers=headers)
-        if response.status_code == 200:
-            # Taking top 10 for demonstration limits
-            for k, v in list(response.json().items())[:10]:
-                target_map[v['ticker']] = str(v['cik_str'])
-                
+    context.log.info(f"✅ Targets identified. Sector metadata cached for {len(sector_map)} firms.")
     return json.dumps(target_map)
 
-# --- 3. PHASE 2: Extraction & Data Quality Gates ---
-@asset
-def run_extraction(determine_targets: str):
-    """Sanitizes landing zone, extracts data, and verifies quality."""
-    print("🧹 Phase 2a: Sanitizing MongoDB Landing Zone...")
-    subprocess.run(["python", "extract_load/cleanup_mongo.py"], check=True)
+# --- 3. PHASE 2: Dual-Engine Ingestion ---
+@asset(deps=[determine_targets])
+def run_meltano_structured_sync(context: AssetExecutionContext):
+    """ENGINE B: Triggers Meltano + Python Schema Flattener."""
+    context.log.info("🚀 ENGINE B: Starting Meltano Structured Sync...")
+    subprocess.run(["meltano", "run", "tap-mongodb", "target-jsonl"], cwd=MELTANO_DIR, check=True)
     
-    print("📥 Phase 2b: Running SEC SEC Extraction...")
-    subprocess.run(["python", "extract_load/extract_sec_data.py", "--ticker_map", determine_targets], check=True)
-    
-    print("🛡️ Phase 2c: Verifying Data Quality...")
-    subprocess.run(["python", "extract_load/verify_mongo.py"], check=True)
-    
-    return "Extraction & DQ Checks Passed"
+    loader_script = os.path.join(MELTANO_DIR, "pandas_to_bq.py")
+    subprocess.run(["python", loader_script], check=True)
+    return "Structured Sync Complete"
 
-# --- 4. PHASE 3: Cloud Synchronization ---
 @asset
-def cloud_sync(run_extraction: str):
-    """Pushes validated MongoDB payloads into BigQuery."""
-    print("☁️ Phase 3: Syncing to Google Cloud BigQuery...")
-    subprocess.run(["python", "extract_load/mongo_to_bigquery.py"], check=True)
-    return "Synced to BigQuery"
-
-# --- 5. PHASE 4: dbt Transformation (The Accounting Logic) ---
-@asset
-def run_dbt_models(cloud_sync: str):
-    """Runs all SQL models (Z-Scores, Red Flags, Narrative Drift)."""
-    print("🔄 Phase 4: Executing dbt transformations...")
-    # --profiles-dir . ensures it finds your local profiles.yml to avoid the "Not Found" error
-    subprocess.run(["dbt", "build", "--profiles-dir", "."], cwd="transform_dbt", check=True)
-    return "dbt Analytics Engine Complete"
-
-# --- 6. PHASE 5: AI & Executive Reporting ---
-@asset
-def ai_analysis_and_output(run_dbt_models: str):
-    """Scores anomalies, generates all 5 presentation plots, and sends alerts."""
-    print("🧠 Phase 5a: Running Machine Learning (Isolation Forest)...")
-    subprocess.run(["python", "ml_engine/fraud_model.py"], check=True)
+def run_unstructured_extraction(context: AssetExecutionContext, determine_targets: str):
+    """ENGINE A: SEC 10-K text extraction and verification."""
+    context.log.info("🧹 ENGINE A: Sanitizing MongoDB...")
+    subprocess.run(["python", os.path.join(ENGINE_DIR, "extract_load/cleanup_mongo.py")], check=True)
     
-    print("📊 Phase 5b: Generating Executive Visuals...")
-    subprocess.run(["python", "analysis/density_visualizer.py"], check=True)
-    subprocess.run(["python", "analysis/forensic_benchmarks.py"], check=True)
-    subprocess.run(["python", "analysis/forensic_triangulation.py"], check=True)
-    subprocess.run(["python", "analysis/executive_visuals.py"], check=True)
+    context.log.info("📥 ENGINE A: Extracting SEC Text...")
+    subprocess.run(["python", os.path.join(ENGINE_DIR, "extract_load/extract_sec_data.py"), "--ticker_map", determine_targets], check=True)
     
-    print("📧 Phase 5c: Dispatching Gen-AI Email Alerts...")
-    subprocess.run(["python", "analysis/forensic_alerter.py"], check=True)
+    context.log.info("🛡️ ENGINE A: Running Quality Gate...")
+    subprocess.run(["python", os.path.join(ENGINE_DIR, "extract_load/verify_mongo.py")], check=True)
+    return "Unstructured Extraction Passed"
+
+# --- 4. PHASE 3: Cloud Synchronization & dbt ---
+@asset(deps=[run_unstructured_extraction])
+def cloud_sync(context: AssetExecutionContext):
+    """Pushes validated SEC NLP payloads into BigQuery."""
+    subprocess.run(["python", os.path.join(ENGINE_DIR, "extract_load/mongo_to_bigquery.py")], check=True)
+    return "SEC Data Synced"
+
+@asset(deps=[cloud_sync, run_meltano_structured_sync])
+def run_dbt_models(context: AssetExecutionContext):
+    """Executes dbt transformations once BOTH engines finish."""
+    context.log.info("🔄 Phase 4: Executing dbt Analytical Models...")
+    dbt_dir = os.path.join(ENGINE_DIR, "transform_dbt")
+    subprocess.run(["dbt", "build", "--profiles-dir", "."], cwd=dbt_dir, check=True)
+    return "dbt Logic Applied"
+
+# --- 5. PHASE 4: AI & Executive Reporting ---
+@asset(deps=[run_dbt_models])
+def ai_analysis_and_output(context: AssetExecutionContext):
+    """Scores anomalies and generates presentation visuals."""
+    context.log.info("🧠 Phase 5a: Running Machine Learning (Isolation Forest)...")
+    subprocess.run(["python", os.path.join(ENGINE_DIR, "ml_engine/fraud_model.py")], check=True)
+    
+    context.log.info("📊 Phase 5b: Generating Multi-Ticker Executive Visuals...")
+    scripts = ["density_visualizer.py", "forensic_benchmarks.py", "forensic_triangulation.py", "executive_visuals.py"]
+    for script in scripts:
+        subprocess.run(["python", os.path.join(ENGINE_DIR, f"analysis/{script}")], check=True)
+    
+    context.log.info("📧 Phase 5c: Dispatching Gen-AI Forensic Memos...")
+    subprocess.run(["python", os.path.join(ENGINE_DIR, "analysis/forensic_alerter.py")], check=True)
     
     return "Audit Platform Execution Complete"
 
-# --- 7. Dagster Definitions ---
+# --- 6. Definitions & Enterprise Job Binding ---
+
+# THE FIX: Bind all assets into a unified Job so Streamlit can trigger it securely with configurations.
+forensic_audit_job = define_asset_job(
+    name="forensic_audit_job",
+    selection="*"
+)
+
 defs = Definitions(
     assets=[
         determine_targets, 
-        run_extraction, 
+        run_meltano_structured_sync,
+        run_unstructured_extraction, 
         cloud_sync, 
         run_dbt_models, 
         ai_analysis_and_output
-    ]
+    ],
+    jobs=[forensic_audit_job]  # Expose the job to the Dagster Daemon
 )

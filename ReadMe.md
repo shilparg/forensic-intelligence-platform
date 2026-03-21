@@ -1,112 +1,123 @@
-This is the final touch. A world-class data engineering project deserves a world-class `README.md`. 
+Here is the complete, professional-grade `README.md` tailored specifically for your capstone defense. 
 
-When the grading panel (or a future employer) lands on your GitHub repository, this document will immediately signal that this is a professional, production-ready enterprise platform, not just a student script.
+This document is designed to act as your "Executive Briefing." When the grading panel opens your GitHub repository, this README immediately explains the business value, the architectural flow, the directory structure, and the exact steps to run the platform.
 
-Copy this Markdown text exactly as it is and paste it into a file named **`README.md`** in your root folder.
+You can copy this entire block and paste it directly into your `README.md` file in the root of your project.
 
 ***
 
 ```markdown
-# 🕵️‍♂️ AI-Driven Forensic Accounting Platform
+# 🕵️‍♂️ Forensic Intelligence Platform
+**An AI-Driven Modern Data Stack for Audit Risk Triangulation**
 
-An automated, end-to-end Modern Data Stack designed to detect financial obfuscation, narrative drift, and market triangulation anomalies in public company disclosures.
+## 📖 Executive Summary
+Financial obfuscation rarely begins in the ledger; it begins in the narrative. Traditional audit methodologies rely heavily on manual, retrospective document sampling, creating a critical blind spot regarding management tone and real-time market pressure.
 
-**Developed by:** Kamlesh & Shilpa  
-**Program:** NTU SCTP Capstone Project  
-
----
-
-## 📖 Project Overview
-Traditional forensic auditing relies heavily on manual document review and historical numerical analysis, often creating a "blind spot" regarding management tone and real-time market pressure. 
-
-This platform modernizes the audit process by ingesting raw SEC 10-K filings, quantifying the linguistic features of the disclosures, and using unsupervised Machine Learning to cross-reference internal management sentiment against external market data (Yahoo Finance). 
-
-When a "Critical Anomaly" is detected, the platform automatically generates an executive risk summary using Generative AI (Google Gemini) and dispatches it to the audit team.
+The **Forensic Intelligence Platform** modernizes the audit engagement by acting as an automated, first-pass forensic investigator. By orchestrating a highly decoupled, dual-engine data architecture, this platform systematically ingests unstructured SEC 10-K disclosures, quantifies linguistic obfuscation, and triangulates management's internal sentiment against external market realities (such as institutional short-selling and debt leverage).
 
 ---
 
-## ✨ Key Features & Forensic Methodologies
+## 🏗️ System Architecture & Data Flow
+The platform operates on a classic "Hub and Spoke" data engineering model, ensuring complete decoupling between extraction, transformation, machine learning, and visualization.
 
-* **The Obfuscation Hypothesis:** Correlates 10-K word counts (Disclosure Density) with Management Sentiment to identify companies hiding bad news in boilerplate text.
-* **Market Triangulation:** Bridges internal SEC data with external market metrics (Short Ratio, Debt-to-Equity) to find "Smoking Gun" disconnects.
-* **Narrative Drift (Reporting Inertia):** Utilizes TF-IDF Cosine Similarity to track year-over-year changes in 10-K language, pinpointing the exact fiscal year management drastically rewrites their financial story.
-* **Unsupervised Anomaly Detection:** Employs an Isolation Forest algorithm to score and categorize peer-group outliers without human bias.
-* **Gen-AI Executive Alerting:** Integrates Google Gemini 1.5 Flash to synthesize complex anomaly data into a 3-bullet-point, human-readable email alert for Audit Partners.
+### Phase 1: Dual-Engine Ingestion (The Spokes)
+* **Core NLP Engine (Unstructured):** A custom Python/Dagster pipeline that scrapes SEC EDGAR for 10-K filings. It uses Natural Language Processing (`TextBlob`, `Scikit-Learn`) to calculate Management Sentiment, Disclosure Density (Word Count), and Year-over-Year Narrative Drift.
+* **Meltano ELT Engine (Structured):** A Meltano-driven pipeline that extracts raw, structured financial datasets from a NoSQL MongoDB database, flattens the nested dictionaries using Pandas, and prepares them for cloud syncing.
 
----
+### Phase 2: The Data Warehouse (The Hub)
+* Both ingestion engines push their respective data into **Google Cloud BigQuery**. 
+* **dbt (Data Build Tool)** is used within BigQuery to join the unstructured NLP metrics with the structured financial data, creating a unified forensic fact table.
 
-## 🏗️ Architecture & Tech Stack
+### Phase 3: The AI Auditor (Machine Learning)
+* The unified dataset is fed into an **Isolation Forest** anomaly detection algorithm. Instead of static rules, the AI evaluates the entire industry peer group and mathematically isolates companies exhibiting "Critical Fraud Risk" based on contradictory data (e.g., highly positive sentiment vs. aggressive short-selling).
 
-This project is built on a highly fault-tolerant, automated pipeline:
-
-1. **Orchestration:** `Dagster`
-2. **Extraction:** `Python`, `BeautifulSoup`, `SEC EDGAR API`, `yfinance`
-3. **Landing Zone:** `MongoDB`
-4. **Data Warehouse:** `Google Cloud BigQuery`
-5. **Transformation:** `dbt` (Data Build Tool)
-6. **Machine Learning:** `Scikit-Learn` (Isolation Forest), `TextBlob` (NLP)
-7. **Visualization & AI:** `Seaborn`, `Matplotlib`, `Google Generative AI`
+### Phase 4: Executive Serving & Alerting (The Outputs)
+* **Pull Reporting:** A live **Streamlit** dashboard allows Audit Directors to query BigQuery and Yahoo Finance in real-time, filtering high-risk targets dynamically.
+* **Push Reporting:** The moment a "Critical Anomaly" is flagged, the platform passes the metrics to **Google Gemini 1.5 Flash**, which automatically drafts and dispatches a clinical, 3-bullet-point executive risk memo to the Audit Partner.
 
 ---
 
-## 📂 Repository Structure
-
+## 🗂️ Directory Structure
 ```text
-forensic_accounting_platform/
-├── orchestrate/                     
-│   └── assets.py                     # Master Dagster Orchestrator
-├── extract_load/                    
-│   ├── cleanup_mongo.py              # Landing zone sanitizer
-│   ├── extract_sec_data.py           # SEC API Scraper & NLP Parser
-│   ├── verify_mongo.py               # Data Quality Gate
-│   └── mongo_to_bigquery.py          # GCP Cloud Sync
-├── transform_dbt/                   
-│   └── models/
-│       ├── staging/stg_sec_filings.sql
-│       ├── intermediate/int_forensic_metrics.sql
-│       └── marts/                    # Core Analytical SQL Models
-│           ├── fct_anomaly_detection.sql
-│           ├── fct_narrative_drift.sql
-│           ├── fct_red_flag_report.sql
-│           └── rpt_boilerplate_offenders.sql
-├── ml_engine/                       
-│   └── fraud_model.py                # Isolation Forest Scoring
-└── analysis/                        
-    ├── density_visualizer.py         # Seaborn JointPlots
-    ├── forensic_triangulation.py     # SEC vs Market Regressions
-    ├── executive_visuals.py          # Radar Charts & Time-Series
-    └── forensic_alerter.py           # Gemini Automated Emailing
+forensic-intelligence-platform/
+│
+├── .gitignore                       # Protects passwords, API keys, and local environments
+├── README.md                        # Executive overview and execution steps
+├── requirements.txt                 # Master Python dependency list
+├── gcp-service-account.json         # Google Cloud credentials (Not tracked in git)
+│
+├── core_nlp_engine/                 # ⚙️ SPIGOT 1: Unstructured Data Pipeline
+│   ├── orchestrate/                 # Dagster orchestrator assets
+│   ├── extract_load/                # SEC EDGAR scrapers and MongoDB push
+│   └── transform_dbt/               # SQL transformations and data modeling
+│
+├── meltano_elt_engine/              # ⚙️ SPIGOT 2: Structured Data Pipeline
+│   ├── meltano.yml                  # Meltano extraction configuration
+│   ├── pandas_to_bq.py              # NoSQL to SQL flattening logic
+│   ├── fraud_model.py               # Isolation Forest Machine Learning script
+│   └── visualize_risk.py            # Seaborn static chart generation
+│
+├── streamlit_dashboard/             # 📊 OUTPUT 1: The Interactive BI UI
+│   └── app.py                       # Streamlit web application
+│
+└── automated_alerting/              # 🚨 OUTPUT 2: Gen-AI Risk Memos
+    └── forensic_alerter.py          # Google Gemini integration and SendGrid dispatcher
 ```
 
 ---
 
-## 🚀 Setup & Execution Instructions
+## 🚀 Execution Guide: How to Run the Platform
 
-### 1. Prerequisites
-Ensure you have Python 3.10+ installed. You will also need a Google Cloud Service Account JSON key (`gcp-service-account.json`) and a populated `.env` file in the root directory containing your API keys and database URIs.
+### Prerequisites
+1. Python 3.9+ installed.
+2. A valid `gcp-service-account.json` file placed in the root directory.
+3. Environment variables configured for SEC EDGAR access and `GEMINI_API_KEY`.
 
-### 2. Installation
-Clone the repository and install the required dependencies:
+### Step 1: Environment Setup
+Install all required dependencies across the entire architecture:
 ```bash
 pip install -r requirements.txt
 ```
-*(Ensure you have also downloaded the TextBlob corpora by running: `python -m textblob.download_corpora`)*
 
-### 3. Launching the Platform
-The entire pipeline is orchestrated via Dagster. To launch the Web UI and trigger the audit:
+### Step 2: Run the Ingestion Pipelines
+To extract the latest data, execute the Meltano pipeline followed by the BigQuery sync:
 ```bash
-dagster dev -f orchestrate/assets.py
+cd meltano_elt_engine
+meltano run extract-mongodb target-jsonl
+python pandas_to_bq.py
 ```
-Navigate to `http://localhost:3000` in your browser and click **"Materialize All"**.
+
+### Step 3: Execute the AI Risk Model
+Run the Isolation Forest model to detect anomalies and generate the `comprehensive_forensic_dataset.csv`:
+```bash
+python fraud_model.py
+```
+
+### Step 4: Launch the Executive Dashboard
+Spin up the interactive UI to visualize the risk landscape:
+```bash
+cd ../streamlit_dashboard
+streamlit run app.py
+```
+*(The dashboard will automatically open in your default web browser at `http://localhost:8501`)*
+
+### Step 5: Trigger the Gen-AI Alerter
+To generate the automated Audit Partner risk memos for any detected critical anomalies:
+```bash
+cd ../automated_alerting
+python forensic_alerter.py
+```
 
 ---
 
-## 📊 Outputs
-Upon a successful run, the platform will generate a suite of executive-ready visualizations in the `analysis/plots/` directory and dispatch a Gen-AI summary email to the designated audit team.
+## 🛠️ Technology Stack
+* **Language:** Python
+* **Orchestration:** Dagster
+* **Extraction:** Meltano, BeautifulSoup, Requests
+* **Warehouse & Transformation:** Google BigQuery, dbt
+* **Machine Learning & NLP:** Scikit-Learn, Pandas, TextBlob
+* **Visualization:** Streamlit, Seaborn, Matplotlib
+* **Generative AI:** Google Gemini 1.5 Flash
 ```
 
 ***
-
-This covers everything from the overarching business logic to the exact terminal commands needed to run the code. 
-
-You and Shilpa have built something exceptional here. Is there anything else you need before the big presentation, perhaps a quick test of the Gemini email prompt to make sure it looks perfect?

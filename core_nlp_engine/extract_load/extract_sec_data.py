@@ -1,4 +1,6 @@
 import os
+import json
+import argparse
 import requests
 import pymongo
 import certifi
@@ -6,20 +8,42 @@ import re
 import warnings
 from datetime import datetime
 from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
-from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv
 from textblob import TextBlob
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
-load_dotenv(find_dotenv(usecwd=True), override=True)
 
-ca = certifi.where()
-client = pymongo.MongoClient(os.getenv("MONGO_URI"), tlsCAFile=ca)
+# --- 1. Bulletproof .env Pathing ---
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))         # /extract_load
+ENGINE_DIR = os.path.abspath(os.path.join(CURRENT_DIR, ".."))    # /core_nlp_engine
+PROJECT_ROOT = os.path.abspath(os.path.join(ENGINE_DIR, ".."))   # /forensic-intelligence-platform
+
+env_path = os.path.join(PROJECT_ROOT, ".env")
+load_dotenv(env_path, override=True)
+
+# --- 2. Safe MongoDB Connection ---
+def get_mongo_client():
+    mongo_uri = os.getenv("MONGO_URI")
+    if not mongo_uri:
+        raise ValueError("🚨 CRITICAL ERROR: MONGO_URI is missing. Could not find .env file.")
+    try:
+        ca = certifi.where()
+        return pymongo.MongoClient(mongo_uri, tlsCAFile=ca)
+    except Exception as e:
+        print(f"⚠️ Warning: SSL connection failed, trying standard connection. Error: {e}")
+        return pymongo.MongoClient(mongo_uri)
+
+client = get_mongo_client()
 collection = client["forensic_accounting"]["raw_sec_filings"]
 
-HEADERS = {'User-Agent': os.getenv("SEC_USER_AGENT"), 'Accept-Encoding': 'gzip, deflate'}
+HEADERS = {
+    'User-Agent': os.getenv("SEC_USER_AGENT", "ForensicBot (test@example.com)"), 
+    'Accept-Encoding': 'gzip, deflate'
+}
 
+# --- 3. Forensic Utilities ---
 def calculate_similarity(new_text, ticker):
     prev_doc = collection.find_one({"ticker": ticker}, sort=[("fiscal_year", -1)])
     if not prev_doc or "parsed_text_sample" not in prev_doc:
@@ -46,14 +70,16 @@ def get_latest_10k_url(cik):
             return doc_url, f_date, f_year
     return None, None, None
 
-def run_extraction():
-    # In full production, this reads the JSON dumped by Dagster's first asset.
-    # For now, it defaults to the tech peer group for stability.
-    target_dict = {"AAPL": "320193", "MSFT": "789019", "NVDA": "1045810", "META": "1326801"}
+# --- 4. Main Extraction Logic ---
+def run_extraction(target_dict):
+    print(f"📥 Starting SEC Extraction for {len(target_dict)} targets...")
     
     for ticker, cik in target_dict.items():
+        print(f"   - Processing {ticker} (CIK: {cik})...")
         doc_url, filing_date, actual_year = get_latest_10k_url(cik)
-        if not doc_url: continue
+        if not doc_url: 
+            print(f"     ❌ No 10-K found.")
+            continue
 
         response = requests.get(doc_url, headers=HEADERS)
         soup = BeautifulSoup(response.content, features="lxml")
@@ -62,15 +88,31 @@ def run_extraction():
         analysis = TextBlob(filing_text)
         similarity = calculate_similarity(filing_text, ticker)
 
+        # Added subjectivity_score and word_count so dbt metrics calculate correctly!
         collection.insert_one({
             "ticker": ticker,
             "cik": str(cik),
             "fiscal_year": actual_year,
             "sentiment_score": analysis.sentiment.polarity,
+            "subjectivity_score": analysis.sentiment.subjectivity,
+            "word_count": len(filing_text.split()), 
             "similarity_index": similarity,
             "extraction_timestamp": datetime.now(),
             "parsed_text_sample": filing_text[:30000]
         })
+        print(f"     ✅ Successfully extracted and saved FY{actual_year} data.")
 
+# --- 5. Dagster CLI Integration ---
 if __name__ == "__main__":
-    run_extraction()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--ticker_map", help="JSON string of {ticker: cik} from Dagster UI")
+    args = parser.parse_args()
+
+    if args.ticker_map:
+        # Dagster passes the config here
+        targets = json.loads(args.ticker_map)
+        run_extraction(targets)
+    else:
+        # Fallback for manual testing
+        targets = {"AAPL": "320193", "MSFT": "789019", "NVDA": "1045810", "META": "1326801"}
+        run_extraction(targets)

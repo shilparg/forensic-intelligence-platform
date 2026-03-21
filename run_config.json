@@ -1,0 +1,1 @@
+{"ops": {"determine_targets": {"config": {"run_mode": "custom", "custom_tickers": ["AAPL", "MSFT", "NVDA", "AVGO", "ORCL", "ADBE", "CRM", "AMD", "GOOGL", "META", "NFLX", "TSLA", "AMZN", "MCD", "JPM", "GS", "XOM", "CAT", "BA", "PLD"]}}}}
