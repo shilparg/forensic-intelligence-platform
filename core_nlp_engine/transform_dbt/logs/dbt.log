@@ -4361,3 +4361,2038 @@ LIMIT 10;
 [0m05:29:54.127962 [debug] [MainThread]: Command `dbt build` succeeded at 05:29:54.127743 after 54.56 seconds
 [0m05:29:54.128808 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72420b9e3fe0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72420b4e78f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72420eb5f9b0>]}
 [0m05:29:54.129571 [debug] [MainThread]: Flushing usage events
+[0m19:42:43.391543 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7037b88d8ef0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7037b78fb2c0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7037b793ee10>]}
+
+
+============================== 19:42:43.398379 | e2b46a85-44ae-4601-b6cc-725b6dddd553 ==============================
+[0m19:42:43.398379 [info ] [MainThread]: Running with dbt=1.8.8
+[0m19:42:43.399615 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'version_check': 'True', 'log_path': '/home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/core_nlp_engine/transform_dbt/logs', 'profiles_dir': '.', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'False', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'static_parser': 'True', 'introspect': 'True', 'invocation_command': 'dbt build --profiles-dir .', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'send_anonymous_usage_stats': 'True'}
+[0m19:43:20.994903 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'e2b46a85-44ae-4601-b6cc-725b6dddd553', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x70377a54eea0>]}
+[0m19:43:21.103356 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'e2b46a85-44ae-4601-b6cc-725b6dddd553', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x70377a54c950>]}
+[0m19:43:21.104872 [info ] [MainThread]: Registered adapter: bigquery=1.9.2
+[0m19:43:21.125138 [debug] [MainThread]: checksum: ec53e341a936509427e16df1c646386a84befec52c1957e3f4359fbc36fc93f5, vars: {}, profile: , target: , version: 1.8.8
+[0m19:43:21.406224 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m19:43:21.407082 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m19:43:21.416856 [warn ] [MainThread]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.forensic_transform.intermediate
+[0m19:43:21.461055 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'e2b46a85-44ae-4601-b6cc-725b6dddd553', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x70377a451340>]}
+[0m19:43:21.652097 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'e2b46a85-44ae-4601-b6cc-725b6dddd553', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x70377a4d4710>]}
+[0m19:43:21.653264 [info ] [MainThread]: Found 8 models, 1 source, 484 macros
+[0m19:43:21.657475 [info ] [MainThread]: 
+[0m19:43:21.658936 [debug] [MainThread]: Acquiring new bigquery connection 'master'
+[0m19:43:21.666252 [debug] [ThreadPool]: Acquiring new bigquery connection 'list_forensic-accounting-bot'
+[0m19:43:21.667196 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:43:22.517717 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_forensic-accounting-bot, now list_forensic-accounting-bot_forensic_data)
+[0m19:43:22.518703 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m19:43:23.261494 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'e2b46a85-44ae-4601-b6cc-725b6dddd553', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x70377a6eb2c0>]}
+[0m19:43:23.262512 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m19:43:23.334030 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m19:43:23.334974 [info ] [MainThread]: 
+[0m19:43:23.341017 [debug] [Thread-1 (]: Began running node model.forensic_transform.stg_sec_filings
+[0m19:43:23.342169 [info ] [Thread-1 (]: 1 of 8 START sql view model forensic_data.stg_sec_filings ...................... [RUN]
+[0m19:43:23.343299 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_forensic-accounting-bot_forensic_data, now model.forensic_transform.stg_sec_filings)
+[0m19:43:23.344083 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.stg_sec_filings
+[0m19:43:23.359696 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.stg_sec_filings"
+[0m19:43:23.361177 [debug] [Thread-1 (]: Began executing node model.forensic_transform.stg_sec_filings
+[0m19:43:23.414555 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.stg_sec_filings"
+[0m19:43:23.415958 [debug] [Thread-1 (]: On model.forensic_transform.stg_sec_filings: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.stg_sec_filings"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+  OPTIONS()
+  as -- models/staging/stg_sec_filings.sql
+
+
+WITH raw_data AS (
+    -- This references the source we will define in your schema.yml
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`raw_filings`
+)
+
+SELECT
+    -- 1. Standardized Identifiers
+    UPPER(CAST(ticker AS STRING)) AS ticker,
+    CAST(fiscal_year AS INT64) AS fiscal_year,
+    
+    -- 2. Cleaned Forensic Metrics
+    COALESCE(CAST(sentiment_score AS FLOAT64), 0.0) AS sentiment_score,
+    COALESCE(CAST(similarity_index AS FLOAT64), 0.0) AS similarity_index,
+    
+    -- 3. Text for Disclosure Density & Obfuscation Analysis
+    TRIM(parsed_text_sample) AS filing_text,
+    
+    -- 4. Audit Metadata
+    CURRENT_TIMESTAMP() AS processed_at
+FROM raw_data
+-- Safety check: ensure we don't process empty rows
+WHERE ticker IS NOT NULL;
+
+
+[0m19:43:23.417062 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m19:43:24.671575 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:eaf304f2-b3c6-4e6c-a33a-e130a5aa7548&page=queryresults
+[0m19:43:25.211089 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'e2b46a85-44ae-4601-b6cc-725b6dddd553', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7037b82b6c30>]}
+[0m19:43:25.212523 [info ] [Thread-1 (]: 1 of 8 OK created sql view model forensic_data.stg_sec_filings ................. [[32mCREATE VIEW (0 processed)[0m in 1.87s]
+[0m19:43:25.213937 [debug] [Thread-1 (]: Finished running node model.forensic_transform.stg_sec_filings
+[0m19:43:25.215946 [debug] [Thread-3 (]: Began running node model.forensic_transform.fct_disclosure_density
+[0m19:43:25.216884 [debug] [Thread-4 (]: Began running node model.forensic_transform.fct_narrative_drift
+[0m19:43:25.217812 [debug] [Thread-2 (]: Began running node model.forensic_transform.fct_red_flag_report
+[0m19:43:25.219435 [debug] [Thread-1 (]: Began running node model.forensic_transform.int_forensic_metrics
+[0m19:43:25.218783 [info ] [Thread-3 (]: 2 of 8 START sql table model forensic_data.fct_disclosure_density .............. [RUN]
+[0m19:43:25.220815 [info ] [Thread-4 (]: 3 of 8 START sql table model forensic_data.fct_narrative_drift ................. [RUN]
+[0m19:43:25.222036 [info ] [Thread-2 (]: 4 of 8 START sql table model forensic_data.fct_red_flag_report ................. [RUN]
+[0m19:43:25.223264 [info ] [Thread-1 (]: 5 of 8 START sql table model forensic_data.int_forensic_metrics ................ [RUN]
+[0m19:43:25.224523 [debug] [Thread-3 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_disclosure_density'
+[0m19:43:25.225645 [debug] [Thread-4 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_narrative_drift'
+[0m19:43:25.226737 [debug] [Thread-2 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_red_flag_report'
+[0m19:43:25.227697 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.forensic_transform.stg_sec_filings, now model.forensic_transform.int_forensic_metrics)
+[0m19:43:25.228612 [debug] [Thread-3 (]: Began compiling node model.forensic_transform.fct_disclosure_density
+[0m19:43:25.229569 [debug] [Thread-4 (]: Began compiling node model.forensic_transform.fct_narrative_drift
+[0m19:43:25.230503 [debug] [Thread-2 (]: Began compiling node model.forensic_transform.fct_red_flag_report
+[0m19:43:25.231344 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.int_forensic_metrics
+[0m19:43:25.236798 [debug] [Thread-3 (]: Writing injected SQL for node "model.forensic_transform.fct_disclosure_density"
+[0m19:43:25.241905 [debug] [Thread-4 (]: Writing injected SQL for node "model.forensic_transform.fct_narrative_drift"
+[0m19:43:25.247244 [debug] [Thread-2 (]: Writing injected SQL for node "model.forensic_transform.fct_red_flag_report"
+[0m19:43:25.251611 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.int_forensic_metrics"
+[0m19:43:25.253734 [debug] [Thread-4 (]: Began executing node model.forensic_transform.fct_narrative_drift
+[0m19:43:25.255620 [debug] [Thread-3 (]: Began executing node model.forensic_transform.fct_disclosure_density
+[0m19:43:25.262105 [debug] [Thread-2 (]: Began executing node model.forensic_transform.fct_red_flag_report
+[0m19:43:25.276445 [debug] [Thread-4 (]: Opening a new connection, currently in state init
+[0m19:43:25.280387 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m19:43:25.281514 [debug] [Thread-1 (]: Began executing node model.forensic_transform.int_forensic_metrics
+[0m19:43:25.284522 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m19:43:25.432567 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m19:43:26.397728 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.int_forensic_metrics"
+[0m19:43:26.395775 [debug] [Thread-3 (]: Writing runtime sql for node "model.forensic_transform.fct_disclosure_density"
+[0m19:43:26.399821 [debug] [Thread-1 (]: On model.forensic_transform.int_forensic_metrics: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.int_forensic_metrics"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`int_forensic_metrics`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      WITH staged AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+),
+
+calculations AS (
+    SELECT 
+        *,
+        -- 1. Disclosure Density (Word count vs Sentiment)
+        SAFE_DIVIDE(ARRAY_LENGTH(SPLIT(filing_text, ' ')), ABS(sentiment_score)) AS density_index,
+        
+        -- 2. Sentiment Volatility (Looking at standard deviation for the ticker)
+        STDDEV(sentiment_score) OVER (PARTITION BY ticker) AS sentiment_volatility,
+        
+        -- 3. Narrative Drift (YoY Similarity Change)
+        similarity_index - LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS similarity_drift
+    FROM staged
+)
+
+SELECT * FROM calculations
+    );
+  
+[0m19:43:26.400698 [debug] [Thread-3 (]: On model.forensic_transform.fct_disclosure_density: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_disclosure_density"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_disclosure_density`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      
+
+WITH cleaned_data AS (
+    -- We reference the 'Staging' layer we built earlier
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+)
+
+SELECT
+    ticker,
+    fiscal_year,
+    sentiment_score,
+    -- 1. Calculate Word Count
+    ARRAY_LENGTH(SPLIT(filing_text, ' ')) AS word_count,
+    
+    -- 2. Calculate Density Index (Words per unit of Sentiment)
+    -- We use ABS() because we want the magnitude of the sentiment
+    SAFE_DIVIDE(ARRAY_LENGTH(SPLIT(filing_text, ' ')), ABS(sentiment_score)) AS density_index,
+    
+    -- 3. The 'Red Flag' Logic (The most important part for your audit)
+    CASE 
+        WHEN ARRAY_LENGTH(SPLIT(filing_text, ' ')) > 15000 AND sentiment_score < 0 THEN 'POTENTIAL OBFUSCATION'
+        WHEN sentiment_score < -0.2 THEN 'HIGH NEGATIVE RISK'
+        ELSE 'NORMAL'
+    END AS forensic_label
+FROM cleaned_data
+    );
+  
+[0m19:43:26.428538 [debug] [Thread-4 (]: Writing runtime sql for node "model.forensic_transform.fct_narrative_drift"
+[0m19:43:26.430129 [debug] [Thread-4 (]: On model.forensic_transform.fct_narrative_drift: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_narrative_drift"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_narrative_drift`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      -- models/marts/fct_narrative_drift.sql
+
+WITH staged_data AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+),
+
+drift_calculation AS (
+    SELECT
+        ticker,
+        fiscal_year,
+        sentiment_score,
+        similarity_index,
+        -- Get the similarity from the PREVIOUS year for the same ticker
+        LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS prev_year_similarity,
+        -- Calculate the "Drift" (Change in narrative)
+        similarity_index - LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS similarity_drift
+    FROM staged_data
+)
+
+SELECT
+    *,
+    -- Forensic Flag: High similarity but high drift in sentiment is a red flag
+    CASE 
+        WHEN ABS(similarity_drift) > 0.15 THEN 'HIGH DRIFT'
+        WHEN similarity_index > 0.95 THEN 'BOILERPLATE RISK'
+        ELSE 'STABLE'
+    END AS audit_status
+FROM drift_calculation
+    );
+  
+[0m19:43:26.459920 [debug] [Thread-2 (]: Writing runtime sql for node "model.forensic_transform.fct_red_flag_report"
+[0m19:43:26.461394 [debug] [Thread-2 (]: On model.forensic_transform.fct_red_flag_report: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_red_flag_report"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_red_flag_report`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      
+
+WITH forensic_metrics AS (
+    SELECT 
+        ticker, 
+        fiscal_year,
+        sentiment_score,
+        -- Note: Ensure subjectivity_score exists in your stg_sec_filings or add it there
+        COALESCE(sentiment_score, 0) as sentiment, 
+        similarity_index,
+        
+        -- Calculate a weighted risk score (0 to 100)
+        -- High risk = Low Sentiment + High Similarity
+        ROUND(
+            ((1 - sentiment_score) * 50) + 
+            (similarity_index * 50), 2
+        ) as risk_score
+    FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings` -- This creates the link to your Silver layer
+)
+
+SELECT 
+    *,
+    CASE 
+        WHEN risk_score > 75 THEN '🔴 CRITICAL: Potential Disclosure Masking'
+        WHEN risk_score > 55 THEN '🟡 WARNING: Defensive Reporting'
+        ELSE '🟢 LOW: Standard Disclosure' 
+    END as audit_priority
+FROM forensic_metrics
+ORDER BY risk_score DESC
+    );
+  
+[0m19:43:27.599401 [debug] [Thread-3 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:8fb575f6-a0f4-4dea-b90b-bde6ffe2e3bd&page=queryresults
+[0m19:43:27.647162 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:a1e99707-3d6c-4bd3-b3d4-664d16ddf51d&page=queryresults
+[0m19:43:27.740603 [debug] [Thread-2 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:ff8aa2a0-1e3a-4964-8d3d-d8ceb2febb6e&page=queryresults
+[0m19:43:28.594915 [debug] [Thread-4 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:032758f5-79be-4754-9e3d-59902ba9f655&page=queryresults
+[0m19:43:30.106284 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'e2b46a85-44ae-4601-b6cc-725b6dddd553', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x70376a4a4080>]}
+[0m19:43:30.107535 [info ] [Thread-3 (]: 2 of 8 OK created sql table model forensic_data.fct_disclosure_density ......... [[32mCREATE TABLE (107.0 rows, 3.1 MiB processed)[0m in 4.88s]
+[0m19:43:30.108940 [debug] [Thread-3 (]: Finished running node model.forensic_transform.fct_disclosure_density
+[0m19:43:30.311240 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'e2b46a85-44ae-4601-b6cc-725b6dddd553', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x70376a4a4260>]}
+[0m19:43:30.312589 [info ] [Thread-2 (]: 4 of 8 OK created sql table model forensic_data.fct_red_flag_report ............ [[32mCREATE TABLE (107.0 rows, 3.1 KiB processed)[0m in 5.08s]
+[0m19:43:30.313993 [debug] [Thread-2 (]: Finished running node model.forensic_transform.fct_red_flag_report
+[0m19:43:30.387209 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'e2b46a85-44ae-4601-b6cc-725b6dddd553', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x70376a48f650>]}
+[0m19:43:30.388507 [info ] [Thread-1 (]: 5 of 8 OK created sql table model forensic_data.int_forensic_metrics ........... [[32mCREATE TABLE (107.0 rows, 3.1 MiB processed)[0m in 5.16s]
+[0m19:43:30.389828 [debug] [Thread-1 (]: Finished running node model.forensic_transform.int_forensic_metrics
+[0m19:43:30.391046 [debug] [Thread-3 (]: Began running node model.forensic_transform.fct_anomaly_detection
+[0m19:43:30.391980 [info ] [Thread-3 (]: 6 of 8 START sql table model forensic_data.fct_anomaly_detection ............... [RUN]
+[0m19:43:30.393060 [debug] [Thread-3 (]: Re-using an available connection from the pool (formerly model.forensic_transform.fct_disclosure_density, now model.forensic_transform.fct_anomaly_detection)
+[0m19:43:30.393802 [debug] [Thread-3 (]: Began compiling node model.forensic_transform.fct_anomaly_detection
+[0m19:43:30.398433 [debug] [Thread-3 (]: Writing injected SQL for node "model.forensic_transform.fct_anomaly_detection"
+[0m19:43:30.399687 [debug] [Thread-3 (]: Began executing node model.forensic_transform.fct_anomaly_detection
+[0m19:43:30.402917 [debug] [Thread-3 (]: Opening a new connection, currently in state closed
+[0m19:43:31.046929 [debug] [Thread-3 (]: Writing runtime sql for node "model.forensic_transform.fct_anomaly_detection"
+[0m19:43:31.048283 [debug] [Thread-3 (]: On model.forensic_transform.fct_anomaly_detection: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_anomaly_detection"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_anomaly_detection`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      -- models/marts/fct_anomaly_detection.sql
+WITH metrics AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`int_forensic_metrics`
+),
+stats AS (
+    -- Calculate Industry Averages for Benchmarking
+    SELECT 
+        AVG(sentiment_score) OVER() as avg_industry_sentiment,
+        STDDEV(sentiment_score) OVER() as stddev_sentiment
+    FROM metrics
+)
+SELECT 
+    m.*,
+    -- Z-Score: (Value - Mean) / StdDev
+    -- A Z-score > 2 or < -2 is a statistical anomaly (Red Flag)
+    (m.sentiment_score - s.avg_industry_sentiment) / NULLIF(s.stddev_sentiment, 0) as sentiment_z_score
+FROM metrics m, stats s
+    );
+  
+[0m19:43:31.661193 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'e2b46a85-44ae-4601-b6cc-725b6dddd553', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x70377a07be90>]}
+[0m19:43:31.662482 [info ] [Thread-4 (]: 3 of 8 OK created sql table model forensic_data.fct_narrative_drift ............ [[32mCREATE TABLE (107.0 rows, 3.1 KiB processed)[0m in 6.43s]
+[0m19:43:31.663707 [debug] [Thread-4 (]: Finished running node model.forensic_transform.fct_narrative_drift
+[0m19:43:31.665032 [debug] [Thread-1 (]: Began running node model.forensic_transform.rpt_boilerplate_offenders
+[0m19:43:31.665980 [info ] [Thread-1 (]: 7 of 8 START sql view model forensic_data.rpt_boilerplate_offenders ............ [RUN]
+[0m19:43:31.666906 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.forensic_transform.int_forensic_metrics, now model.forensic_transform.rpt_boilerplate_offenders)
+[0m19:43:31.667658 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.rpt_boilerplate_offenders
+[0m19:43:31.672306 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.rpt_boilerplate_offenders"
+[0m19:43:31.673774 [debug] [Thread-1 (]: Began executing node model.forensic_transform.rpt_boilerplate_offenders
+[0m19:43:31.678133 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.rpt_boilerplate_offenders"
+[0m19:43:31.679338 [debug] [Thread-1 (]: On model.forensic_transform.rpt_boilerplate_offenders: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.rpt_boilerplate_offenders"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`rpt_boilerplate_offenders`
+  OPTIONS()
+  as 
+
+SELECT 
+    ticker, 
+    COUNT(fiscal_year) as consecutive_boilerplate_years,
+    ROUND(AVG(similarity_index), 4) as avg_similarity
+FROM `forensic-accounting-bot`.`forensic_data`.`fct_narrative_drift`
+WHERE similarity_index > 0.95
+GROUP BY ticker
+HAVING COUNT(fiscal_year) > 3
+ORDER BY consecutive_boilerplate_years DESC;
+
+
+[0m19:43:31.680219 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m19:43:32.581589 [debug] [Thread-3 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:31bd02bc-f716-4049-8ea4-3751be50f132&page=queryresults
+[0m19:43:32.837644 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:99533245-7748-4359-a43b-515d5d7625e5&page=queryresults
+[0m19:43:33.254394 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'e2b46a85-44ae-4601-b6cc-725b6dddd553', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x70376a4af380>]}
+[0m19:43:33.255616 [info ] [Thread-1 (]: 7 of 8 OK created sql view model forensic_data.rpt_boilerplate_offenders ....... [[32mCREATE VIEW (0 processed)[0m in 1.59s]
+[0m19:43:33.256950 [debug] [Thread-1 (]: Finished running node model.forensic_transform.rpt_boilerplate_offenders
+[0m19:43:35.846603 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'e2b46a85-44ae-4601-b6cc-725b6dddd553', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x70377a07ac30>]}
+[0m19:43:35.847840 [info ] [Thread-3 (]: 6 of 8 OK created sql table model forensic_data.fct_anomaly_detection .......... [[32mCREATE TABLE (11.4k rows, 3.1 MiB processed)[0m in 5.45s]
+[0m19:43:35.849274 [debug] [Thread-3 (]: Finished running node model.forensic_transform.fct_anomaly_detection
+[0m19:43:35.850855 [debug] [Thread-4 (]: Began running node model.forensic_transform.rpt_sentiment_reversal
+[0m19:43:35.852068 [info ] [Thread-4 (]: 8 of 8 START sql view model forensic_data.rpt_sentiment_reversal ............... [RUN]
+[0m19:43:35.853163 [debug] [Thread-4 (]: Re-using an available connection from the pool (formerly model.forensic_transform.fct_narrative_drift, now model.forensic_transform.rpt_sentiment_reversal)
+[0m19:43:35.853913 [debug] [Thread-4 (]: Began compiling node model.forensic_transform.rpt_sentiment_reversal
+[0m19:43:35.858500 [debug] [Thread-4 (]: Writing injected SQL for node "model.forensic_transform.rpt_sentiment_reversal"
+[0m19:43:35.859682 [debug] [Thread-4 (]: Began executing node model.forensic_transform.rpt_sentiment_reversal
+[0m19:43:35.863700 [debug] [Thread-4 (]: Writing runtime sql for node "model.forensic_transform.rpt_sentiment_reversal"
+[0m19:43:35.864933 [debug] [Thread-4 (]: On model.forensic_transform.rpt_sentiment_reversal: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.rpt_sentiment_reversal"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`rpt_sentiment_reversal`
+  OPTIONS()
+  as 
+
+WITH YoY_Sentiment AS (
+    SELECT 
+        ticker,
+        fiscal_year,
+        sentiment_score,
+        LAG(sentiment_score) OVER (PARTITION BY ticker ORDER BY fiscal_year) as prev_year_sentiment
+    FROM `forensic-accounting-bot`.`forensic_data`.`fct_anomaly_detection`
+)
+SELECT 
+    ticker,
+    fiscal_year,
+    ROUND(sentiment_score, 4) as current_sentiment,
+    ROUND(prev_year_sentiment, 4) as prev_year_sentiment,
+    ROUND((sentiment_score - prev_year_sentiment), 4) as sentiment_crash
+FROM YoY_Sentiment
+WHERE prev_year_sentiment > 0 AND sentiment_score < 0 
+ORDER BY sentiment_crash ASC
+LIMIT 10;
+
+
+[0m19:43:35.865766 [debug] [Thread-4 (]: Opening a new connection, currently in state closed
+[0m19:43:36.918529 [debug] [Thread-4 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:9c83d525-f92f-45e1-b6d1-45ac9decc5f8&page=queryresults
+[0m19:43:37.302915 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'e2b46a85-44ae-4601-b6cc-725b6dddd553', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x70376a4a4470>]}
+[0m19:43:37.304123 [info ] [Thread-4 (]: 8 of 8 OK created sql view model forensic_data.rpt_sentiment_reversal .......... [[32mCREATE VIEW (0 processed)[0m in 1.45s]
+[0m19:43:37.305380 [debug] [Thread-4 (]: Finished running node model.forensic_transform.rpt_sentiment_reversal
+[0m19:43:37.308556 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m19:43:37.378353 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m19:43:37.379128 [debug] [MainThread]: Connection 'model.forensic_transform.rpt_boilerplate_offenders' was properly closed.
+[0m19:43:37.379744 [debug] [MainThread]: Connection 'model.forensic_transform.fct_anomaly_detection' was properly closed.
+[0m19:43:37.380388 [debug] [MainThread]: Connection 'model.forensic_transform.rpt_sentiment_reversal' was properly closed.
+[0m19:43:37.381051 [debug] [MainThread]: Connection 'model.forensic_transform.fct_red_flag_report' was properly closed.
+[0m19:43:37.381879 [info ] [MainThread]: 
+[0m19:43:37.382665 [info ] [MainThread]: Finished running 3 view models, 5 table models in 0 hours 0 minutes and 15.72 seconds (15.72s).
+[0m19:43:37.385618 [debug] [MainThread]: Command end result
+[0m19:43:37.433043 [info ] [MainThread]: 
+[0m19:43:37.434080 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m19:43:37.434877 [info ] [MainThread]: 
+[0m19:43:37.435685 [info ] [MainThread]: Done. PASS=8 WARN=0 ERROR=0 SKIP=0 TOTAL=8
+[0m19:43:37.436988 [debug] [MainThread]: Resource report: {"command_name": "build", "command_success": true, "command_wall_clock_time": 54.130276, "process_user_time": 22.349941, "process_kernel_time": 21.480247, "process_mem_max_rss": "398204", "process_in_blocks": "191168", "process_out_blocks": "2320"}
+[0m19:43:37.437870 [debug] [MainThread]: Command `dbt build` succeeded at 19:43:37.437703 after 54.13 seconds
+[0m19:43:37.438595 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7037bb95faa0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7037b7b2a540>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7037b7b2b680>]}
+[0m19:43:37.439300 [debug] [MainThread]: Flushing usage events
+[0m19:43:38.489028 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m19:50:18.794726 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74df01286420>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74df01170b30>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74df01285730>]}
+
+
+============================== 19:50:18.800287 | 76cff882-41f8-4850-9216-1e9ec6fff777 ==============================
+[0m19:50:18.800287 [info ] [MainThread]: Running with dbt=1.8.8
+[0m19:50:18.801438 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'debug': 'False', 'log_path': '/home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/core_nlp_engine/transform_dbt/logs', 'version_check': 'True', 'profiles_dir': '.', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'False', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt build --profiles-dir .', 'log_format': 'default', 'static_parser': 'True', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m19:51:02.382499 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '76cff882-41f8-4850-9216-1e9ec6fff777', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74df01f9e810>]}
+[0m19:51:02.474594 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '76cff882-41f8-4850-9216-1e9ec6fff777', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74dec3f3acc0>]}
+[0m19:51:02.475988 [info ] [MainThread]: Registered adapter: bigquery=1.9.2
+[0m19:51:02.492209 [debug] [MainThread]: checksum: ec53e341a936509427e16df1c646386a84befec52c1957e3f4359fbc36fc93f5, vars: {}, profile: , target: , version: 1.8.8
+[0m19:51:02.731526 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m19:51:02.732359 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m19:51:02.741599 [warn ] [MainThread]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.forensic_transform.intermediate
+[0m19:51:02.787380 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '76cff882-41f8-4850-9216-1e9ec6fff777', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74df011ce5a0>]}
+[0m19:51:02.962148 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '76cff882-41f8-4850-9216-1e9ec6fff777', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74dec3980e00>]}
+[0m19:51:02.963214 [info ] [MainThread]: Found 8 models, 1 source, 484 macros
+[0m19:51:02.967314 [info ] [MainThread]: 
+[0m19:51:02.968505 [debug] [MainThread]: Acquiring new bigquery connection 'master'
+[0m19:51:02.975892 [debug] [ThreadPool]: Acquiring new bigquery connection 'list_forensic-accounting-bot'
+[0m19:51:02.976868 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:51:03.929497 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_forensic-accounting-bot, now list_forensic-accounting-bot_forensic_data)
+[0m19:51:03.930730 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m19:51:04.695235 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '76cff882-41f8-4850-9216-1e9ec6fff777', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74df00ed6210>]}
+[0m19:51:04.696213 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m19:51:04.767327 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m19:51:04.768315 [info ] [MainThread]: 
+[0m19:51:04.774039 [debug] [Thread-1 (]: Began running node model.forensic_transform.stg_sec_filings
+[0m19:51:04.775238 [info ] [Thread-1 (]: 1 of 8 START sql view model forensic_data.stg_sec_filings ...................... [RUN]
+[0m19:51:04.776360 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_forensic-accounting-bot_forensic_data, now model.forensic_transform.stg_sec_filings)
+[0m19:51:04.777109 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.stg_sec_filings
+[0m19:51:04.791806 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.stg_sec_filings"
+[0m19:51:04.793017 [debug] [Thread-1 (]: Began executing node model.forensic_transform.stg_sec_filings
+[0m19:51:04.845351 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.stg_sec_filings"
+[0m19:51:04.846746 [debug] [Thread-1 (]: On model.forensic_transform.stg_sec_filings: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.stg_sec_filings"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+  OPTIONS()
+  as -- models/staging/stg_sec_filings.sql
+
+
+WITH raw_data AS (
+    -- This references the source we will define in your schema.yml
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`raw_filings`
+)
+
+SELECT
+    -- 1. Standardized Identifiers
+    UPPER(CAST(ticker AS STRING)) AS ticker,
+    CAST(fiscal_year AS INT64) AS fiscal_year,
+    
+    -- 2. Cleaned Forensic Metrics
+    COALESCE(CAST(sentiment_score AS FLOAT64), 0.0) AS sentiment_score,
+    COALESCE(CAST(similarity_index AS FLOAT64), 0.0) AS similarity_index,
+    
+    -- 3. Text for Disclosure Density & Obfuscation Analysis
+    TRIM(parsed_text_sample) AS filing_text,
+    
+    -- 4. Audit Metadata
+    CURRENT_TIMESTAMP() AS processed_at
+FROM raw_data
+-- Safety check: ensure we don't process empty rows
+WHERE ticker IS NOT NULL;
+
+
+[0m19:51:04.847873 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m19:51:05.946419 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:6755324f-4a4d-40e7-91f1-53749d8d3e5a&page=queryresults
+[0m19:51:06.514261 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '76cff882-41f8-4850-9216-1e9ec6fff777', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74decd088e00>]}
+[0m19:51:06.515851 [info ] [Thread-1 (]: 1 of 8 OK created sql view model forensic_data.stg_sec_filings ................. [[32mCREATE VIEW (0 processed)[0m in 1.74s]
+[0m19:51:06.517358 [debug] [Thread-1 (]: Finished running node model.forensic_transform.stg_sec_filings
+[0m19:51:06.519914 [debug] [Thread-3 (]: Began running node model.forensic_transform.fct_disclosure_density
+[0m19:51:06.521088 [debug] [Thread-4 (]: Began running node model.forensic_transform.fct_narrative_drift
+[0m19:51:06.522288 [debug] [Thread-2 (]: Began running node model.forensic_transform.fct_red_flag_report
+[0m19:51:06.524595 [debug] [Thread-1 (]: Began running node model.forensic_transform.int_forensic_metrics
+[0m19:51:06.523568 [info ] [Thread-3 (]: 2 of 8 START sql table model forensic_data.fct_disclosure_density .............. [RUN]
+[0m19:51:06.526137 [info ] [Thread-4 (]: 3 of 8 START sql table model forensic_data.fct_narrative_drift ................. [RUN]
+[0m19:51:06.527700 [info ] [Thread-2 (]: 4 of 8 START sql table model forensic_data.fct_red_flag_report ................. [RUN]
+[0m19:51:06.528990 [info ] [Thread-1 (]: 5 of 8 START sql table model forensic_data.int_forensic_metrics ................ [RUN]
+[0m19:51:06.530319 [debug] [Thread-3 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_disclosure_density'
+[0m19:51:06.531498 [debug] [Thread-4 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_narrative_drift'
+[0m19:51:06.532484 [debug] [Thread-2 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_red_flag_report'
+[0m19:51:06.533716 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.forensic_transform.stg_sec_filings, now model.forensic_transform.int_forensic_metrics)
+[0m19:51:06.534801 [debug] [Thread-3 (]: Began compiling node model.forensic_transform.fct_disclosure_density
+[0m19:51:06.535801 [debug] [Thread-4 (]: Began compiling node model.forensic_transform.fct_narrative_drift
+[0m19:51:06.536793 [debug] [Thread-2 (]: Began compiling node model.forensic_transform.fct_red_flag_report
+[0m19:51:06.537870 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.int_forensic_metrics
+[0m19:51:06.543423 [debug] [Thread-3 (]: Writing injected SQL for node "model.forensic_transform.fct_disclosure_density"
+[0m19:51:06.548114 [debug] [Thread-4 (]: Writing injected SQL for node "model.forensic_transform.fct_narrative_drift"
+[0m19:51:06.553752 [debug] [Thread-2 (]: Writing injected SQL for node "model.forensic_transform.fct_red_flag_report"
+[0m19:51:06.558387 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.int_forensic_metrics"
+[0m19:51:06.561360 [debug] [Thread-4 (]: Began executing node model.forensic_transform.fct_narrative_drift
+[0m19:51:06.562192 [debug] [Thread-2 (]: Began executing node model.forensic_transform.fct_red_flag_report
+[0m19:51:06.568817 [debug] [Thread-3 (]: Began executing node model.forensic_transform.fct_disclosure_density
+[0m19:51:06.582497 [debug] [Thread-4 (]: Opening a new connection, currently in state init
+[0m19:51:06.586092 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m19:51:06.587073 [debug] [Thread-1 (]: Began executing node model.forensic_transform.int_forensic_metrics
+[0m19:51:06.590595 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m19:51:06.735796 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m19:51:07.388710 [debug] [Thread-4 (]: Writing runtime sql for node "model.forensic_transform.fct_narrative_drift"
+[0m19:51:07.390060 [debug] [Thread-4 (]: On model.forensic_transform.fct_narrative_drift: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_narrative_drift"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_narrative_drift`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      -- models/marts/fct_narrative_drift.sql
+
+WITH staged_data AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+),
+
+drift_calculation AS (
+    SELECT
+        ticker,
+        fiscal_year,
+        sentiment_score,
+        similarity_index,
+        -- Get the similarity from the PREVIOUS year for the same ticker
+        LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS prev_year_similarity,
+        -- Calculate the "Drift" (Change in narrative)
+        similarity_index - LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS similarity_drift
+    FROM staged_data
+)
+
+SELECT
+    *,
+    -- Forensic Flag: High similarity but high drift in sentiment is a red flag
+    CASE 
+        WHEN ABS(similarity_drift) > 0.15 THEN 'HIGH DRIFT'
+        WHEN similarity_index > 0.95 THEN 'BOILERPLATE RISK'
+        ELSE 'STABLE'
+    END AS audit_status
+FROM drift_calculation
+    );
+  
+[0m19:51:07.527032 [debug] [Thread-2 (]: Writing runtime sql for node "model.forensic_transform.fct_red_flag_report"
+[0m19:51:07.528602 [debug] [Thread-2 (]: On model.forensic_transform.fct_red_flag_report: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_red_flag_report"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_red_flag_report`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      
+
+WITH forensic_metrics AS (
+    SELECT 
+        ticker, 
+        fiscal_year,
+        sentiment_score,
+        -- Note: Ensure subjectivity_score exists in your stg_sec_filings or add it there
+        COALESCE(sentiment_score, 0) as sentiment, 
+        similarity_index,
+        
+        -- Calculate a weighted risk score (0 to 100)
+        -- High risk = Low Sentiment + High Similarity
+        ROUND(
+            ((1 - sentiment_score) * 50) + 
+            (similarity_index * 50), 2
+        ) as risk_score
+    FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings` -- This creates the link to your Silver layer
+)
+
+SELECT 
+    *,
+    CASE 
+        WHEN risk_score > 75 THEN '🔴 CRITICAL: Potential Disclosure Masking'
+        WHEN risk_score > 55 THEN '🟡 WARNING: Defensive Reporting'
+        ELSE '🟢 LOW: Standard Disclosure' 
+    END as audit_priority
+FROM forensic_metrics
+ORDER BY risk_score DESC
+    );
+  
+[0m19:51:07.551610 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.int_forensic_metrics"
+[0m19:51:07.552900 [debug] [Thread-1 (]: On model.forensic_transform.int_forensic_metrics: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.int_forensic_metrics"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`int_forensic_metrics`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      WITH staged AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+),
+
+calculations AS (
+    SELECT 
+        *,
+        -- 1. Disclosure Density (Word count vs Sentiment)
+        SAFE_DIVIDE(ARRAY_LENGTH(SPLIT(filing_text, ' ')), ABS(sentiment_score)) AS density_index,
+        
+        -- 2. Sentiment Volatility (Looking at standard deviation for the ticker)
+        STDDEV(sentiment_score) OVER (PARTITION BY ticker) AS sentiment_volatility,
+        
+        -- 3. Narrative Drift (YoY Similarity Change)
+        similarity_index - LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS similarity_drift
+    FROM staged
+)
+
+SELECT * FROM calculations
+    );
+  
+[0m19:51:07.578860 [debug] [Thread-3 (]: Writing runtime sql for node "model.forensic_transform.fct_disclosure_density"
+[0m19:51:07.580175 [debug] [Thread-3 (]: On model.forensic_transform.fct_disclosure_density: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_disclosure_density"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_disclosure_density`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      
+
+WITH cleaned_data AS (
+    -- We reference the 'Staging' layer we built earlier
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+)
+
+SELECT
+    ticker,
+    fiscal_year,
+    sentiment_score,
+    -- 1. Calculate Word Count
+    ARRAY_LENGTH(SPLIT(filing_text, ' ')) AS word_count,
+    
+    -- 2. Calculate Density Index (Words per unit of Sentiment)
+    -- We use ABS() because we want the magnitude of the sentiment
+    SAFE_DIVIDE(ARRAY_LENGTH(SPLIT(filing_text, ' ')), ABS(sentiment_score)) AS density_index,
+    
+    -- 3. The 'Red Flag' Logic (The most important part for your audit)
+    CASE 
+        WHEN ARRAY_LENGTH(SPLIT(filing_text, ' ')) > 15000 AND sentiment_score < 0 THEN 'POTENTIAL OBFUSCATION'
+        WHEN sentiment_score < -0.2 THEN 'HIGH NEGATIVE RISK'
+        ELSE 'NORMAL'
+    END AS forensic_label
+FROM cleaned_data
+    );
+  
+[0m19:51:08.469832 [debug] [Thread-4 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:2386a7f7-f3f0-46b4-8345-b43094c981c7&page=queryresults
+[0m19:51:08.666096 [debug] [Thread-3 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:b3908656-4024-4cb4-aa6a-a8c40b86a120&page=queryresults
+[0m19:51:09.287631 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:1d233f9a-7978-4d5c-8e25-fc90a32e98d5&page=queryresults
+[0m19:51:09.685859 [debug] [Thread-2 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:72a5bc4f-6f6d-4cb8-96ee-bdd4f3ca9b8e&page=queryresults
+[0m19:51:10.644231 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '76cff882-41f8-4850-9216-1e9ec6fff777', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74dec03509b0>]}
+[0m19:51:10.646169 [info ] [Thread-4 (]: 3 of 8 OK created sql table model forensic_data.fct_narrative_drift ............ [[32mCREATE TABLE (111.0 rows, 3.2 KiB processed)[0m in 4.11s]
+[0m19:51:10.648403 [debug] [Thread-4 (]: Finished running node model.forensic_transform.fct_narrative_drift
+[0m19:51:10.650186 [debug] [Thread-4 (]: Began running node model.forensic_transform.rpt_boilerplate_offenders
+[0m19:51:10.651898 [info ] [Thread-4 (]: 6 of 8 START sql view model forensic_data.rpt_boilerplate_offenders ............ [RUN]
+[0m19:51:10.653556 [debug] [Thread-4 (]: Re-using an available connection from the pool (formerly model.forensic_transform.fct_narrative_drift, now model.forensic_transform.rpt_boilerplate_offenders)
+[0m19:51:10.654650 [debug] [Thread-4 (]: Began compiling node model.forensic_transform.rpt_boilerplate_offenders
+[0m19:51:10.663487 [debug] [Thread-4 (]: Writing injected SQL for node "model.forensic_transform.rpt_boilerplate_offenders"
+[0m19:51:10.665061 [debug] [Thread-4 (]: Began executing node model.forensic_transform.rpt_boilerplate_offenders
+[0m19:51:10.670674 [debug] [Thread-4 (]: Writing runtime sql for node "model.forensic_transform.rpt_boilerplate_offenders"
+[0m19:51:10.672375 [debug] [Thread-4 (]: On model.forensic_transform.rpt_boilerplate_offenders: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.rpt_boilerplate_offenders"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`rpt_boilerplate_offenders`
+  OPTIONS()
+  as 
+
+SELECT 
+    ticker, 
+    COUNT(fiscal_year) as consecutive_boilerplate_years,
+    ROUND(AVG(similarity_index), 4) as avg_similarity
+FROM `forensic-accounting-bot`.`forensic_data`.`fct_narrative_drift`
+WHERE similarity_index > 0.95
+GROUP BY ticker
+HAVING COUNT(fiscal_year) > 3
+ORDER BY consecutive_boilerplate_years DESC;
+
+
+[0m19:51:10.673529 [debug] [Thread-4 (]: Opening a new connection, currently in state closed
+[0m19:51:10.888111 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '76cff882-41f8-4850-9216-1e9ec6fff777', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74dec0322570>]}
+[0m19:51:10.889522 [info ] [Thread-3 (]: 2 of 8 OK created sql table model forensic_data.fct_disclosure_density ......... [[32mCREATE TABLE (111.0 rows, 3.2 MiB processed)[0m in 4.36s]
+[0m19:51:10.892797 [debug] [Thread-3 (]: Finished running node model.forensic_transform.fct_disclosure_density
+[0m19:51:11.548416 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '76cff882-41f8-4850-9216-1e9ec6fff777', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74dec033d310>]}
+[0m19:51:11.549161 [info ] [Thread-1 (]: 5 of 8 OK created sql table model forensic_data.int_forensic_metrics ........... [[32mCREATE TABLE (111.0 rows, 3.2 MiB processed)[0m in 5.01s]
+[0m19:51:11.549781 [debug] [Thread-1 (]: Finished running node model.forensic_transform.int_forensic_metrics
+[0m19:51:11.550416 [debug] [Thread-3 (]: Began running node model.forensic_transform.fct_anomaly_detection
+[0m19:51:11.550939 [info ] [Thread-3 (]: 7 of 8 START sql table model forensic_data.fct_anomaly_detection ............... [RUN]
+[0m19:51:11.551433 [debug] [Thread-3 (]: Re-using an available connection from the pool (formerly model.forensic_transform.fct_disclosure_density, now model.forensic_transform.fct_anomaly_detection)
+[0m19:51:11.551778 [debug] [Thread-3 (]: Began compiling node model.forensic_transform.fct_anomaly_detection
+[0m19:51:11.554111 [debug] [Thread-3 (]: Writing injected SQL for node "model.forensic_transform.fct_anomaly_detection"
+[0m19:51:11.554667 [debug] [Thread-3 (]: Began executing node model.forensic_transform.fct_anomaly_detection
+[0m19:51:11.556852 [debug] [Thread-3 (]: Opening a new connection, currently in state closed
+[0m19:51:11.939428 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '76cff882-41f8-4850-9216-1e9ec6fff777', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74dec033cb30>]}
+[0m19:51:11.940703 [info ] [Thread-2 (]: 4 of 8 OK created sql table model forensic_data.fct_red_flag_report ............ [[32mCREATE TABLE (111.0 rows, 3.2 KiB processed)[0m in 5.41s]
+[0m19:51:11.941970 [debug] [Thread-2 (]: Finished running node model.forensic_transform.fct_red_flag_report
+[0m19:51:12.216245 [debug] [Thread-3 (]: Writing runtime sql for node "model.forensic_transform.fct_anomaly_detection"
+[0m19:51:12.217606 [debug] [Thread-3 (]: On model.forensic_transform.fct_anomaly_detection: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_anomaly_detection"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_anomaly_detection`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      -- models/marts/fct_anomaly_detection.sql
+WITH metrics AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`int_forensic_metrics`
+),
+stats AS (
+    -- Calculate Industry Averages for Benchmarking
+    SELECT 
+        AVG(sentiment_score) OVER() as avg_industry_sentiment,
+        STDDEV(sentiment_score) OVER() as stddev_sentiment
+    FROM metrics
+)
+SELECT 
+    m.*,
+    -- Z-Score: (Value - Mean) / StdDev
+    -- A Z-score > 2 or < -2 is a statistical anomaly (Red Flag)
+    (m.sentiment_score - s.avg_industry_sentiment) / NULLIF(s.stddev_sentiment, 0) as sentiment_z_score
+FROM metrics m, stats s
+    );
+  
+[0m19:51:12.609324 [debug] [Thread-3 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:14fb52c8-373e-420e-bc91-02bb49ed0c9f&page=queryresults
+[0m19:51:12.804365 [debug] [Thread-4 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:1c114c4b-49ec-4d43-b7ef-cc5ac6e51d41&page=queryresults
+[0m19:51:13.257895 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '76cff882-41f8-4850-9216-1e9ec6fff777', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74dec0464ce0>]}
+[0m19:51:13.259429 [info ] [Thread-4 (]: 6 of 8 OK created sql view model forensic_data.rpt_boilerplate_offenders ....... [[32mCREATE VIEW (0 processed)[0m in 2.60s]
+[0m19:51:13.260880 [debug] [Thread-4 (]: Finished running node model.forensic_transform.rpt_boilerplate_offenders
+[0m19:51:16.026502 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '76cff882-41f8-4850-9216-1e9ec6fff777', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74dec0736a80>]}
+[0m19:51:16.028075 [info ] [Thread-3 (]: 7 of 8 OK created sql table model forensic_data.fct_anomaly_detection .......... [[32mCREATE TABLE (12.3k rows, 3.2 MiB processed)[0m in 4.47s]
+[0m19:51:16.029393 [debug] [Thread-3 (]: Finished running node model.forensic_transform.fct_anomaly_detection
+[0m19:51:16.030999 [debug] [Thread-1 (]: Began running node model.forensic_transform.rpt_sentiment_reversal
+[0m19:51:16.032846 [info ] [Thread-1 (]: 8 of 8 START sql view model forensic_data.rpt_sentiment_reversal ............... [RUN]
+[0m19:51:16.033853 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.forensic_transform.int_forensic_metrics, now model.forensic_transform.rpt_sentiment_reversal)
+[0m19:51:16.034612 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.rpt_sentiment_reversal
+[0m19:51:16.040166 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.rpt_sentiment_reversal"
+[0m19:51:16.041331 [debug] [Thread-1 (]: Began executing node model.forensic_transform.rpt_sentiment_reversal
+[0m19:51:16.045692 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.rpt_sentiment_reversal"
+[0m19:51:16.047160 [debug] [Thread-1 (]: On model.forensic_transform.rpt_sentiment_reversal: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.rpt_sentiment_reversal"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`rpt_sentiment_reversal`
+  OPTIONS()
+  as 
+
+WITH YoY_Sentiment AS (
+    SELECT 
+        ticker,
+        fiscal_year,
+        sentiment_score,
+        LAG(sentiment_score) OVER (PARTITION BY ticker ORDER BY fiscal_year) as prev_year_sentiment
+    FROM `forensic-accounting-bot`.`forensic_data`.`fct_anomaly_detection`
+)
+SELECT 
+    ticker,
+    fiscal_year,
+    ROUND(sentiment_score, 4) as current_sentiment,
+    ROUND(prev_year_sentiment, 4) as prev_year_sentiment,
+    ROUND((sentiment_score - prev_year_sentiment), 4) as sentiment_crash
+FROM YoY_Sentiment
+WHERE prev_year_sentiment > 0 AND sentiment_score < 0 
+ORDER BY sentiment_crash ASC
+LIMIT 10;
+
+
+[0m19:51:16.048036 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m19:51:17.123560 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:b5a2c6cb-852e-4fad-bc84-26ecf2b98ea1&page=queryresults
+[0m19:51:17.505117 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '76cff882-41f8-4850-9216-1e9ec6fff777', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74dec044e5a0>]}
+[0m19:51:17.506446 [info ] [Thread-1 (]: 8 of 8 OK created sql view model forensic_data.rpt_sentiment_reversal .......... [[32mCREATE VIEW (0 processed)[0m in 1.47s]
+[0m19:51:17.507877 [debug] [Thread-1 (]: Finished running node model.forensic_transform.rpt_sentiment_reversal
+[0m19:51:17.511509 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m19:51:17.581425 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m19:51:17.582255 [debug] [MainThread]: Connection 'model.forensic_transform.rpt_sentiment_reversal' was properly closed.
+[0m19:51:17.583055 [debug] [MainThread]: Connection 'model.forensic_transform.fct_anomaly_detection' was properly closed.
+[0m19:51:17.583677 [debug] [MainThread]: Connection 'model.forensic_transform.rpt_boilerplate_offenders' was properly closed.
+[0m19:51:17.584320 [debug] [MainThread]: Connection 'model.forensic_transform.fct_red_flag_report' was properly closed.
+[0m19:51:17.585141 [info ] [MainThread]: 
+[0m19:51:17.585918 [info ] [MainThread]: Finished running 3 view models, 5 table models in 0 hours 0 minutes and 14.62 seconds (14.62s).
+[0m19:51:17.589052 [debug] [MainThread]: Command end result
+[0m19:51:17.636137 [info ] [MainThread]: 
+[0m19:51:17.637375 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m19:51:17.638281 [info ] [MainThread]: 
+[0m19:51:17.639260 [info ] [MainThread]: Done. PASS=8 WARN=0 ERROR=0 SKIP=0 TOTAL=8
+[0m19:51:17.640977 [debug] [MainThread]: Resource report: {"command_name": "build", "command_success": true, "command_wall_clock_time": 58.934586, "process_user_time": 22.481524, "process_kernel_time": 26.719585, "process_mem_max_rss": "398384", "process_in_blocks": "180624", "process_out_blocks": "2320"}
+[0m19:51:17.641972 [debug] [MainThread]: Command `dbt build` succeeded at 19:51:17.641718 after 58.94 seconds
+[0m19:51:17.642843 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74df00db1c70>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74df01f3b500>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x74df01f3b800>]}
+[0m19:51:17.643651 [debug] [MainThread]: Flushing usage events
+[0m19:51:18.745518 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m20:16:39.087230 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72349086d550>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7234946813d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x723493794f80>]}
+
+
+============================== 20:16:39.092425 | f252bb1e-10fb-47e3-ad96-24b33152fc4d ==============================
+[0m20:16:39.092425 [info ] [MainThread]: Running with dbt=1.8.8
+[0m20:16:39.093644 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'version_check': 'True', 'debug': 'False', 'log_path': '/home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/core_nlp_engine/transform_dbt/logs', 'fail_fast': 'False', 'profiles_dir': '.', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'False', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'introspect': 'True', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'target_path': 'None', 'invocation_command': 'dbt build --profiles-dir .', 'send_anonymous_usage_stats': 'True'}
+[0m20:17:14.722237 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'f252bb1e-10fb-47e3-ad96-24b33152fc4d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7234536f1580>]}
+[0m20:17:14.815567 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'f252bb1e-10fb-47e3-ad96-24b33152fc4d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72345382a6f0>]}
+[0m20:17:14.816986 [info ] [MainThread]: Registered adapter: bigquery=1.9.2
+[0m20:17:14.833156 [debug] [MainThread]: checksum: ec53e341a936509427e16df1c646386a84befec52c1957e3f4359fbc36fc93f5, vars: {}, profile: , target: , version: 1.8.8
+[0m20:17:15.000536 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m20:17:15.001417 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m20:17:15.012020 [warn ] [MainThread]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.forensic_transform.intermediate
+[0m20:17:15.057026 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'f252bb1e-10fb-47e3-ad96-24b33152fc4d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x723490c88fb0>]}
+[0m20:17:15.215080 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'f252bb1e-10fb-47e3-ad96-24b33152fc4d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7234533a86e0>]}
+[0m20:17:15.216159 [info ] [MainThread]: Found 8 models, 1 source, 484 macros
+[0m20:17:15.220093 [info ] [MainThread]: 
+[0m20:17:15.221341 [debug] [MainThread]: Acquiring new bigquery connection 'master'
+[0m20:17:15.228872 [debug] [ThreadPool]: Acquiring new bigquery connection 'list_forensic-accounting-bot'
+[0m20:17:15.230012 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m20:17:15.994845 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_forensic-accounting-bot, now list_forensic-accounting-bot_forensic_data)
+[0m20:17:15.996099 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m20:17:16.581878 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'f252bb1e-10fb-47e3-ad96-24b33152fc4d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72345336eab0>]}
+[0m20:17:16.582862 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m20:17:16.654232 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m20:17:16.655191 [info ] [MainThread]: 
+[0m20:17:16.661333 [debug] [Thread-1 (]: Began running node model.forensic_transform.stg_sec_filings
+[0m20:17:16.662576 [info ] [Thread-1 (]: 1 of 8 START sql view model forensic_data.stg_sec_filings ...................... [RUN]
+[0m20:17:16.663608 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_forensic-accounting-bot_forensic_data, now model.forensic_transform.stg_sec_filings)
+[0m20:17:16.664345 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.stg_sec_filings
+[0m20:17:16.679734 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.stg_sec_filings"
+[0m20:17:16.681191 [debug] [Thread-1 (]: Began executing node model.forensic_transform.stg_sec_filings
+[0m20:17:16.735595 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.stg_sec_filings"
+[0m20:17:16.737044 [debug] [Thread-1 (]: On model.forensic_transform.stg_sec_filings: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.stg_sec_filings"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+  OPTIONS()
+  as -- models/staging/stg_sec_filings.sql
+
+
+WITH raw_data AS (
+    -- This references the source we will define in your schema.yml
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`raw_filings`
+)
+
+SELECT
+    -- 1. Standardized Identifiers
+    UPPER(CAST(ticker AS STRING)) AS ticker,
+    CAST(fiscal_year AS INT64) AS fiscal_year,
+    
+    -- 2. Cleaned Forensic Metrics
+    COALESCE(CAST(sentiment_score AS FLOAT64), 0.0) AS sentiment_score,
+    COALESCE(CAST(similarity_index AS FLOAT64), 0.0) AS similarity_index,
+    
+    -- 3. Text for Disclosure Density & Obfuscation Analysis
+    TRIM(parsed_text_sample) AS filing_text,
+    
+    -- 4. Audit Metadata
+    CURRENT_TIMESTAMP() AS processed_at
+FROM raw_data
+-- Safety check: ensure we don't process empty rows
+WHERE ticker IS NOT NULL;
+
+
+[0m20:17:16.738107 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m20:17:17.543068 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:3e627c63-f129-44f6-b4d9-ae283558d645&page=queryresults
+[0m20:17:17.490988 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'f252bb1e-10fb-47e3-ad96-24b33152fc4d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7234912b6f00>]}
+[0m20:17:17.492326 [info ] [Thread-1 (]: 1 of 8 OK created sql view model forensic_data.stg_sec_filings ................. [[32mCREATE VIEW (0 processed)[0m in 0.83s]
+[0m20:17:17.493592 [debug] [Thread-1 (]: Finished running node model.forensic_transform.stg_sec_filings
+[0m20:17:17.495687 [debug] [Thread-3 (]: Began running node model.forensic_transform.fct_disclosure_density
+[0m20:17:17.496764 [debug] [Thread-4 (]: Began running node model.forensic_transform.fct_narrative_drift
+[0m20:17:17.497758 [debug] [Thread-2 (]: Began running node model.forensic_transform.fct_red_flag_report
+[0m20:17:17.499750 [debug] [Thread-1 (]: Began running node model.forensic_transform.int_forensic_metrics
+[0m20:17:17.499018 [info ] [Thread-3 (]: 2 of 8 START sql table model forensic_data.fct_disclosure_density .............. [RUN]
+[0m20:17:17.501095 [info ] [Thread-4 (]: 3 of 8 START sql table model forensic_data.fct_narrative_drift ................. [RUN]
+[0m20:17:17.502710 [info ] [Thread-2 (]: 4 of 8 START sql table model forensic_data.fct_red_flag_report ................. [RUN]
+[0m20:17:17.503900 [info ] [Thread-1 (]: 5 of 8 START sql table model forensic_data.int_forensic_metrics ................ [RUN]
+[0m20:17:17.505244 [debug] [Thread-3 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_disclosure_density'
+[0m20:17:17.506357 [debug] [Thread-4 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_narrative_drift'
+[0m20:17:17.507370 [debug] [Thread-2 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_red_flag_report'
+[0m20:17:17.508252 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.forensic_transform.stg_sec_filings, now model.forensic_transform.int_forensic_metrics)
+[0m20:17:17.509129 [debug] [Thread-3 (]: Began compiling node model.forensic_transform.fct_disclosure_density
+[0m20:17:17.510142 [debug] [Thread-4 (]: Began compiling node model.forensic_transform.fct_narrative_drift
+[0m20:17:17.511028 [debug] [Thread-2 (]: Began compiling node model.forensic_transform.fct_red_flag_report
+[0m20:17:17.511869 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.int_forensic_metrics
+[0m20:17:17.517106 [debug] [Thread-3 (]: Writing injected SQL for node "model.forensic_transform.fct_disclosure_density"
+[0m20:17:17.521515 [debug] [Thread-4 (]: Writing injected SQL for node "model.forensic_transform.fct_narrative_drift"
+[0m20:17:17.526217 [debug] [Thread-2 (]: Writing injected SQL for node "model.forensic_transform.fct_red_flag_report"
+[0m20:17:17.530238 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.int_forensic_metrics"
+[0m20:17:17.532425 [debug] [Thread-3 (]: Began executing node model.forensic_transform.fct_disclosure_density
+[0m20:17:17.533556 [debug] [Thread-4 (]: Began executing node model.forensic_transform.fct_narrative_drift
+[0m20:17:17.540221 [debug] [Thread-2 (]: Began executing node model.forensic_transform.fct_red_flag_report
+[0m20:17:17.565374 [debug] [Thread-1 (]: Began executing node model.forensic_transform.int_forensic_metrics
+[0m20:17:17.574208 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m20:17:17.577685 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m20:17:17.578973 [debug] [Thread-4 (]: Opening a new connection, currently in state init
+[0m20:17:17.582358 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m20:17:18.475117 [debug] [Thread-2 (]: Writing runtime sql for node "model.forensic_transform.fct_red_flag_report"
+[0m20:17:18.478566 [debug] [Thread-3 (]: Writing runtime sql for node "model.forensic_transform.fct_disclosure_density"
+[0m20:17:18.480284 [debug] [Thread-4 (]: Writing runtime sql for node "model.forensic_transform.fct_narrative_drift"
+[0m20:17:18.482405 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.int_forensic_metrics"
+[0m20:17:18.484005 [debug] [Thread-2 (]: On model.forensic_transform.fct_red_flag_report: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_red_flag_report"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_red_flag_report`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      
+
+WITH forensic_metrics AS (
+    SELECT 
+        ticker, 
+        fiscal_year,
+        sentiment_score,
+        -- Note: Ensure subjectivity_score exists in your stg_sec_filings or add it there
+        COALESCE(sentiment_score, 0) as sentiment, 
+        similarity_index,
+        
+        -- Calculate a weighted risk score (0 to 100)
+        -- High risk = Low Sentiment + High Similarity
+        ROUND(
+            ((1 - sentiment_score) * 50) + 
+            (similarity_index * 50), 2
+        ) as risk_score
+    FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings` -- This creates the link to your Silver layer
+)
+
+SELECT 
+    *,
+    CASE 
+        WHEN risk_score > 75 THEN '🔴 CRITICAL: Potential Disclosure Masking'
+        WHEN risk_score > 55 THEN '🟡 WARNING: Defensive Reporting'
+        ELSE '🟢 LOW: Standard Disclosure' 
+    END as audit_priority
+FROM forensic_metrics
+ORDER BY risk_score DESC
+    );
+  
+[0m20:17:18.485229 [debug] [Thread-3 (]: On model.forensic_transform.fct_disclosure_density: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_disclosure_density"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_disclosure_density`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      
+
+WITH cleaned_data AS (
+    -- We reference the 'Staging' layer we built earlier
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+)
+
+SELECT
+    ticker,
+    fiscal_year,
+    sentiment_score,
+    -- 1. Calculate Word Count
+    ARRAY_LENGTH(SPLIT(filing_text, ' ')) AS word_count,
+    
+    -- 2. Calculate Density Index (Words per unit of Sentiment)
+    -- We use ABS() because we want the magnitude of the sentiment
+    SAFE_DIVIDE(ARRAY_LENGTH(SPLIT(filing_text, ' ')), ABS(sentiment_score)) AS density_index,
+    
+    -- 3. The 'Red Flag' Logic (The most important part for your audit)
+    CASE 
+        WHEN ARRAY_LENGTH(SPLIT(filing_text, ' ')) > 15000 AND sentiment_score < 0 THEN 'POTENTIAL OBFUSCATION'
+        WHEN sentiment_score < -0.2 THEN 'HIGH NEGATIVE RISK'
+        ELSE 'NORMAL'
+    END AS forensic_label
+FROM cleaned_data
+    );
+  
+[0m20:17:18.486886 [debug] [Thread-4 (]: On model.forensic_transform.fct_narrative_drift: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_narrative_drift"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_narrative_drift`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      -- models/marts/fct_narrative_drift.sql
+
+WITH staged_data AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+),
+
+drift_calculation AS (
+    SELECT
+        ticker,
+        fiscal_year,
+        sentiment_score,
+        similarity_index,
+        -- Get the similarity from the PREVIOUS year for the same ticker
+        LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS prev_year_similarity,
+        -- Calculate the "Drift" (Change in narrative)
+        similarity_index - LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS similarity_drift
+    FROM staged_data
+)
+
+SELECT
+    *,
+    -- Forensic Flag: High similarity but high drift in sentiment is a red flag
+    CASE 
+        WHEN ABS(similarity_drift) > 0.15 THEN 'HIGH DRIFT'
+        WHEN similarity_index > 0.95 THEN 'BOILERPLATE RISK'
+        ELSE 'STABLE'
+    END AS audit_status
+FROM drift_calculation
+    );
+  
+[0m20:17:18.491393 [debug] [Thread-1 (]: On model.forensic_transform.int_forensic_metrics: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.int_forensic_metrics"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`int_forensic_metrics`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      WITH staged AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+),
+
+calculations AS (
+    SELECT 
+        *,
+        -- 1. Disclosure Density (Word count vs Sentiment)
+        SAFE_DIVIDE(ARRAY_LENGTH(SPLIT(filing_text, ' ')), ABS(sentiment_score)) AS density_index,
+        
+        -- 2. Sentiment Volatility (Looking at standard deviation for the ticker)
+        STDDEV(sentiment_score) OVER (PARTITION BY ticker) AS sentiment_volatility,
+        
+        -- 3. Narrative Drift (YoY Similarity Change)
+        similarity_index - LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS similarity_drift
+    FROM staged
+)
+
+SELECT * FROM calculations
+    );
+  
+[0m20:17:19.263090 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:aa560085-1bb3-47e3-bf0c-e3939621ed89&page=queryresults
+[0m20:17:19.284705 [debug] [Thread-4 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:e6ae5fe7-85a8-4204-8571-644fb93dafc1&page=queryresults
+[0m20:17:19.344812 [debug] [Thread-2 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:a34da55d-c88c-44e8-958c-51c2ed0081bd&page=queryresults
+[0m20:17:20.735227 [debug] [Thread-3 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:dd12e748-f5d0-4787-ae6e-303ab0a3472e&page=queryresults
+[0m20:17:21.357455 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'f252bb1e-10fb-47e3-ad96-24b33152fc4d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72343b439a90>]}
+[0m20:17:21.358893 [info ] [Thread-4 (]: 3 of 8 OK created sql table model forensic_data.fct_narrative_drift ............ [[32mCREATE TABLE (115.0 rows, 3.3 KiB processed)[0m in 3.85s]
+[0m20:17:21.360152 [debug] [Thread-4 (]: Finished running node model.forensic_transform.fct_narrative_drift
+[0m20:17:21.361426 [debug] [Thread-4 (]: Began running node model.forensic_transform.rpt_boilerplate_offenders
+[0m20:17:21.362430 [info ] [Thread-4 (]: 6 of 8 START sql view model forensic_data.rpt_boilerplate_offenders ............ [RUN]
+[0m20:17:21.363543 [debug] [Thread-4 (]: Re-using an available connection from the pool (formerly model.forensic_transform.fct_narrative_drift, now model.forensic_transform.rpt_boilerplate_offenders)
+[0m20:17:21.364304 [debug] [Thread-4 (]: Began compiling node model.forensic_transform.rpt_boilerplate_offenders
+[0m20:17:21.369018 [debug] [Thread-4 (]: Writing injected SQL for node "model.forensic_transform.rpt_boilerplate_offenders"
+[0m20:17:21.370328 [debug] [Thread-4 (]: Began executing node model.forensic_transform.rpt_boilerplate_offenders
+[0m20:17:21.374545 [debug] [Thread-4 (]: Writing runtime sql for node "model.forensic_transform.rpt_boilerplate_offenders"
+[0m20:17:21.375794 [debug] [Thread-4 (]: On model.forensic_transform.rpt_boilerplate_offenders: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.rpt_boilerplate_offenders"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`rpt_boilerplate_offenders`
+  OPTIONS()
+  as 
+
+SELECT 
+    ticker, 
+    COUNT(fiscal_year) as consecutive_boilerplate_years,
+    ROUND(AVG(similarity_index), 4) as avg_similarity
+FROM `forensic-accounting-bot`.`forensic_data`.`fct_narrative_drift`
+WHERE similarity_index > 0.95
+GROUP BY ticker
+HAVING COUNT(fiscal_year) > 3
+ORDER BY consecutive_boilerplate_years DESC;
+
+
+[0m20:17:21.376701 [debug] [Thread-4 (]: Opening a new connection, currently in state closed
+[0m20:17:21.461258 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'f252bb1e-10fb-47e3-ad96-24b33152fc4d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72343b41e750>]}
+[0m20:17:21.463405 [info ] [Thread-2 (]: 4 of 8 OK created sql table model forensic_data.fct_red_flag_report ............ [[32mCREATE TABLE (115.0 rows, 3.3 KiB processed)[0m in 3.95s]
+[0m20:17:21.464821 [debug] [Thread-2 (]: Finished running node model.forensic_transform.fct_red_flag_report
+[0m20:17:21.658350 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'f252bb1e-10fb-47e3-ad96-24b33152fc4d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72343b43aab0>]}
+[0m20:17:21.659709 [info ] [Thread-1 (]: 5 of 8 OK created sql table model forensic_data.int_forensic_metrics ........... [[32mCREATE TABLE (115.0 rows, 3.3 MiB processed)[0m in 4.15s]
+[0m20:17:21.660910 [debug] [Thread-1 (]: Finished running node model.forensic_transform.int_forensic_metrics
+[0m20:17:21.662315 [debug] [Thread-2 (]: Began running node model.forensic_transform.fct_anomaly_detection
+[0m20:17:21.663302 [info ] [Thread-2 (]: 7 of 8 START sql table model forensic_data.fct_anomaly_detection ............... [RUN]
+[0m20:17:21.664266 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly model.forensic_transform.fct_red_flag_report, now model.forensic_transform.fct_anomaly_detection)
+[0m20:17:21.665024 [debug] [Thread-2 (]: Began compiling node model.forensic_transform.fct_anomaly_detection
+[0m20:17:21.669616 [debug] [Thread-2 (]: Writing injected SQL for node "model.forensic_transform.fct_anomaly_detection"
+[0m20:17:21.671047 [debug] [Thread-2 (]: Began executing node model.forensic_transform.fct_anomaly_detection
+[0m20:17:21.674944 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m20:17:22.149597 [debug] [Thread-2 (]: Writing runtime sql for node "model.forensic_transform.fct_anomaly_detection"
+[0m20:17:22.151215 [debug] [Thread-2 (]: On model.forensic_transform.fct_anomaly_detection: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_anomaly_detection"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_anomaly_detection`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      -- models/marts/fct_anomaly_detection.sql
+WITH metrics AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`int_forensic_metrics`
+),
+stats AS (
+    -- Calculate Industry Averages for Benchmarking
+    SELECT 
+        AVG(sentiment_score) OVER() as avg_industry_sentiment,
+        STDDEV(sentiment_score) OVER() as stddev_sentiment
+    FROM metrics
+)
+SELECT 
+    m.*,
+    -- Z-Score: (Value - Mean) / StdDev
+    -- A Z-score > 2 or < -2 is a statistical anomaly (Red Flag)
+    (m.sentiment_score - s.avg_industry_sentiment) / NULLIF(s.stddev_sentiment, 0) as sentiment_z_score
+FROM metrics m, stats s
+    );
+  
+[0m20:17:22.355511 [debug] [Thread-4 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:b9345149-ebc1-48ed-8f6b-26957875fd10&page=queryresults
+[0m20:17:22.656096 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'f252bb1e-10fb-47e3-ad96-24b33152fc4d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72343b5dc950>]}
+[0m20:17:22.657469 [info ] [Thread-4 (]: 6 of 8 OK created sql view model forensic_data.rpt_boilerplate_offenders ....... [[32mCREATE VIEW (0 processed)[0m in 1.29s]
+[0m20:17:22.658915 [debug] [Thread-4 (]: Finished running node model.forensic_transform.rpt_boilerplate_offenders
+[0m20:17:22.753445 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'f252bb1e-10fb-47e3-ad96-24b33152fc4d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72343b52a060>]}
+[0m20:17:22.754799 [info ] [Thread-3 (]: 2 of 8 OK created sql table model forensic_data.fct_disclosure_density ......... [[32mCREATE TABLE (115.0 rows, 3.3 MiB processed)[0m in 5.25s]
+[0m20:17:22.756013 [debug] [Thread-3 (]: Finished running node model.forensic_transform.fct_disclosure_density
+[0m20:17:22.810595 [debug] [Thread-2 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:42668096-4394-4cd9-b264-cdd18e849671&page=queryresults
+[0m20:17:26.304046 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'f252bb1e-10fb-47e3-ad96-24b33152fc4d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72343b470c50>]}
+[0m20:17:26.305357 [info ] [Thread-2 (]: 7 of 8 OK created sql table model forensic_data.fct_anomaly_detection .......... [[32mCREATE TABLE (13.2k rows, 3.3 MiB processed)[0m in 4.64s]
+[0m20:17:26.306816 [debug] [Thread-2 (]: Finished running node model.forensic_transform.fct_anomaly_detection
+[0m20:17:26.308510 [debug] [Thread-1 (]: Began running node model.forensic_transform.rpt_sentiment_reversal
+[0m20:17:26.309797 [info ] [Thread-1 (]: 8 of 8 START sql view model forensic_data.rpt_sentiment_reversal ............... [RUN]
+[0m20:17:26.310959 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.forensic_transform.int_forensic_metrics, now model.forensic_transform.rpt_sentiment_reversal)
+[0m20:17:26.311786 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.rpt_sentiment_reversal
+[0m20:17:26.316899 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.rpt_sentiment_reversal"
+[0m20:17:26.318211 [debug] [Thread-1 (]: Began executing node model.forensic_transform.rpt_sentiment_reversal
+[0m20:17:26.322598 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.rpt_sentiment_reversal"
+[0m20:17:26.323818 [debug] [Thread-1 (]: On model.forensic_transform.rpt_sentiment_reversal: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.rpt_sentiment_reversal"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`rpt_sentiment_reversal`
+  OPTIONS()
+  as 
+
+WITH YoY_Sentiment AS (
+    SELECT 
+        ticker,
+        fiscal_year,
+        sentiment_score,
+        LAG(sentiment_score) OVER (PARTITION BY ticker ORDER BY fiscal_year) as prev_year_sentiment
+    FROM `forensic-accounting-bot`.`forensic_data`.`fct_anomaly_detection`
+)
+SELECT 
+    ticker,
+    fiscal_year,
+    ROUND(sentiment_score, 4) as current_sentiment,
+    ROUND(prev_year_sentiment, 4) as prev_year_sentiment,
+    ROUND((sentiment_score - prev_year_sentiment), 4) as sentiment_crash
+FROM YoY_Sentiment
+WHERE prev_year_sentiment > 0 AND sentiment_score < 0 
+ORDER BY sentiment_crash ASC
+LIMIT 10;
+
+
+[0m20:17:26.324629 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m20:17:28.998792 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:336cfe75-2070-42d5-8013-fe943a860bc0&page=queryresults
+[0m20:17:29.425093 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'f252bb1e-10fb-47e3-ad96-24b33152fc4d', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72343b48e5a0>]}
+[0m20:17:29.426509 [info ] [Thread-1 (]: 8 of 8 OK created sql view model forensic_data.rpt_sentiment_reversal .......... [[32mCREATE VIEW (0 processed)[0m in 3.11s]
+[0m20:17:29.427741 [debug] [Thread-1 (]: Finished running node model.forensic_transform.rpt_sentiment_reversal
+[0m20:17:29.431014 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m20:17:29.502710 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m20:17:29.503616 [debug] [MainThread]: Connection 'model.forensic_transform.rpt_sentiment_reversal' was properly closed.
+[0m20:17:29.504278 [debug] [MainThread]: Connection 'model.forensic_transform.fct_disclosure_density' was properly closed.
+[0m20:17:29.504886 [debug] [MainThread]: Connection 'model.forensic_transform.rpt_boilerplate_offenders' was properly closed.
+[0m20:17:29.505519 [debug] [MainThread]: Connection 'model.forensic_transform.fct_anomaly_detection' was properly closed.
+[0m20:17:29.506479 [info ] [MainThread]: 
+[0m20:17:29.507316 [info ] [MainThread]: Finished running 3 view models, 5 table models in 0 hours 0 minutes and 14.29 seconds (14.29s).
+[0m20:17:29.510471 [debug] [MainThread]: Command end result
+[0m20:17:29.557791 [info ] [MainThread]: 
+[0m20:17:29.559075 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m20:17:29.559869 [info ] [MainThread]: 
+[0m20:17:29.560669 [info ] [MainThread]: Done. PASS=8 WARN=0 ERROR=0 SKIP=0 TOTAL=8
+[0m20:17:29.561671 [debug] [MainThread]: Resource report: {"command_name": "build", "command_success": true, "command_wall_clock_time": 51.8264, "process_user_time": 21.740467, "process_kernel_time": 20.359934, "process_mem_max_rss": "399592", "process_out_blocks": "2320", "process_in_blocks": "0"}
+[0m20:17:29.562930 [debug] [MainThread]: Command `dbt build` succeeded at 20:17:29.562693 after 51.83 seconds
+[0m20:17:29.563735 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x723490978fb0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72349495faa0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x723490cc7770>]}
+[0m20:17:29.564523 [debug] [MainThread]: Flushing usage events
+[0m20:17:31.662738 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m20:39:10.873653 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a84737500>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a844ad880>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a847342c0>]}
+
+
+============================== 20:39:10.879039 | b8dd590e-a778-453c-8258-a46cfebfb5ae ==============================
+[0m20:39:10.879039 [info ] [MainThread]: Running with dbt=1.8.8
+[0m20:39:10.880198 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'debug': 'False', 'fail_fast': 'False', 'log_path': '/home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/core_nlp_engine/transform_dbt/logs', 'profiles_dir': '.', 'version_check': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'False', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'introspect': 'True', 'invocation_command': 'dbt build --profiles-dir .', 'static_parser': 'True', 'target_path': 'None', 'log_format': 'default', 'send_anonymous_usage_stats': 'True'}
+[0m20:39:47.619402 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'b8dd590e-a778-453c-8258-a46cfebfb5ae', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a46bca7b0>]}
+[0m20:39:47.715866 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'b8dd590e-a778-453c-8258-a46cfebfb5ae', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a46c50680>]}
+[0m20:39:47.717102 [info ] [MainThread]: Registered adapter: bigquery=1.9.2
+[0m20:39:47.733658 [debug] [MainThread]: checksum: ec53e341a936509427e16df1c646386a84befec52c1957e3f4359fbc36fc93f5, vars: {}, profile: , target: , version: 1.8.8
+[0m20:39:47.917993 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m20:39:47.918952 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m20:39:47.928931 [warn ] [MainThread]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.forensic_transform.intermediate
+[0m20:39:47.973641 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'b8dd590e-a778-453c-8258-a46cfebfb5ae', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a47513b00>]}
+[0m20:39:48.139321 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'b8dd590e-a778-453c-8258-a46cfebfb5ae', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a46b00d70>]}
+[0m20:39:48.140349 [info ] [MainThread]: Found 8 models, 1 source, 484 macros
+[0m20:39:48.144769 [info ] [MainThread]: 
+[0m20:39:48.146045 [debug] [MainThread]: Acquiring new bigquery connection 'master'
+[0m20:39:48.153367 [debug] [ThreadPool]: Acquiring new bigquery connection 'list_forensic-accounting-bot'
+[0m20:39:48.154393 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m20:39:49.001433 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_forensic-accounting-bot, now list_forensic-accounting-bot_forensic_data)
+[0m20:39:49.002534 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m20:39:49.666461 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'b8dd590e-a778-453c-8258-a46cfebfb5ae', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a46b00a10>]}
+[0m20:39:49.667505 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m20:39:49.739934 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m20:39:49.740841 [info ] [MainThread]: 
+[0m20:39:49.746998 [debug] [Thread-1 (]: Began running node model.forensic_transform.stg_sec_filings
+[0m20:39:49.748412 [info ] [Thread-1 (]: 1 of 8 START sql view model forensic_data.stg_sec_filings ...................... [RUN]
+[0m20:39:49.749445 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_forensic-accounting-bot_forensic_data, now model.forensic_transform.stg_sec_filings)
+[0m20:39:49.750264 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.stg_sec_filings
+[0m20:39:49.766108 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.stg_sec_filings"
+[0m20:39:49.767467 [debug] [Thread-1 (]: Began executing node model.forensic_transform.stg_sec_filings
+[0m20:39:49.821921 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.stg_sec_filings"
+[0m20:39:49.823384 [debug] [Thread-1 (]: On model.forensic_transform.stg_sec_filings: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.stg_sec_filings"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+  OPTIONS()
+  as -- models/staging/stg_sec_filings.sql
+
+
+WITH raw_data AS (
+    -- This references the source we will define in your schema.yml
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`raw_filings`
+)
+
+SELECT
+    -- 1. Standardized Identifiers
+    UPPER(CAST(ticker AS STRING)) AS ticker,
+    CAST(fiscal_year AS INT64) AS fiscal_year,
+    
+    -- 2. Cleaned Forensic Metrics
+    COALESCE(CAST(sentiment_score AS FLOAT64), 0.0) AS sentiment_score,
+    COALESCE(CAST(similarity_index AS FLOAT64), 0.0) AS similarity_index,
+    
+    -- 3. Text for Disclosure Density & Obfuscation Analysis
+    TRIM(parsed_text_sample) AS filing_text,
+    
+    -- 4. Audit Metadata
+    CURRENT_TIMESTAMP() AS processed_at
+FROM raw_data
+-- Safety check: ensure we don't process empty rows
+WHERE ticker IS NOT NULL;
+
+
+[0m20:39:49.824315 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m20:39:50.613636 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:86b07c9c-6da7-4bf0-832d-f0e8ebabcc16&page=queryresults
+[0m20:39:51.221653 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b8dd590e-a778-453c-8258-a46cfebfb5ae', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a500c9400>]}
+[0m20:39:51.223232 [info ] [Thread-1 (]: 1 of 8 OK created sql view model forensic_data.stg_sec_filings ................. [[32mCREATE VIEW (0 processed)[0m in 1.47s]
+[0m20:39:51.224756 [debug] [Thread-1 (]: Finished running node model.forensic_transform.stg_sec_filings
+[0m20:39:51.227302 [debug] [Thread-3 (]: Began running node model.forensic_transform.fct_disclosure_density
+[0m20:39:51.228833 [debug] [Thread-4 (]: Began running node model.forensic_transform.fct_narrative_drift
+[0m20:39:51.229910 [debug] [Thread-2 (]: Began running node model.forensic_transform.fct_red_flag_report
+[0m20:39:51.231775 [debug] [Thread-1 (]: Began running node model.forensic_transform.int_forensic_metrics
+[0m20:39:51.231038 [info ] [Thread-3 (]: 2 of 8 START sql table model forensic_data.fct_disclosure_density .............. [RUN]
+[0m20:39:51.233201 [info ] [Thread-4 (]: 3 of 8 START sql table model forensic_data.fct_narrative_drift ................. [RUN]
+[0m20:39:51.234075 [info ] [Thread-2 (]: 4 of 8 START sql table model forensic_data.fct_red_flag_report ................. [RUN]
+[0m20:39:51.235776 [info ] [Thread-1 (]: 5 of 8 START sql table model forensic_data.int_forensic_metrics ................ [RUN]
+[0m20:39:51.237090 [debug] [Thread-3 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_disclosure_density'
+[0m20:39:51.238086 [debug] [Thread-4 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_narrative_drift'
+[0m20:39:51.239239 [debug] [Thread-2 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_red_flag_report'
+[0m20:39:51.240177 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.forensic_transform.stg_sec_filings, now model.forensic_transform.int_forensic_metrics)
+[0m20:39:51.241139 [debug] [Thread-3 (]: Began compiling node model.forensic_transform.fct_disclosure_density
+[0m20:39:51.242284 [debug] [Thread-4 (]: Began compiling node model.forensic_transform.fct_narrative_drift
+[0m20:39:51.243281 [debug] [Thread-2 (]: Began compiling node model.forensic_transform.fct_red_flag_report
+[0m20:39:51.244172 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.int_forensic_metrics
+[0m20:39:51.249462 [debug] [Thread-3 (]: Writing injected SQL for node "model.forensic_transform.fct_disclosure_density"
+[0m20:39:51.254165 [debug] [Thread-4 (]: Writing injected SQL for node "model.forensic_transform.fct_narrative_drift"
+[0m20:39:51.259496 [debug] [Thread-2 (]: Writing injected SQL for node "model.forensic_transform.fct_red_flag_report"
+[0m20:39:51.264772 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.int_forensic_metrics"
+[0m20:39:51.267519 [debug] [Thread-3 (]: Began executing node model.forensic_transform.fct_disclosure_density
+[0m20:39:51.268275 [debug] [Thread-4 (]: Began executing node model.forensic_transform.fct_narrative_drift
+[0m20:39:51.269263 [debug] [Thread-2 (]: Began executing node model.forensic_transform.fct_red_flag_report
+[0m20:39:51.280816 [debug] [Thread-1 (]: Began executing node model.forensic_transform.int_forensic_metrics
+[0m20:39:51.295609 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m20:39:51.304376 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m20:39:51.315953 [debug] [Thread-4 (]: Opening a new connection, currently in state init
+[0m20:39:51.319707 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m20:39:52.141359 [debug] [Thread-3 (]: Writing runtime sql for node "model.forensic_transform.fct_disclosure_density"
+[0m20:39:52.143386 [debug] [Thread-3 (]: On model.forensic_transform.fct_disclosure_density: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_disclosure_density"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_disclosure_density`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      
+
+WITH cleaned_data AS (
+    -- We reference the 'Staging' layer we built earlier
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+)
+
+SELECT
+    ticker,
+    fiscal_year,
+    sentiment_score,
+    -- 1. Calculate Word Count
+    ARRAY_LENGTH(SPLIT(filing_text, ' ')) AS word_count,
+    
+    -- 2. Calculate Density Index (Words per unit of Sentiment)
+    -- We use ABS() because we want the magnitude of the sentiment
+    SAFE_DIVIDE(ARRAY_LENGTH(SPLIT(filing_text, ' ')), ABS(sentiment_score)) AS density_index,
+    
+    -- 3. The 'Red Flag' Logic (The most important part for your audit)
+    CASE 
+        WHEN ARRAY_LENGTH(SPLIT(filing_text, ' ')) > 15000 AND sentiment_score < 0 THEN 'POTENTIAL OBFUSCATION'
+        WHEN sentiment_score < -0.2 THEN 'HIGH NEGATIVE RISK'
+        ELSE 'NORMAL'
+    END AS forensic_label
+FROM cleaned_data
+    );
+  
+[0m20:39:52.197025 [debug] [Thread-2 (]: Writing runtime sql for node "model.forensic_transform.fct_red_flag_report"
+[0m20:39:52.198514 [debug] [Thread-2 (]: On model.forensic_transform.fct_red_flag_report: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_red_flag_report"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_red_flag_report`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      
+
+WITH forensic_metrics AS (
+    SELECT 
+        ticker, 
+        fiscal_year,
+        sentiment_score,
+        -- Note: Ensure subjectivity_score exists in your stg_sec_filings or add it there
+        COALESCE(sentiment_score, 0) as sentiment, 
+        similarity_index,
+        
+        -- Calculate a weighted risk score (0 to 100)
+        -- High risk = Low Sentiment + High Similarity
+        ROUND(
+            ((1 - sentiment_score) * 50) + 
+            (similarity_index * 50), 2
+        ) as risk_score
+    FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings` -- This creates the link to your Silver layer
+)
+
+SELECT 
+    *,
+    CASE 
+        WHEN risk_score > 75 THEN '🔴 CRITICAL: Potential Disclosure Masking'
+        WHEN risk_score > 55 THEN '🟡 WARNING: Defensive Reporting'
+        ELSE '🟢 LOW: Standard Disclosure' 
+    END as audit_priority
+FROM forensic_metrics
+ORDER BY risk_score DESC
+    );
+  
+[0m20:39:52.205890 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.int_forensic_metrics"
+[0m20:39:52.207545 [debug] [Thread-1 (]: On model.forensic_transform.int_forensic_metrics: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.int_forensic_metrics"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`int_forensic_metrics`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      WITH staged AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+),
+
+calculations AS (
+    SELECT 
+        *,
+        -- 1. Disclosure Density (Word count vs Sentiment)
+        SAFE_DIVIDE(ARRAY_LENGTH(SPLIT(filing_text, ' ')), ABS(sentiment_score)) AS density_index,
+        
+        -- 2. Sentiment Volatility (Looking at standard deviation for the ticker)
+        STDDEV(sentiment_score) OVER (PARTITION BY ticker) AS sentiment_volatility,
+        
+        -- 3. Narrative Drift (YoY Similarity Change)
+        similarity_index - LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS similarity_drift
+    FROM staged
+)
+
+SELECT * FROM calculations
+    );
+  
+[0m20:39:52.235575 [debug] [Thread-4 (]: Writing runtime sql for node "model.forensic_transform.fct_narrative_drift"
+[0m20:39:52.237287 [debug] [Thread-4 (]: On model.forensic_transform.fct_narrative_drift: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_narrative_drift"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_narrative_drift`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      -- models/marts/fct_narrative_drift.sql
+
+WITH staged_data AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+),
+
+drift_calculation AS (
+    SELECT
+        ticker,
+        fiscal_year,
+        sentiment_score,
+        similarity_index,
+        -- Get the similarity from the PREVIOUS year for the same ticker
+        LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS prev_year_similarity,
+        -- Calculate the "Drift" (Change in narrative)
+        similarity_index - LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS similarity_drift
+    FROM staged_data
+)
+
+SELECT
+    *,
+    -- Forensic Flag: High similarity but high drift in sentiment is a red flag
+    CASE 
+        WHEN ABS(similarity_drift) > 0.15 THEN 'HIGH DRIFT'
+        WHEN similarity_index > 0.95 THEN 'BOILERPLATE RISK'
+        ELSE 'STABLE'
+    END AS audit_status
+FROM drift_calculation
+    );
+  
+[0m20:39:52.967555 [debug] [Thread-3 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:a9ae4d8b-0d21-4c15-88c4-edc5b16a80b7&page=queryresults
+[0m20:39:53.046363 [debug] [Thread-4 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:041c6828-f9e8-41af-8ca0-12a69dce4ea9&page=queryresults
+[0m20:39:53.063604 [debug] [Thread-2 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:6ea477ea-d6ac-4082-80b7-7e9d01aefbb1&page=queryresults
+[0m20:39:53.352018 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:c1bdd85d-749d-49db-98c8-185d89f9318e&page=queryresults
+[0m20:39:55.273220 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b8dd590e-a778-453c-8258-a46cfebfb5ae', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a443a3d70>]}
+[0m20:39:55.274549 [info ] [Thread-3 (]: 2 of 8 OK created sql table model forensic_data.fct_disclosure_density ......... [[32mCREATE TABLE (119.0 rows, 3.4 MiB processed)[0m in 4.04s]
+[0m20:39:55.276147 [debug] [Thread-3 (]: Finished running node model.forensic_transform.fct_disclosure_density
+[0m20:39:55.305250 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b8dd590e-a778-453c-8258-a46cfebfb5ae', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a442bb770>]}
+[0m20:39:55.307249 [info ] [Thread-2 (]: 4 of 8 OK created sql table model forensic_data.fct_red_flag_report ............ [[32mCREATE TABLE (119.0 rows, 3.5 KiB processed)[0m in 4.07s]
+[0m20:39:55.311691 [debug] [Thread-2 (]: Finished running node model.forensic_transform.fct_red_flag_report
+[0m20:39:55.572422 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b8dd590e-a778-453c-8258-a46cfebfb5ae', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a442a1e50>]}
+[0m20:39:55.580956 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b8dd590e-a778-453c-8258-a46cfebfb5ae', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a442a1910>]}
+[0m20:39:55.574657 [info ] [Thread-4 (]: 3 of 8 OK created sql table model forensic_data.fct_narrative_drift ............ [[32mCREATE TABLE (119.0 rows, 3.5 KiB processed)[0m in 4.33s]
+[0m20:39:55.585814 [debug] [Thread-4 (]: Finished running node model.forensic_transform.fct_narrative_drift
+[0m20:39:55.584416 [info ] [Thread-1 (]: 5 of 8 OK created sql table model forensic_data.int_forensic_metrics ........... [[32mCREATE TABLE (119.0 rows, 3.4 MiB processed)[0m in 4.34s]
+[0m20:39:55.587990 [debug] [Thread-1 (]: Finished running node model.forensic_transform.int_forensic_metrics
+[0m20:39:55.588888 [debug] [Thread-3 (]: Began running node model.forensic_transform.rpt_boilerplate_offenders
+[0m20:39:55.590426 [debug] [Thread-4 (]: Began running node model.forensic_transform.fct_anomaly_detection
+[0m20:39:55.591857 [info ] [Thread-3 (]: 6 of 8 START sql view model forensic_data.rpt_boilerplate_offenders ............ [RUN]
+[0m20:39:55.594359 [debug] [Thread-3 (]: Re-using an available connection from the pool (formerly model.forensic_transform.fct_disclosure_density, now model.forensic_transform.rpt_boilerplate_offenders)
+[0m20:39:55.593391 [info ] [Thread-4 (]: 7 of 8 START sql table model forensic_data.fct_anomaly_detection ............... [RUN]
+[0m20:39:55.595719 [debug] [Thread-3 (]: Began compiling node model.forensic_transform.rpt_boilerplate_offenders
+[0m20:39:55.596618 [debug] [Thread-4 (]: Re-using an available connection from the pool (formerly model.forensic_transform.fct_narrative_drift, now model.forensic_transform.fct_anomaly_detection)
+[0m20:39:55.601327 [debug] [Thread-3 (]: Writing injected SQL for node "model.forensic_transform.rpt_boilerplate_offenders"
+[0m20:39:55.602353 [debug] [Thread-4 (]: Began compiling node model.forensic_transform.fct_anomaly_detection
+[0m20:39:55.606568 [debug] [Thread-4 (]: Writing injected SQL for node "model.forensic_transform.fct_anomaly_detection"
+[0m20:39:55.607595 [debug] [Thread-3 (]: Began executing node model.forensic_transform.rpt_boilerplate_offenders
+[0m20:39:55.612493 [debug] [Thread-3 (]: Writing runtime sql for node "model.forensic_transform.rpt_boilerplate_offenders"
+[0m20:39:55.613707 [debug] [Thread-4 (]: Began executing node model.forensic_transform.fct_anomaly_detection
+[0m20:39:55.617068 [debug] [Thread-4 (]: Opening a new connection, currently in state closed
+[0m20:39:55.618031 [debug] [Thread-3 (]: On model.forensic_transform.rpt_boilerplate_offenders: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.rpt_boilerplate_offenders"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`rpt_boilerplate_offenders`
+  OPTIONS()
+  as 
+
+SELECT 
+    ticker, 
+    COUNT(fiscal_year) as consecutive_boilerplate_years,
+    ROUND(AVG(similarity_index), 4) as avg_similarity
+FROM `forensic-accounting-bot`.`forensic_data`.`fct_narrative_drift`
+WHERE similarity_index > 0.95
+GROUP BY ticker
+HAVING COUNT(fiscal_year) > 3
+ORDER BY consecutive_boilerplate_years DESC;
+
+
+[0m20:39:55.619026 [debug] [Thread-3 (]: Opening a new connection, currently in state closed
+[0m20:39:56.334770 [debug] [Thread-4 (]: Writing runtime sql for node "model.forensic_transform.fct_anomaly_detection"
+[0m20:39:56.336086 [debug] [Thread-4 (]: On model.forensic_transform.fct_anomaly_detection: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_anomaly_detection"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_anomaly_detection`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      -- models/marts/fct_anomaly_detection.sql
+WITH metrics AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`int_forensic_metrics`
+),
+stats AS (
+    -- Calculate Industry Averages for Benchmarking
+    SELECT 
+        AVG(sentiment_score) OVER() as avg_industry_sentiment,
+        STDDEV(sentiment_score) OVER() as stddev_sentiment
+    FROM metrics
+)
+SELECT 
+    m.*,
+    -- Z-Score: (Value - Mean) / StdDev
+    -- A Z-score > 2 or < -2 is a statistical anomaly (Red Flag)
+    (m.sentiment_score - s.avg_industry_sentiment) / NULLIF(s.stddev_sentiment, 0) as sentiment_z_score
+FROM metrics m, stats s
+    );
+  
+[0m20:39:56.410393 [debug] [Thread-3 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:2dede54e-057a-49c8-86a6-e320092ca67e&page=queryresults
+[0m20:39:56.813684 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b8dd590e-a778-453c-8258-a46cfebfb5ae', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a446609b0>]}
+[0m20:39:56.815075 [info ] [Thread-3 (]: 6 of 8 OK created sql view model forensic_data.rpt_boilerplate_offenders ....... [[32mCREATE VIEW (0 processed)[0m in 1.22s]
+[0m20:39:56.816268 [debug] [Thread-3 (]: Finished running node model.forensic_transform.rpt_boilerplate_offenders
+[0m20:39:57.082607 [debug] [Thread-4 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:fb47f9f0-7c7e-41d2-935a-775cbdc9d1e5&page=queryresults
+[0m20:40:00.108737 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b8dd590e-a778-453c-8258-a46cfebfb5ae', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a442a3d40>]}
+[0m20:40:00.110109 [info ] [Thread-4 (]: 7 of 8 OK created sql table model forensic_data.fct_anomaly_detection .......... [[32mCREATE TABLE (14.2k rows, 3.4 MiB processed)[0m in 4.51s]
+[0m20:40:00.111837 [debug] [Thread-4 (]: Finished running node model.forensic_transform.fct_anomaly_detection
+[0m20:40:00.113493 [debug] [Thread-1 (]: Began running node model.forensic_transform.rpt_sentiment_reversal
+[0m20:40:00.115000 [info ] [Thread-1 (]: 8 of 8 START sql view model forensic_data.rpt_sentiment_reversal ............... [RUN]
+[0m20:40:00.116127 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.forensic_transform.int_forensic_metrics, now model.forensic_transform.rpt_sentiment_reversal)
+[0m20:40:00.117001 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.rpt_sentiment_reversal
+[0m20:40:00.122137 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.rpt_sentiment_reversal"
+[0m20:40:00.123851 [debug] [Thread-1 (]: Began executing node model.forensic_transform.rpt_sentiment_reversal
+[0m20:40:00.128754 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.rpt_sentiment_reversal"
+[0m20:40:00.130245 [debug] [Thread-1 (]: On model.forensic_transform.rpt_sentiment_reversal: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.rpt_sentiment_reversal"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`rpt_sentiment_reversal`
+  OPTIONS()
+  as 
+
+WITH YoY_Sentiment AS (
+    SELECT 
+        ticker,
+        fiscal_year,
+        sentiment_score,
+        LAG(sentiment_score) OVER (PARTITION BY ticker ORDER BY fiscal_year) as prev_year_sentiment
+    FROM `forensic-accounting-bot`.`forensic_data`.`fct_anomaly_detection`
+)
+SELECT 
+    ticker,
+    fiscal_year,
+    ROUND(sentiment_score, 4) as current_sentiment,
+    ROUND(prev_year_sentiment, 4) as prev_year_sentiment,
+    ROUND((sentiment_score - prev_year_sentiment), 4) as sentiment_crash
+FROM YoY_Sentiment
+WHERE prev_year_sentiment > 0 AND sentiment_score < 0 
+ORDER BY sentiment_crash ASC
+LIMIT 10;
+
+
+[0m20:40:00.131175 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m20:40:00.862774 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:bc24f11d-a338-4ced-ac3c-5c0550b87a48&page=queryresults
+[0m20:40:01.239355 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b8dd590e-a778-453c-8258-a46cfebfb5ae', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a443a9d60>]}
+[0m20:40:01.240815 [info ] [Thread-1 (]: 8 of 8 OK created sql view model forensic_data.rpt_sentiment_reversal .......... [[32mCREATE VIEW (0 processed)[0m in 1.12s]
+[0m20:40:01.242562 [debug] [Thread-1 (]: Finished running node model.forensic_transform.rpt_sentiment_reversal
+[0m20:40:01.246090 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m20:40:01.319456 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m20:40:01.320424 [debug] [MainThread]: Connection 'model.forensic_transform.rpt_sentiment_reversal' was properly closed.
+[0m20:40:01.321259 [debug] [MainThread]: Connection 'model.forensic_transform.rpt_boilerplate_offenders' was properly closed.
+[0m20:40:01.322020 [debug] [MainThread]: Connection 'model.forensic_transform.fct_anomaly_detection' was properly closed.
+[0m20:40:01.322875 [debug] [MainThread]: Connection 'model.forensic_transform.fct_red_flag_report' was properly closed.
+[0m20:40:01.323903 [info ] [MainThread]: 
+[0m20:40:01.324819 [info ] [MainThread]: Finished running 3 view models, 5 table models in 0 hours 0 minutes and 13.18 seconds (13.18s).
+[0m20:40:01.328299 [debug] [MainThread]: Command end result
+[0m20:40:01.387382 [info ] [MainThread]: 
+[0m20:40:01.388448 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m20:40:01.389292 [info ] [MainThread]: 
+[0m20:40:01.390113 [info ] [MainThread]: Done. PASS=8 WARN=0 ERROR=0 SKIP=0 TOTAL=8
+[0m20:40:01.391288 [debug] [MainThread]: Resource report: {"command_name": "build", "command_success": true, "command_wall_clock_time": 50.60164, "process_user_time": 21.804068, "process_kernel_time": 21.081715, "process_mem_max_rss": "398848", "process_out_blocks": "2296", "process_in_blocks": "0"}
+[0m20:40:01.392148 [debug] [MainThread]: Command `dbt build` succeeded at 20:40:01.391976 after 50.60 seconds
+[0m20:40:01.392864 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a8448d460>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a83e19c70>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x752a86a8f6b0>]}
+[0m20:40:01.393660 [debug] [MainThread]: Flushing usage events
+[0m20:40:02.444517 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m01:12:21.075876 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b192afde4b0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b192afa5c40>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b192afa5bb0>]}
+
+
+============================== 01:12:21.082261 | 3ec323b7-af03-4779-ba78-df4a1b20842f ==============================
+[0m01:12:21.082261 [info ] [MainThread]: Running with dbt=1.8.8
+[0m01:12:21.083474 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '.', 'fail_fast': 'False', 'warn_error': 'None', 'log_path': '/home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/core_nlp_engine/transform_dbt/logs', 'debug': 'False', 'version_check': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'False', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'introspect': 'True', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'target_path': 'None', 'invocation_command': 'dbt build --profiles-dir .', 'send_anonymous_usage_stats': 'True'}
+[0m01:12:57.771762 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '3ec323b7-af03-4779-ba78-df4a1b20842f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b192f2f7ad0>]}
+[0m01:12:57.871744 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '3ec323b7-af03-4779-ba78-df4a1b20842f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b192b36f380>]}
+[0m01:12:57.873228 [info ] [MainThread]: Registered adapter: bigquery=1.9.2
+[0m01:12:57.891881 [debug] [MainThread]: checksum: ec53e341a936509427e16df1c646386a84befec52c1957e3f4359fbc36fc93f5, vars: {}, profile: , target: , version: 1.8.8
+[0m01:12:58.096237 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m01:12:58.097172 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m01:12:58.106480 [warn ] [MainThread]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.forensic_transform.intermediate
+[0m01:12:58.153586 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '3ec323b7-af03-4779-ba78-df4a1b20842f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b18eda803e0>]}
+[0m01:12:58.331775 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '3ec323b7-af03-4779-ba78-df4a1b20842f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b18edb12300>]}
+[0m01:12:58.332859 [info ] [MainThread]: Found 8 models, 1 source, 484 macros
+[0m01:12:58.337077 [info ] [MainThread]: 
+[0m01:12:58.338398 [debug] [MainThread]: Acquiring new bigquery connection 'master'
+[0m01:12:58.346713 [debug] [ThreadPool]: Acquiring new bigquery connection 'list_forensic-accounting-bot'
+[0m01:12:58.347889 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m01:12:59.300989 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_forensic-accounting-bot, now list_forensic-accounting-bot_forensic_data)
+[0m01:12:59.302135 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m01:12:59.950421 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '3ec323b7-af03-4779-ba78-df4a1b20842f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b18edbc95b0>]}
+[0m01:12:59.951567 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m01:13:00.025703 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m01:13:00.026720 [info ] [MainThread]: 
+[0m01:13:00.033293 [debug] [Thread-1 (]: Began running node model.forensic_transform.stg_sec_filings
+[0m01:13:00.034451 [info ] [Thread-1 (]: 1 of 8 START sql view model forensic_data.stg_sec_filings ...................... [RUN]
+[0m01:13:00.035719 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_forensic-accounting-bot_forensic_data, now model.forensic_transform.stg_sec_filings)
+[0m01:13:00.036552 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.stg_sec_filings
+[0m01:13:00.053068 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.stg_sec_filings"
+[0m01:13:00.054633 [debug] [Thread-1 (]: Began executing node model.forensic_transform.stg_sec_filings
+[0m01:13:00.112580 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.stg_sec_filings"
+[0m01:13:00.114139 [debug] [Thread-1 (]: On model.forensic_transform.stg_sec_filings: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.stg_sec_filings"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+  OPTIONS()
+  as -- models/staging/stg_sec_filings.sql
+
+
+WITH raw_data AS (
+    -- This references the source we will define in your schema.yml
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`raw_filings`
+)
+
+SELECT
+    -- 1. Standardized Identifiers
+    UPPER(CAST(ticker AS STRING)) AS ticker,
+    CAST(fiscal_year AS INT64) AS fiscal_year,
+    
+    -- 2. Cleaned Forensic Metrics
+    COALESCE(CAST(sentiment_score AS FLOAT64), 0.0) AS sentiment_score,
+    COALESCE(CAST(similarity_index AS FLOAT64), 0.0) AS similarity_index,
+    
+    -- 3. Text for Disclosure Density & Obfuscation Analysis
+    TRIM(parsed_text_sample) AS filing_text,
+    
+    -- 4. Audit Metadata
+    CURRENT_TIMESTAMP() AS processed_at
+FROM raw_data
+-- Safety check: ensure we don't process empty rows
+WHERE ticker IS NOT NULL;
+
+
+[0m01:13:00.115254 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m01:13:00.931892 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:6a2641a7-6cc5-45ec-b194-fd711d99aca9&page=queryresults
+[0m01:13:01.567405 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '3ec323b7-af03-4779-ba78-df4a1b20842f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b192b9c3080>]}
+[0m01:13:01.568764 [info ] [Thread-1 (]: 1 of 8 OK created sql view model forensic_data.stg_sec_filings ................. [[32mCREATE VIEW (0 processed)[0m in 1.53s]
+[0m01:13:01.570057 [debug] [Thread-1 (]: Finished running node model.forensic_transform.stg_sec_filings
+[0m01:13:01.572266 [debug] [Thread-3 (]: Began running node model.forensic_transform.fct_disclosure_density
+[0m01:13:01.573170 [debug] [Thread-4 (]: Began running node model.forensic_transform.fct_narrative_drift
+[0m01:13:01.574212 [debug] [Thread-2 (]: Began running node model.forensic_transform.fct_red_flag_report
+[0m01:13:01.576036 [debug] [Thread-1 (]: Began running node model.forensic_transform.int_forensic_metrics
+[0m01:13:01.575304 [info ] [Thread-3 (]: 2 of 8 START sql table model forensic_data.fct_disclosure_density .............. [RUN]
+[0m01:13:01.577628 [info ] [Thread-4 (]: 3 of 8 START sql table model forensic_data.fct_narrative_drift ................. [RUN]
+[0m01:13:01.579101 [info ] [Thread-2 (]: 4 of 8 START sql table model forensic_data.fct_red_flag_report ................. [RUN]
+[0m01:13:01.580452 [info ] [Thread-1 (]: 5 of 8 START sql table model forensic_data.int_forensic_metrics ................ [RUN]
+[0m01:13:01.581717 [debug] [Thread-3 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_disclosure_density'
+[0m01:13:01.583083 [debug] [Thread-4 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_narrative_drift'
+[0m01:13:01.584248 [debug] [Thread-2 (]: Acquiring new bigquery connection 'model.forensic_transform.fct_red_flag_report'
+[0m01:13:01.585240 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.forensic_transform.stg_sec_filings, now model.forensic_transform.int_forensic_metrics)
+[0m01:13:01.586150 [debug] [Thread-3 (]: Began compiling node model.forensic_transform.fct_disclosure_density
+[0m01:13:01.587123 [debug] [Thread-4 (]: Began compiling node model.forensic_transform.fct_narrative_drift
+[0m01:13:01.588002 [debug] [Thread-2 (]: Began compiling node model.forensic_transform.fct_red_flag_report
+[0m01:13:01.588878 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.int_forensic_metrics
+[0m01:13:01.594274 [debug] [Thread-3 (]: Writing injected SQL for node "model.forensic_transform.fct_disclosure_density"
+[0m01:13:01.599580 [debug] [Thread-4 (]: Writing injected SQL for node "model.forensic_transform.fct_narrative_drift"
+[0m01:13:01.604637 [debug] [Thread-2 (]: Writing injected SQL for node "model.forensic_transform.fct_red_flag_report"
+[0m01:13:01.608818 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.int_forensic_metrics"
+[0m01:13:01.611119 [debug] [Thread-3 (]: Began executing node model.forensic_transform.fct_disclosure_density
+[0m01:13:01.612667 [debug] [Thread-4 (]: Began executing node model.forensic_transform.fct_narrative_drift
+[0m01:13:01.613743 [debug] [Thread-2 (]: Began executing node model.forensic_transform.fct_red_flag_report
+[0m01:13:01.634228 [debug] [Thread-1 (]: Began executing node model.forensic_transform.int_forensic_metrics
+[0m01:13:01.646824 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m01:13:01.655784 [debug] [Thread-4 (]: Opening a new connection, currently in state init
+[0m01:13:01.659481 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m01:13:01.662996 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m01:13:02.658705 [debug] [Thread-4 (]: Writing runtime sql for node "model.forensic_transform.fct_narrative_drift"
+[0m01:13:02.661892 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.int_forensic_metrics"
+[0m01:13:02.663998 [debug] [Thread-3 (]: Writing runtime sql for node "model.forensic_transform.fct_disclosure_density"
+[0m01:13:02.665982 [debug] [Thread-2 (]: Writing runtime sql for node "model.forensic_transform.fct_red_flag_report"
+[0m01:13:02.667589 [debug] [Thread-4 (]: On model.forensic_transform.fct_narrative_drift: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_narrative_drift"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_narrative_drift`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      -- models/marts/fct_narrative_drift.sql
+
+WITH staged_data AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+),
+
+drift_calculation AS (
+    SELECT
+        ticker,
+        fiscal_year,
+        sentiment_score,
+        similarity_index,
+        -- Get the similarity from the PREVIOUS year for the same ticker
+        LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS prev_year_similarity,
+        -- Calculate the "Drift" (Change in narrative)
+        similarity_index - LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS similarity_drift
+    FROM staged_data
+)
+
+SELECT
+    *,
+    -- Forensic Flag: High similarity but high drift in sentiment is a red flag
+    CASE 
+        WHEN ABS(similarity_drift) > 0.15 THEN 'HIGH DRIFT'
+        WHEN similarity_index > 0.95 THEN 'BOILERPLATE RISK'
+        ELSE 'STABLE'
+    END AS audit_status
+FROM drift_calculation
+    );
+  
+[0m01:13:02.669902 [debug] [Thread-3 (]: On model.forensic_transform.fct_disclosure_density: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_disclosure_density"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_disclosure_density`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      
+
+WITH cleaned_data AS (
+    -- We reference the 'Staging' layer we built earlier
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+)
+
+SELECT
+    ticker,
+    fiscal_year,
+    sentiment_score,
+    -- 1. Calculate Word Count
+    ARRAY_LENGTH(SPLIT(filing_text, ' ')) AS word_count,
+    
+    -- 2. Calculate Density Index (Words per unit of Sentiment)
+    -- We use ABS() because we want the magnitude of the sentiment
+    SAFE_DIVIDE(ARRAY_LENGTH(SPLIT(filing_text, ' ')), ABS(sentiment_score)) AS density_index,
+    
+    -- 3. The 'Red Flag' Logic (The most important part for your audit)
+    CASE 
+        WHEN ARRAY_LENGTH(SPLIT(filing_text, ' ')) > 15000 AND sentiment_score < 0 THEN 'POTENTIAL OBFUSCATION'
+        WHEN sentiment_score < -0.2 THEN 'HIGH NEGATIVE RISK'
+        ELSE 'NORMAL'
+    END AS forensic_label
+FROM cleaned_data
+    );
+  
+[0m01:13:02.677378 [debug] [Thread-2 (]: On model.forensic_transform.fct_red_flag_report: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_red_flag_report"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_red_flag_report`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      
+
+WITH forensic_metrics AS (
+    SELECT 
+        ticker, 
+        fiscal_year,
+        sentiment_score,
+        -- Note: Ensure subjectivity_score exists in your stg_sec_filings or add it there
+        COALESCE(sentiment_score, 0) as sentiment, 
+        similarity_index,
+        
+        -- Calculate a weighted risk score (0 to 100)
+        -- High risk = Low Sentiment + High Similarity
+        ROUND(
+            ((1 - sentiment_score) * 50) + 
+            (similarity_index * 50), 2
+        ) as risk_score
+    FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings` -- This creates the link to your Silver layer
+)
+
+SELECT 
+    *,
+    CASE 
+        WHEN risk_score > 75 THEN '🔴 CRITICAL: Potential Disclosure Masking'
+        WHEN risk_score > 55 THEN '🟡 WARNING: Defensive Reporting'
+        ELSE '🟢 LOW: Standard Disclosure' 
+    END as audit_priority
+FROM forensic_metrics
+ORDER BY risk_score DESC
+    );
+  
+[0m01:13:02.681331 [debug] [Thread-1 (]: On model.forensic_transform.int_forensic_metrics: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.int_forensic_metrics"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`int_forensic_metrics`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      WITH staged AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+),
+
+calculations AS (
+    SELECT 
+        *,
+        -- 1. Disclosure Density (Word count vs Sentiment)
+        SAFE_DIVIDE(ARRAY_LENGTH(SPLIT(filing_text, ' ')), ABS(sentiment_score)) AS density_index,
+        
+        -- 2. Sentiment Volatility (Looking at standard deviation for the ticker)
+        STDDEV(sentiment_score) OVER (PARTITION BY ticker) AS sentiment_volatility,
+        
+        -- 3. Narrative Drift (YoY Similarity Change)
+        similarity_index - LAG(similarity_index) OVER (PARTITION BY ticker ORDER BY fiscal_year) AS similarity_drift
+    FROM staged
+)
+
+SELECT * FROM calculations
+    );
+  
+[0m01:13:03.526856 [debug] [Thread-3 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:b990a524-8905-4a5e-aa76-29d61e14de0f&page=queryresults
+[0m01:13:03.590081 [debug] [Thread-2 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:18e27f23-d730-428c-98ae-108b89f6fdd2&page=queryresults
+[0m01:13:03.265018 [debug] [Thread-4 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:ab05919e-ad19-4341-afac-e92a20e85962&page=queryresults
+[0m01:13:03.269227 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:8cbcec78-eca0-446f-85d6-d76595d9d5ae&page=queryresults
+[0m01:13:04.124213 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '3ec323b7-af03-4779-ba78-df4a1b20842f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b18ec419ac0>]}
+[0m01:13:04.126012 [info ] [Thread-2 (]: 4 of 8 OK created sql table model forensic_data.fct_red_flag_report ............ [[32mCREATE TABLE (123.0 rows, 3.6 KiB processed)[0m in 2.54s]
+[0m01:13:04.127521 [debug] [Thread-2 (]: Finished running node model.forensic_transform.fct_red_flag_report
+[0m01:13:04.521588 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '3ec323b7-af03-4779-ba78-df4a1b20842f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b18ec42be90>]}
+[0m01:13:04.522949 [info ] [Thread-3 (]: 2 of 8 OK created sql table model forensic_data.fct_disclosure_density ......... [[32mCREATE TABLE (123.0 rows, 3.5 MiB processed)[0m in 2.94s]
+[0m01:13:04.524221 [debug] [Thread-3 (]: Finished running node model.forensic_transform.fct_disclosure_density
+[0m01:13:05.512190 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '3ec323b7-af03-4779-ba78-df4a1b20842f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b18ec42bec0>]}
+[0m01:13:05.513740 [info ] [Thread-1 (]: 5 of 8 OK created sql table model forensic_data.int_forensic_metrics ........... [[32mCREATE TABLE (123.0 rows, 3.5 MiB processed)[0m in 3.93s]
+[0m01:13:05.515072 [debug] [Thread-1 (]: Finished running node model.forensic_transform.int_forensic_metrics
+[0m01:13:05.516766 [debug] [Thread-2 (]: Began running node model.forensic_transform.fct_anomaly_detection
+[0m01:13:05.517847 [info ] [Thread-2 (]: 6 of 8 START sql table model forensic_data.fct_anomaly_detection ............... [RUN]
+[0m01:13:05.519090 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly model.forensic_transform.fct_red_flag_report, now model.forensic_transform.fct_anomaly_detection)
+[0m01:13:05.520707 [debug] [Thread-2 (]: Began compiling node model.forensic_transform.fct_anomaly_detection
+[0m01:13:05.525602 [debug] [Thread-2 (]: Writing injected SQL for node "model.forensic_transform.fct_anomaly_detection"
+[0m01:13:05.532583 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '3ec323b7-af03-4779-ba78-df4a1b20842f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b18ec41a990>]}
+[0m01:13:05.533610 [debug] [Thread-2 (]: Began executing node model.forensic_transform.fct_anomaly_detection
+[0m01:13:05.534930 [info ] [Thread-4 (]: 3 of 8 OK created sql table model forensic_data.fct_narrative_drift ............ [[32mCREATE TABLE (123.0 rows, 3.6 KiB processed)[0m in 3.95s]
+[0m01:13:05.538997 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m01:13:05.540470 [debug] [Thread-4 (]: Finished running node model.forensic_transform.fct_narrative_drift
+[0m01:13:05.618658 [debug] [Thread-1 (]: Began running node model.forensic_transform.rpt_boilerplate_offenders
+[0m01:13:05.620213 [info ] [Thread-1 (]: 7 of 8 START sql view model forensic_data.rpt_boilerplate_offenders ............ [RUN]
+[0m01:13:05.621706 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.forensic_transform.int_forensic_metrics, now model.forensic_transform.rpt_boilerplate_offenders)
+[0m01:13:05.622546 [debug] [Thread-1 (]: Began compiling node model.forensic_transform.rpt_boilerplate_offenders
+[0m01:13:05.627543 [debug] [Thread-1 (]: Writing injected SQL for node "model.forensic_transform.rpt_boilerplate_offenders"
+[0m01:13:05.629402 [debug] [Thread-1 (]: Began executing node model.forensic_transform.rpt_boilerplate_offenders
+[0m01:13:05.634047 [debug] [Thread-1 (]: Writing runtime sql for node "model.forensic_transform.rpt_boilerplate_offenders"
+[0m01:13:05.635278 [debug] [Thread-1 (]: On model.forensic_transform.rpt_boilerplate_offenders: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.rpt_boilerplate_offenders"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`rpt_boilerplate_offenders`
+  OPTIONS()
+  as 
+
+SELECT 
+    ticker, 
+    COUNT(fiscal_year) as consecutive_boilerplate_years,
+    ROUND(AVG(similarity_index), 4) as avg_similarity
+FROM `forensic-accounting-bot`.`forensic_data`.`fct_narrative_drift`
+WHERE similarity_index > 0.95
+GROUP BY ticker
+HAVING COUNT(fiscal_year) > 3
+ORDER BY consecutive_boilerplate_years DESC;
+
+
+[0m01:13:05.636425 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m01:13:06.183227 [debug] [Thread-2 (]: Writing runtime sql for node "model.forensic_transform.fct_anomaly_detection"
+[0m01:13:06.185105 [debug] [Thread-2 (]: On model.forensic_transform.fct_anomaly_detection: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.fct_anomaly_detection"} */
+
+  
+    
+
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_anomaly_detection`
+      
+    
+    
+
+    OPTIONS()
+    as (
+      -- models/marts/fct_anomaly_detection.sql
+WITH metrics AS (
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`int_forensic_metrics`
+),
+stats AS (
+    -- Calculate Industry Averages for Benchmarking
+    SELECT 
+        AVG(sentiment_score) OVER() as avg_industry_sentiment,
+        STDDEV(sentiment_score) OVER() as stddev_sentiment
+    FROM metrics
+)
+SELECT 
+    m.*,
+    -- Z-Score: (Value - Mean) / StdDev
+    -- A Z-score > 2 or < -2 is a statistical anomaly (Red Flag)
+    (m.sentiment_score - s.avg_industry_sentiment) / NULLIF(s.stddev_sentiment, 0) as sentiment_z_score
+FROM metrics m, stats s
+    );
+  
+[0m01:13:06.647588 [debug] [Thread-2 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:28cdf242-8489-4c80-abf4-e50189fac103&page=queryresults
+[0m01:13:06.653469 [debug] [Thread-1 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:5482922e-f3c1-42cb-b5ac-fe06fc865469&page=queryresults
+[0m01:13:07.050501 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '3ec323b7-af03-4779-ba78-df4a1b20842f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b18ec512900>]}
+[0m01:13:07.051824 [info ] [Thread-1 (]: 7 of 8 OK created sql view model forensic_data.rpt_boilerplate_offenders ....... [[32mCREATE VIEW (0 processed)[0m in 1.43s]
+[0m01:13:07.053406 [debug] [Thread-1 (]: Finished running node model.forensic_transform.rpt_boilerplate_offenders
+[0m01:13:10.437048 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '3ec323b7-af03-4779-ba78-df4a1b20842f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b18ec3bf320>]}
+[0m01:13:10.438326 [info ] [Thread-2 (]: 6 of 8 OK created sql table model forensic_data.fct_anomaly_detection .......... [[32mCREATE TABLE (15.1k rows, 3.5 MiB processed)[0m in 4.92s]
+[0m01:13:10.439758 [debug] [Thread-2 (]: Finished running node model.forensic_transform.fct_anomaly_detection
+[0m01:13:10.442252 [debug] [Thread-4 (]: Began running node model.forensic_transform.rpt_sentiment_reversal
+[0m01:13:10.443345 [info ] [Thread-4 (]: 8 of 8 START sql view model forensic_data.rpt_sentiment_reversal ............... [RUN]
+[0m01:13:10.444620 [debug] [Thread-4 (]: Re-using an available connection from the pool (formerly model.forensic_transform.fct_narrative_drift, now model.forensic_transform.rpt_sentiment_reversal)
+[0m01:13:10.445416 [debug] [Thread-4 (]: Began compiling node model.forensic_transform.rpt_sentiment_reversal
+[0m01:13:10.450752 [debug] [Thread-4 (]: Writing injected SQL for node "model.forensic_transform.rpt_sentiment_reversal"
+[0m01:13:10.451983 [debug] [Thread-4 (]: Began executing node model.forensic_transform.rpt_sentiment_reversal
+[0m01:13:10.456274 [debug] [Thread-4 (]: Writing runtime sql for node "model.forensic_transform.rpt_sentiment_reversal"
+[0m01:13:10.457688 [debug] [Thread-4 (]: On model.forensic_transform.rpt_sentiment_reversal: /* {"app": "dbt", "dbt_version": "1.8.8", "profile_name": "forensic_profile", "target_name": "dev", "node_id": "model.forensic_transform.rpt_sentiment_reversal"} */
+
+
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`rpt_sentiment_reversal`
+  OPTIONS()
+  as 
+
+WITH YoY_Sentiment AS (
+    SELECT 
+        ticker,
+        fiscal_year,
+        sentiment_score,
+        LAG(sentiment_score) OVER (PARTITION BY ticker ORDER BY fiscal_year) as prev_year_sentiment
+    FROM `forensic-accounting-bot`.`forensic_data`.`fct_anomaly_detection`
+)
+SELECT 
+    ticker,
+    fiscal_year,
+    ROUND(sentiment_score, 4) as current_sentiment,
+    ROUND(prev_year_sentiment, 4) as prev_year_sentiment,
+    ROUND((sentiment_score - prev_year_sentiment), 4) as sentiment_crash
+FROM YoY_Sentiment
+WHERE prev_year_sentiment > 0 AND sentiment_score < 0 
+ORDER BY sentiment_crash ASC
+LIMIT 10;
+
+
+[0m01:13:10.458654 [debug] [Thread-4 (]: Opening a new connection, currently in state closed
+[0m01:13:11.250663 [debug] [Thread-4 (]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=forensic-accounting-bot&j=bq:asia-southeast1:75de55eb-6c03-4de6-bdb5-25810347c5d0&page=queryresults
+[0m01:13:11.672036 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '3ec323b7-af03-4779-ba78-df4a1b20842f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b18ed809310>]}
+[0m01:13:11.673604 [info ] [Thread-4 (]: 8 of 8 OK created sql view model forensic_data.rpt_sentiment_reversal .......... [[32mCREATE VIEW (0 processed)[0m in 1.23s]
+[0m01:13:11.675129 [debug] [Thread-4 (]: Finished running node model.forensic_transform.rpt_sentiment_reversal
+[0m01:13:11.678864 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m01:13:11.753849 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m01:13:11.754679 [debug] [MainThread]: Connection 'model.forensic_transform.rpt_boilerplate_offenders' was properly closed.
+[0m01:13:11.755358 [debug] [MainThread]: Connection 'model.forensic_transform.fct_disclosure_density' was properly closed.
+[0m01:13:11.756014 [debug] [MainThread]: Connection 'model.forensic_transform.rpt_sentiment_reversal' was properly closed.
+[0m01:13:11.756919 [debug] [MainThread]: Connection 'model.forensic_transform.fct_anomaly_detection' was properly closed.
+[0m01:13:11.757975 [info ] [MainThread]: 
+[0m01:13:11.758945 [info ] [MainThread]: Finished running 3 view models, 5 table models in 0 hours 0 minutes and 13.42 seconds (13.42s).
+[0m01:13:11.762114 [debug] [MainThread]: Command end result
+[0m01:13:11.815642 [info ] [MainThread]: 
+[0m01:13:11.816845 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m01:13:11.817715 [info ] [MainThread]: 
+[0m01:13:11.818544 [info ] [MainThread]: Done. PASS=8 WARN=0 ERROR=0 SKIP=0 TOTAL=8
+[0m01:13:11.819706 [debug] [MainThread]: Resource report: {"command_name": "build", "command_success": true, "command_wall_clock_time": 54.210682, "process_user_time": 22.102526, "process_kernel_time": 21.274998, "process_mem_max_rss": "398840", "process_out_blocks": "2280", "process_in_blocks": "0"}
+[0m01:13:11.820709 [debug] [MainThread]: Command `dbt build` succeeded at 01:13:11.820484 after 54.21 seconds
+[0m01:13:11.821543 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b192b213290>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b192b2da990>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7b192b2da480>]}
+[0m01:13:11.822342 [debug] [MainThread]: Flushing usage events
+[0m01:13:12.925434 [debug] [MainThread]: An error was encountered while trying to flush usage events

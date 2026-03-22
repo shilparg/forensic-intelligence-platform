@@ -1,9 +1,18 @@
 import os
+import json
 import pandas as pd
 import smtplib
 from email.message import EmailMessage
 import google.generativeai as genai
 from dotenv import load_dotenv
+
+# Try to import SendGrid (fail gracefully if not installed)
+try:
+    import sendgrid
+    from sendgrid.helpers.mail import Mail, Email, To, Content
+    SENDGRID_AVAILABLE = True
+except ImportError:
+    SENDGRID_AVAILABLE = False
 
 # --- 1. Bulletproof Pathing & Environment ---
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))         
@@ -19,6 +28,29 @@ DATA_PATH = os.path.join(ENGINE_DIR, "ml_engine", "ai_scored_forensic_dataset.cs
 def dispatch_genai_alert():
     print("🧠 Initializing Gen-AI Forensic Alerter...")
     
+    # ==========================================================
+    # --- TRUTH TABLE LEVEL 1: The .env Master Switch ---
+    # ==========================================================
+    env_alert_setting = os.getenv("EMAIL_ALERTS_ENABLED", "false").lower()
+    if env_alert_setting == "false":
+        print("🔕 ADMIN MUTE: Email alerts are strictly disabled in the .env file. Skipping dispatch.")
+        return
+
+    # ==========================================================
+    # --- TRUTH TABLE LEVEL 2: The Streamlit UI Toggle ---
+    # ==========================================================
+    ui_state_path = os.path.join(PROJECT_ROOT, "ui_state.json")
+    if os.path.exists(ui_state_path):
+        try:
+            with open(ui_state_path, "r") as f:
+                ui_data = json.load(f)
+                alerts_enabled = ui_data.get("enable_alerts", False)
+                if not alerts_enabled:
+                    print("🔕 USER MUTE: Email alerts disabled via Streamlit UI. Skipping dispatch.")
+                    return
+        except Exception as e:
+            print(f"⚠️ Warning: Could not read UI state. Error: {e}")
+
     # --- 2. System Authentication ---
     GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
     if not GEMINI_API_KEY:
@@ -103,10 +135,11 @@ def dispatch_genai_alert():
 
     if provider == "sendgrid":
         print("🚀 Dispatching via SendGrid API...")
-        try:
-            from sendgrid import SendGridAPIClient
-            from sendgrid.helpers.mail import Mail
+        if not SENDGRID_AVAILABLE:
+            print("❌ Error: SendGrid package not installed. Run 'pip install sendgrid'")
+            return
             
+        try:
             from_email = os.getenv("SENDGRID_FROM_EMAIL")
             sg_key = os.getenv("SENDGRID_API_KEY")
 
@@ -114,19 +147,15 @@ def dispatch_genai_alert():
                 print("❌ SendGrid credentials missing in .env. Aborting.")
                 return
 
-            message = Mail(
-                from_email=from_email,
-                to_emails=recipients,
-                subject=subject,
-                plain_text_content=full_email_body
-            )
+            sg = sendgrid.SendGridAPIClient(api_key=sg_key)
+            from_obj = sendgrid.helpers.mail.Email(from_email, os.getenv('SMTP_NAME', 'AI Auditor'))
+            to_emails = [sendgrid.helpers.mail.To(email) for email in recipients]
+            content = sendgrid.helpers.mail.Content("text/plain", full_email_body)
+            message = sendgrid.helpers.mail.Mail(from_obj, to_emails, subject, content)
             
-            sg = SendGridAPIClient(sg_key)
-            sg.send(message)
-            print("✅ Alert successfully dispatched via SendGrid to the Audit Team!")
+            response = sg.client.mail.send.post(request_body=message.get())
+            print(f"✅ Alert successfully dispatched via SendGrid to the Audit Team! (Status: {response.status_code})")
             
-        except ImportError:
-            print("❌ SendGrid library not installed. Run 'pip install sendgrid' or change EMAIL_PROVIDER to gmail.")
         except Exception as e:
             print(f"❌ Failed to send via SendGrid: {e}")
 
@@ -142,7 +171,7 @@ def dispatch_genai_alert():
         msg = EmailMessage()
         msg.set_content(full_email_body)
         msg['Subject'] = subject
-        msg['From'] = f"Forensic Bot <{user}>"
+        msg['From'] = f"{os.getenv('SMTP_NAME', 'Forensic Bot')} <{user}>"
         msg['To'] = ", ".join(recipients)
 
         try:

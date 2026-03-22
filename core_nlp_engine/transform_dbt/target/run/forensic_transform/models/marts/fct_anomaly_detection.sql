@@ -7,7 +7,6 @@
     
     
 
-    
     OPTIONS()
     as (
       -- models/marts/fct_anomaly_detection.sql
