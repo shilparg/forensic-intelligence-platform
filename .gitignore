@@ -15,6 +15,7 @@ transform_dbt/target/
 transform_dbt/dbt_packages/
 transform_dbt/logs/
 .meltano/
+eleted_files/
 *.db
 
 # --- Raw Data Outputs (Keep the repo lightweight) ---
@@ -24,3 +25,6 @@ transform_dbt/logs/
 # --- OS System Files ---
 .DS_Store
 Thumbs.db
+
+
+tmpvcww4l9t/
