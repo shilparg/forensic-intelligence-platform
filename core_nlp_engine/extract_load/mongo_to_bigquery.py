@@ -1,5 +1,6 @@
 import os
 import certifi
+import json
 from pymongo import MongoClient
 from google.cloud import bigquery
 from dotenv import load_dotenv
@@ -20,6 +21,7 @@ credentials_path = os.path.join(PROJECT_ROOT, "gcp-service-account.json")
 if not os.path.exists(credentials_path):
     raise FileNotFoundError(f"🚨 CRITICAL ERROR: Could not find GCP key at {credentials_path}")
 
+# Initialize client using your specific service account JSON
 bq_client = bigquery.Client.from_service_account_json(credentials_path)
 
 # --- 3. Safe MongoDB Setup ---
@@ -35,6 +37,7 @@ def get_mongo_client():
         return MongoClient(mongo_uri)
 
 mongo_client = get_mongo_client()
+# RESTORED: Your exact DB and Collection names
 db = mongo_client["forensic_accounting"]
 collection = db["raw_sec_filings"]
 
@@ -43,6 +46,11 @@ def sync_mongo_to_bigquery():
     project_id = bq_client.project
     dataset_id = os.getenv("BQ_DATASET_ID", "forensic_data")
     table_id = f"{project_id}.{dataset_id}.raw_filings"
+
+    # NEW: Ensure the dataset exists before loading (prevents 404 errors)
+    dataset = bigquery.Dataset(f"{project_id}.{dataset_id}")
+    dataset.location = "asia-southeast1"
+    bq_client.create_dataset(dataset, exists_ok=True)
 
     print(f"[{datetime.now()}] 🔄 Syncing MongoDB ➔ BigQuery Table: {table_id}")
     
@@ -54,17 +62,21 @@ def sync_mongo_to_bigquery():
     # Schema Mapping (Bridges Extraction to dbt)
     rows_to_insert = []
     for doc in mongo_docs:
+        # Handling the timestamp conversion safely
+        ext_ts = doc.get("extraction_timestamp")
+        formatted_ts = ext_ts.isoformat() if isinstance(ext_ts, datetime) else None
+
         row = {
             "ticker": str(doc.get("ticker")).upper(),
             "cik": str(doc.get("cik")).zfill(10),
             "fiscal_year": int(doc.get("fiscal_year")) if doc.get("fiscal_year") else None,
-            "filing_date": str(doc.get("filing_date")),
+            "filing_date": str(doc.get("filing_date", "")),
             "sentiment_score": float(doc.get("sentiment_score", 0.0)),
             "subjectivity_score": float(doc.get("subjectivity_score", 0.0)),
             "word_count": int(doc.get("word_count", 0)), # ADDED: Crucial for Density Index!
             "similarity_index": float(doc.get("similarity_index", 1.0)),
             "source_url": str(doc.get("source_url", "")),
-            "extraction_timestamp": doc.get("extraction_timestamp").isoformat() if doc.get("extraction_timestamp") else None,
+            "extraction_timestamp": formatted_ts,
             "parsed_text_sample": str(doc.get("parsed_text_sample", ""))[:40000]
         }
         rows_to_insert.append(row)
@@ -88,10 +100,11 @@ def sync_mongo_to_bigquery():
     )
 
     print(f"⏳ Loading {len(rows_to_insert)} records into BigQuery...")
+    # Using your preferred load_table_from_json method
     job = bq_client.load_table_from_json(rows_to_insert, table_id, job_config=job_config)
     job.result()  # Wait for completion
 
-    print(f"✅ SUCCESS: Data is now live for dbt transformations.")
+    print(f"✅ SUCCESS: {len(rows_to_insert)} records are now live for dbt transformations.")
 
 if __name__ == "__main__":
     sync_mongo_to_bigquery()

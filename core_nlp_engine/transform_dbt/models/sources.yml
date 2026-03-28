@@ -1,7 +1,7 @@
 version: 2
 sources:
   - name: raw_sec_landing
-    database: forensic-accounting-bot 
+    database: "{{ env_var('GCP_PROJECT_ID') }}" 
     schema: forensic_data                 
     tables:
       - name: raw_filings

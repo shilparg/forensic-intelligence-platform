@@ -5,6 +5,7 @@ import json
 import os
 import seaborn as sns
 import matplotlib.pyplot as plt
+import altair as alt
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -211,13 +212,27 @@ elif page == "📈 Interactive Analytics":
         st.markdown("---")
 
         st.markdown("### 2. Financial Health vs. Investor Trust")
+        st.markdown("<div class='explanation-box'>Analyze core financials against market investor sentiment. Use the dropdowns to examine correlations.</div>", unsafe_allow_html=True)
+
         col1, col2 = st.columns(2)
         with col1:
             x_axis = st.selectbox("Select X-Axis (Financial Health):", ["operating_margin", "return_on_equity", "debt_to_equity", "word_count"], index=2)
         with col2:
             y_axis = st.selectbox("Select Y-Axis (Market Reaction/AI):", ["held_institutions", "short_ratio", "sentiment_score", "density_index"], index=1)
             
-        st.scatter_chart(data=display_df, x=x_axis, y=y_axis, color="fraud_risk_status", use_container_width=True)
+        tab1, tab2 = st.tabs(["📊 Interactive Altair Chart (Hover for Tickers)", "🔵 Classic Scatter Chart"])
+        
+        with tab1:
+            altair_chart = alt.Chart(display_df).mark_circle(size=80).encode(
+                x=x_axis,
+                y=y_axis,
+                color=alt.Color("fraud_risk_status:N", scale=alt.Scale(domain=["NORMAL", "CRITICAL ANOMALY"], range=["#3B82F6", "#EF4444"])),
+                tooltip=["ticker", x_axis, y_axis, "fraud_risk_status"]
+            ).interactive()
+            st.altair_chart(altair_chart, use_container_width=True)
+            
+        with tab2:
+            st.scatter_chart(data=display_df, x=x_axis, y=y_axis, color="fraud_risk_status", use_container_width=True)
 
 # ==========================================
 # PAGE 4: CLOUD SQL VISUALIZER
@@ -240,12 +255,12 @@ elif page == "☁️ Cloud SQL Visualizer":
 
             st.bar_chart(chart_data, color="#F59E0B")
             with st.expander("💡 View the backend SQL driving this chart"):
-                st.code("""
+                st.code(f"""
 SELECT ticker, fiscal_year, LENGTH(parsed_text_sample) as word_count,
   -- Calculate word count growth/shrinkage from previous year
   LENGTH(parsed_text_sample) - LAG(LENGTH(parsed_text_sample)) 
     OVER (PARTITION BY ticker ORDER BY fiscal_year) as narrative_drift
-FROM `forensic-accounting-bot.forensic_data.raw_filings`
+FROM `{os.getenv("GCP_PROJECT_ID")}.forensic_data.raw_filings`
                 """, language="sql")
         else:
             st.info("Fiscal Year column not found for time-series drift.")
@@ -261,13 +276,13 @@ FROM `forensic-accounting-bot.forensic_data.raw_filings`
             st.bar_chart(financial_df)
         
             with st.expander("💡 View the backend SQL driving this extraction"):
-                st.code("""
+                st.code(rf"""
 SELECT ticker, fiscal_year,
     -- Extract Total Debt using Regex
-    REGEXP_EXTRACT(LOWER(parsed_text_sample), r'total debt.{0,50}?\$([0-9,.]+)') AS extracted_debt,
+    REGEXP_EXTRACT(LOWER(parsed_text_sample), r'total debt.{{0,50}}?\$([0-9,.]+)') AS extracted_debt,
     -- Extract Liabilities
-    REGEXP_EXTRACT(LOWER(parsed_text_sample), r'total liabilit.{0,50}?\$([0-9,.]+)') AS extracted_liabilities
-FROM `forensic-accounting-bot.raw_sec_landing.raw_sec_filings`
+    REGEXP_EXTRACT(LOWER(parsed_text_sample), r'total liabilit.{{0,50}}?\$([0-9,.]+)') AS extracted_liabilities
+FROM `{os.getenv("GCP_PROJECT_ID")}.raw_sec_landing.raw_sec_filings`
                 """, language="sql")
 
 # ==========================================

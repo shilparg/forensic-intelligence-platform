@@ -22,7 +22,8 @@ client = bigquery.Client()
 def run_ml_pipeline():
     print("🧠 Fetching SEC metrics from BigQuery...")
     # Updated to your specific forensic_data table
-    query = "SELECT * FROM `forensic-accounting-bot.forensic_data.fct_disclosure_density`"
+    project_id = os.getenv("GCP_PROJECT_ID")
+    query = f"SELECT * FROM `{project_id}.forensic_data.fct_disclosure_density`"
     sec_df = client.query(query).to_dataframe()
     sec_df.columns = sec_df.columns.str.lower()
 

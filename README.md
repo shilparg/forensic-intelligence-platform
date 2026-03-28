@@ -218,3 +218,10 @@ To prove the mathematical accuracy of the AI flags, we utilize advanced Seaborn/
 * [ ] `EMAIL_ALERTS_ENABLED` set to `false` for the live presentation.
 
 ***
+
+## ☑️ 14. 🔐 Security & Governance (IAM)
+To maintain the integrity of the forensic ledger, this platform enforces a strict **Principle of Least Privilege (PoLP)** using Google Cloud IAM:
+
+* **The Orchestration Bot (`forensic-pipeline-bot`):** A dedicated Service Account utilized by Dagster and Meltano. It is strictly limited to `BigQuery Data Editor` and `BigQuery Job User` roles, allowing it to write to tables and execute ML compute, but preventing it from modifying the underlying dataset architecture.
+* **The Dashboard Viewer (`forensic-dashboard-viewer`):** The Streamlit frontend operates on a completely separate, read-only Service Account restricted to the `BigQuery Data Viewer` role. This ensures that a compromised frontend UI cannot maliciously alter or delete the underlying forensic evidence.
+* **Credential Management:** All service account JSON keys are injected via local environment variables (`GOOGLE_APPLICATION_CREDENTIALS`) and strictly `.gitignore`'d to prevent credential leakage.
