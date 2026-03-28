@@ -15,10 +15,12 @@ transform_dbt/target/
 transform_dbt/dbt_packages/
 transform_dbt/logs/
 .meltano/
-eleted_files/
+deleted_files/
 *.db
 
 # --- Raw Data Outputs (Keep the repo lightweight) ---
+# But keep CSV files
+!ticker_templates/*.csv
 *.csv
 *.jsonl
 
