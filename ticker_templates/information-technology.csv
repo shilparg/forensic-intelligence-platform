@@ -1,0 +1,21 @@
+ticker,company_name,sector
+AAPL,Apple Inc.,Information Technology
+MSFT,Microsoft Corp.,Information Technology
+NVDA,NVIDIA Corp.,Information Technology
+AVGO,Broadcom Inc.,Information Technology
+ORCL,Oracle Corp.,Information Technology
+ADBE,Adobe Inc.,Information Technology
+CRM,Salesforce Inc.,Information Technology
+AMD,Advanced Micro Devices,Information Technology
+INTC,Intel Corp.,Information Technology
+IBM,International Business Machines,Information Technology
+CSCO,Cisco Systems Inc.,Information Technology
+TXN,Texas Instruments Inc.,Information Technology
+QCOM,Qualcomm Inc.,Information Technology
+NOW,ServiceNow Inc.,Information Technology
+SNOW,Snowflake Inc.,Information Technology
+PANW,Palo Alto Networks Inc.,Information Technology
+ZS,Zscaler Inc.,Information Technology
+DDOG,Datadog Inc.,Information Technology
+MDB,MongoDB Inc.,Information Technology
+SHOP,Shopify Inc.,Information Technology

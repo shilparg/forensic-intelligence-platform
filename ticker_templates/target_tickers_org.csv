@@ -1,0 +1,21 @@
+ticker,company_name,sector
+AAPL,Apple Inc.,Information Technology
+MSFT,Microsoft Corp.,Information Technology
+NVDA,NVIDIA Corp.,Information Technology
+AVGO,Broadcom Inc.,Information Technology
+ORCL,Oracle Corp.,Information Technology
+ADBE,Adobe Inc.,Information Technology
+CRM,Salesforce Inc.,Information Technology
+AMD,Advanced Micro Devices,Information Technology
+GOOGL,Alphabet Inc.,Communication Services
+META,Meta Platforms Inc.,Communication Services
+NFLX,Netflix Inc.,Communication Services
+TSLA,Tesla Inc.,Consumer Discretionary
+AMZN,Amazon.com Inc.,Consumer Discretionary
+MCD,McDonald's Corp.,Consumer Discretionary
+JPM,JPMorgan Chase & Co.,Financials
+GS,Goldman Sachs Group,Financials
+XOM,Exxon Mobil Corp.,Energy
+CAT,Caterpillar Inc.,Industrials
+BA,Boeing Company,Industrials
+PLD,Prologis Inc.,Real Estate
