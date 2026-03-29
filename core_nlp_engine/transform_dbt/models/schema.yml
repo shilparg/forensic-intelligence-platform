@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: stg_sec_filings
+    description: "Medallion Silver Layer: Cleaned and structured SEC Engine A data"
+    columns:
+      - name: ticker
+        description: "Primary key entity identifier"
+        tests:
+          - not_null
+      - name: fiscal_year
+        description: "The year the 10-K was filed"
+        tests:
+          - not_null
+      - name: sentiment_score
+        description: "FinBERT AI textual sentiment (-1.0 to 1.0)"
+        tests:
+          - not_null
+  
+  - name: stg_financials
+    description: "Medallion Silver Layer: Cleaned Yahoo Market metrics Engine B"
+    columns:
+      - name: ticker
+        description: "Primary key entity identifier"
+        tests:
+          - unique
+          - not_null
+      - name: short_ratio
+        description: "Ratio of outstanding shares shorted. Highly predictive of fraud."
+        tests:
+          - not_null
+
+  - name: int_forensic_metrics
+    description: "The massive unified JOIN table of all risk flags."
+    columns:
+      - name: ticker
+        tests:
+          - not_null
+      - name: fiscal_year
+        tests:
+          - not_null
+      - name: sentiment_volatility
+        description: "Trailing 3-Year textual panic output"
+        tests:
+          - not_null
+
+  - name: fct_disclosure_density
+    description: "Gold Model: Final export table sent to the Machine Learning Isolation Forest."
+    columns:
+      - name: forensic_label
+        description: "Text-based obfuscation logic output"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['NORMAL', 'HIGH NEGATIVE RISK', 'POTENTIAL OBFUSCATION']

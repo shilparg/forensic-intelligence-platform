@@ -85,8 +85,14 @@ def run_meltano_structured_sync(context: AssetExecutionContext):
                    cwd=MELTANO_DIR, check=True, env=os.environ)
     
     loader_script = os.path.join(MELTANO_DIR, "pandas_to_bq.py")
-    context.log.info(f"📤 ENGINE B: Loading flattened data to BigQuery via {loader_script}")
+    context.log.info(f"📤 ENGINE B: Loading flattened Mongo data to BigQuery via {loader_script}")
     subprocess.run([PYTHON_EXE, loader_script], check=True, env=os.environ)
+    
+    # Phase 1: New Yahoo Finance Script execution
+    yahoo_script = os.path.join(MELTANO_DIR, "yahoo_to_bq.py")
+    context.log.info(f"📤 ENGINE B: Ingesting live Yahoo Finance metrics via {yahoo_script}")
+    subprocess.run([PYTHON_EXE, yahoo_script], check=True, env=os.environ)
+    
     return "Structured Sync Complete"
 
 @asset

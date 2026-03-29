@@ -1,13 +1,13 @@
 
 
-  create or replace view `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+  create or replace view `forensic-accounting-bot-491604`.`forensic_data`.`stg_sec_filings`
   OPTIONS()
   as -- models/staging/stg_sec_filings.sql
 
 
 WITH raw_data AS (
     -- This references the source we will define in your schema.yml
-    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`raw_filings`
+    SELECT * FROM `forensic-accounting-bot-491604`.`raw_sec_landing`.`raw_sec_filings`
 )
 
 SELECT
@@ -26,5 +26,7 @@ SELECT
     CURRENT_TIMESTAMP() AS processed_at
 FROM raw_data
 -- Safety check: ensure we don't process empty rows
-WHERE ticker IS NOT NULL;
+WHERE ticker IS NOT NULL
+-- Deduplicate multiple runs of the same API data
+QUALIFY ROW_NUMBER() OVER(PARTITION BY ticker, fiscal_year ORDER BY ticker) = 1;
 

@@ -1,0 +1,21 @@
+
+    
+    
+
+with dbt_test__target as (
+
+  select ticker as unique_field
+  from `forensic-accounting-bot-491604`.`forensic_data`.`stg_financials`
+  where ticker is not null
+
+)
+
+select
+    unique_field,
+    count(*) as n_records
+
+from dbt_test__target
+group by unique_field
+having count(*) > 1
+
+

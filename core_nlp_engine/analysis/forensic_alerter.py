@@ -58,7 +58,7 @@ def dispatch_genai_alert():
         return
 
     genai.configure(api_key=GEMINI_API_KEY)
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    model = genai.GenerativeModel('gemini-2.5-flash')
 
     # --- 3. Load the Forensic Data ---
     if not os.path.exists(DATA_PATH):
@@ -74,7 +74,25 @@ def dispatch_genai_alert():
         print("✅ No critical anomalies detected today. No alerts to send.")
         return
 
-    print(f"⚠️ Found {len(critical_targets)} Critical Anomalies. Drafting Executive Memos...")
+    print(f"⚠️ Found {len(critical_targets)} Critical Anomalies. Fetching SEC Context from BigQuery for RAG (Retrieval-Augmented Generation)...")
+
+    # --- 3.5 RAG BigQuery Context Fetch ---
+    from google.cloud import bigquery
+    bq_client = bigquery.Client()
+    project_id = os.getenv("GCP_PROJECT_ID")
+    
+    tickers_tuple = tuple(critical_targets['ticker'].tolist())
+    if len(tickers_tuple) == 1:
+        where_clause = f"ticker = '{tickers_tuple[0]}'"
+    else:
+        where_clause = f"ticker IN {tickers_tuple}"
+        
+    query = f"SELECT ticker, parsed_text_sample as filing_text FROM `{project_id}.raw_sec_landing.raw_sec_filings` WHERE {where_clause}"
+    try:
+        text_df = bq_client.query(query).to_dataframe()
+    except Exception as e:
+        print(f"⚠️ Failed to fetch RAG text from BigQuery: {e}")
+        text_df = pd.DataFrame()
 
     # --- 4. Generate AI Memos for ALL Anomalies ---
     full_email_body = f"🚨 AUTOMATED FORENSIC PLATFORM ALERT 🚨\n\n"
@@ -86,22 +104,43 @@ def dispatch_genai_alert():
         sentiment = target.get('sentiment_score', 0.0)
         short_ratio = target.get('short_ratio', 0.0)
         debt_to_equity = target.get('debt_to_equity', 0.0)
+        shap_evidence = target.get('evidence_factors', 'Unknown Primary Drivers')
+        
+        # New Predictive AI Metrics
+        forecast_probability = target.get('fraud_probability_score', 'N/A')
+        forecast_short_spike = target.get('expected_short_spike_pct', 0.0)
+        
+        # Get SEC snippet for RAG context
+        sec_context = "Context unavailable."
+        if not text_df.empty:
+            match = text_df[(text_df['ticker'] == ticker)]
+            if not match.empty:
+                full_text = match.iloc[0]['filing_text']
+                # Gemini handles large contexts; passing 6000 characters is perfectly safe!
+                sec_context = full_text[:6000]
 
         prompt = f"""
-        You are a Senior Forensic Audit Partner at a Big Four accounting firm. 
+        You are a Predictive Forensic AI Agent assisting a Big Four audit firm. 
         You are receiving an automated alert regarding a critical anomaly detected in a client's recent SEC 10-K filing.
 
-        Review the following risk triangulation metrics for {ticker}:
-        - Management Discussion & Analysis (MD&A) Sentiment Score: {sentiment} (Scale: -1.0 to 1.0, below 0.1 is highly defensive)
-        - Open Market Short Ratio: {short_ratio} (Values above 4.0 indicate severe market pessimism)
-        - Debt-to-Equity Ratio: {debt_to_equity}% (Values above 150% indicate high leverage risk)
+        Review the AI metrics, the SHAP Feature Attributions, and the new Forward-Looking ML Forecasts for {ticker}:
+        - **SHAP Mathematical Top Drivers:** {shap_evidence}
+        - Management Discussion & Analysis (MD&A) Sentiment Score: {sentiment}
+        - Current Open Market Short Ratio: {short_ratio}
+        - **Isolation Forest 12-Month Fraud Probability Prediction:** {forecast_probability}%
+        - **XGBoost Expected Pre-emptive Short Seller Spike:** {forecast_short_spike}%
 
-        Task: Write a highly concise, 3-bullet-point executive summary to the Audit Engagement Team. 
+        --- RAW SEC 10-K CONTEXT (Retrieval-Augmented Generation) ---
+        {sec_context}
+        --------------------------------------------------------------
+
+        Task: Write a highly concise, 3-bullet-point Predictive Executive Forecast. 
 
         Strict Guidelines:
-        1. Tone: Clinical, objective, and highly professional. Use standard audit terminology (e.g., "going concern risk", "narrative obfuscation").
+        1. Tone: Clinical, objective, and highly predictive. Use standard audit terminology (e.g., "going concern projection", "liquidity crisis timeline", "narrative obfuscation leading to short attacks").
         2. Format: Output ONLY the three bullet points. Do not include greetings.
-        3. Analysis: Briefly synthesize *why* the combination of these specific metrics suggests management might be hiding financial distress in the narrative.
+        3. RAG Mandatory Quoting: In exactly one bullet, you MUST explicitly extract and quote 1-2 sentences natively from the provided "RAW SEC 10-K CONTEXT" section to prove the defensive tone causing the initial anomaly. Use quotation marks.
+        4. Predictive Mandate: In your final bullet point, explicitly reference the "12-Month Fraud Probability Prediction" and the "Expected Pre-emptive Short Seller Spike" to formally project what the AI calculates will happen to the company's stability!
         """
 
         try:

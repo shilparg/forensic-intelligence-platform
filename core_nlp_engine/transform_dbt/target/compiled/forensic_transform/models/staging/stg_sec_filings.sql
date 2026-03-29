@@ -3,7 +3,7 @@
 
 WITH raw_data AS (
     -- This references the source we will define in your schema.yml
-    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`raw_filings`
+    SELECT * FROM `forensic-accounting-bot-491604`.`raw_sec_landing`.`raw_sec_filings`
 )
 
 SELECT
@@ -23,3 +23,5 @@ SELECT
 FROM raw_data
 -- Safety check: ensure we don't process empty rows
 WHERE ticker IS NOT NULL
+-- Deduplicate multiple runs of the same API data
+QUALIFY ROW_NUMBER() OVER(PARTITION BY ticker, fiscal_year ORDER BY ticker) = 1

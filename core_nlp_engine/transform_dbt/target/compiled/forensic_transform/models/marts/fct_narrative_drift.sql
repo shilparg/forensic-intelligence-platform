@@ -1,7 +1,7 @@
 -- models/marts/fct_narrative_drift.sql
 
 WITH staged_data AS (
-    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
+    SELECT * FROM `forensic-accounting-bot-491604`.`forensic_data`.`stg_sec_filings`
 ),
 
 drift_calculation AS (

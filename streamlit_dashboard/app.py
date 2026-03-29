@@ -92,6 +92,20 @@ with st.sidebar:
     ])
     st.markdown("---")
     st.markdown("**Authors:**<br>Shilpa Kangya<br>Kamlesh Kangya", unsafe_allow_html=True)
+    
+    if not display_df.empty:
+        st.markdown("---")
+        st.markdown("### 🔍 Global Filters")
+        selected_sector = st.multiselect("Filter by Sector", options=display_df['sector'].unique(), default=display_df['sector'].unique())
+        if 'fiscal_year' in display_df.columns:
+            selected_year = st.multiselect("Filter by Year", options=display_df['fiscal_year'].sort_values().unique(), default=display_df['fiscal_year'].unique())
+        else:
+            selected_year = []
+            
+        display_df = display_df[
+            (display_df['sector'].isin(selected_sector)) & 
+            (display_df['fiscal_year'].isin(selected_year) if 'fiscal_year' in display_df.columns else True)
+        ]
 
 # ==========================================
 # PAGE 1: EXECUTIVE SUMMARY
@@ -139,7 +153,7 @@ elif page == "🕵️ Forensic Deep-Dive":
     st.title("Forensic Analyst Deep-Dive")
 
     if not display_df.empty:
-        tab1, tab2, tab3 = st.tabs(["Data Matrix", "Density & Obfuscation", "Market Correlation"])
+        tab1, tab2, tab3, tab4, tab5 = st.tabs(["Data Matrix", "🔢 Benford's Law Analysis", "🏛️ Executive Insider Risk", "Density & Obfuscation", "Market Correlation"])
         
         with tab1:
             st.markdown("#### Master Audit Ledger")
@@ -156,13 +170,43 @@ elif page == "🕵️ Forensic Deep-Dive":
             st.download_button("📥 Export Evidence (CSV)", data=csv, file_name="forensic_evidence.csv", mime="text/csv")
 
         with tab2:
+            st.markdown("#### 🔢 Benford's Law Algorithmic Verification")
+            st.markdown("<div class='explanation-box'>This AI feature mathematically proves fabricated numbers. A high <b>Benford's Deviation</b> means the numbers actively typed within the SEC filing do not match the expected biological logarithmic curve of natural financial reporting!</div>", unsafe_allow_html=True)
+            
+            if 'benfords_deviation' in display_df.columns:
+                benford_chart = alt.Chart(display_df).mark_circle(size=180).encode(
+                    x=alt.X('benfords_deviation:Q', title="Benford's Deviation Score (Higher = Fraud Risk)"),
+                    y=alt.X('sentiment_score:Q', title="CEO Sentiment Tone"),
+                    color=alt.Color('fraud_risk_status:N', scale=alt.Scale(domain=['NORMAL', 'CRITICAL ANOMALY'], range=['#3B82F6', '#EF4444'])),
+                    tooltip=['ticker', 'fiscal_year', 'sector', 'benfords_deviation', 'sentiment_score', 'fraud_risk_status']
+                ).interactive()
+                st.altair_chart(benford_chart, use_container_width=True)
+            else:
+                st.warning("Benford's Law metrics are pending dbt BigQuery pipeline execution.")
+
+        with tab3:
+            st.markdown("#### 🏛️ Executive Insider Trading Risk vs Panic")
+            st.markdown("<div class='explanation-box'>Cross-examines the CEO's 'Trailing 3-Year Sentiment Volatility' (textual panic) against how much stock executives are actively abandoning.</div>", unsafe_allow_html=True)
+            
+            if 'insider_ownership' in display_df.columns:
+                insider_chart = alt.Chart(display_df).mark_circle(size=180).encode(
+                    x=alt.X('insider_ownership:Q', title="Executive Insider Total Ownership %"),
+                    y=alt.X('sentiment_volatility:Q', title="3-Year Trailing Sentiment Volatility"),
+                    color=alt.Color('fraud_risk_status:N', scale=alt.Scale(domain=['NORMAL', 'CRITICAL ANOMALY'], range=['#3B82F6', '#EF4444'])),
+                    tooltip=['ticker', 'fiscal_year', 'sector', 'insider_ownership', 'sentiment_volatility', 'fraud_risk_status']
+                ).interactive()
+                st.altair_chart(insider_chart, use_container_width=True)
+            else:
+                st.warning("Insider Trading metrics are pending Medallion pipeline execution.")
+
+        with tab4:
             st.markdown("#### The 'Smoking Gun' Density Matrix")
             path = os.path.join(PLOTS_DIR, "forensic_density_matrix.png")
             if os.path.exists(path): st.image(path, use_container_width=True)
             with st.expander("💡 How to read this Density Matrix"):
                 st.write("This graph plots **Word Count (X-axis)** against **Sentiment (Y-axis)**. Fraudsters often use long, confusing sentences to hide bad news. If you see a red dot in the bottom right corner (Lots of words + Very negative/defensive sentiment), that is a 'Smoking Gun' for obfuscation.")
 
-        with tab3:
+        with tab5:
             st.markdown("#### Market Pressure vs. Narrative Tone")
             c1, c2 = st.columns(2)
             with c1:
@@ -191,7 +235,7 @@ elif page == "📈 Interactive Analytics":
         with sb_col2:
             x_ax = st.selectbox("X-Axis (Categorical):", ["fraud_risk_status", "sector", "ticker"])
         with sb_col3:
-            y_ax = st.selectbox("Y-Axis (Numeric Measure):", ["sentiment_score", "short_ratio", "debt_to_equity", "density_index"])
+            y_ax = st.selectbox("Y-Axis (Numeric Measure):", ["sentiment_score", "short_ratio", "debt_to_equity", "density_index", "benfords_deviation", "current_ratio", "insider_ownership"])
 
         fig, ax = plt.subplots(figsize=(10, 5))
         sns.set_theme(style="whitegrid")
@@ -216,9 +260,9 @@ elif page == "📈 Interactive Analytics":
 
         col1, col2 = st.columns(2)
         with col1:
-            x_axis = st.selectbox("Select X-Axis (Financial Health):", ["operating_margin", "return_on_equity", "debt_to_equity", "word_count"], index=2)
+            x_axis = st.selectbox("Select X-Axis (Financial Health):", ["operating_margin", "return_on_equity", "debt_to_equity", "word_count", "current_ratio", "free_cashflow"], index=2)
         with col2:
-            y_axis = st.selectbox("Select Y-Axis (Market Reaction/AI):", ["held_institutions", "short_ratio", "sentiment_score", "density_index"], index=1)
+            y_axis = st.selectbox("Select Y-Axis (Market Reaction/AI):", ["held_institutions", "short_ratio", "sentiment_score", "density_index", "benfords_deviation"], index=1)
             
         tab1, tab2 = st.tabs(["📊 Interactive Altair Chart (Hover for Tickers)", "🔵 Classic Scatter Chart"])
         
@@ -242,6 +286,18 @@ elif page == "☁️ Cloud SQL Visualizer":
     st.markdown("Instead of just showing raw SQL code, this page executes the logic of our BigQuery models (like `Accounting_Narrative_Drift.sql`) and visualizes the results dynamically.")
 
     if not display_df.empty:
+        st.markdown("### 0. The Benfords Law BigQuery Algorithm")
+        st.markdown("<div class='explanation-box'>This showcases how our <code>dbt</code> BigQuery module natively processes Regex unnesting to detect algorithmic anomalies in pure SQL.</div>", unsafe_allow_html=True)
+        st.code("""
+SELECT
+    ticker, fiscal_year,
+    -- Sum of geometric absolute deviations against the expected logarithmic curve
+    SUM(ABS(actual_distribution - LOG10(1 + 1/CAST(leading_digit AS FLOAT64)))) as benfords_deviation
+FROM benfords_distribution
+WHERE total_digits > 100 
+GROUP BY ticker, fiscal_year
+        """, language="sql")
+        
         st.markdown("### 1. The Narrative Drift Tracker")
         st.markdown("<div class='explanation-box'>This chart simulates our BigQuery <code>LAG()</code> window function. It tracks how a company's disclosure length changes year-over-year. Massive spikes indicate potential 'Obfuscation' (hiding bad news with long text).</div>", unsafe_allow_html=True)
 
