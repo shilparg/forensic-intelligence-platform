@@ -8,7 +8,7 @@ with all_values as (
         forensic_label as value_field,
         count(*) as n_records
 
-    from `forensic-accounting-bot-491604`.`forensic_data`.`fct_disclosure_density`
+    from `forensic-accounting-bot`.`forensic_data`.`fct_disclosure_density`
     group by forensic_label
 
 )

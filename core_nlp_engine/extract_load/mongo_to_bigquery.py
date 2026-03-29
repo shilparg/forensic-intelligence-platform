@@ -14,15 +14,23 @@ PROJECT_ROOT = os.path.abspath(os.path.join(ENGINE_DIR, ".."))   # /forensic-int
 env_path = os.path.join(PROJECT_ROOT, ".env")
 load_dotenv(env_path, override=True)
 
-# Point directly to the root GCP key
-credentials_path = os.path.join(PROJECT_ROOT, "gcp-service-account.json")
+# --- 2. Smart GCP Authentication Gateway ---
+# Automatically adapt between Local Dev (JSON keys) and Cloud environments (ADC)
+env_cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+if env_cred_path:
+    if not os.path.isabs(env_cred_path):
+        env_cred_path = os.path.join(PROJECT_ROOT, env_cred_path)
 
-# --- 2. BigQuery Setup ---
-if not os.path.exists(credentials_path):
-    raise FileNotFoundError(f"🚨 CRITICAL ERROR: Could not find GCP key at {credentials_path}")
+    if os.path.exists(env_cred_path):
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = env_cred_path
+        print(f"🔐 Authenticated via local Service Account JSON file.")
+    else:
+        print(f"⚠️ Local key file not found. Falling back to Application Default Credentials (ADC).")
+        os.environ.pop("GOOGLE_APPLICATION_CREDENTIALS", None)
+project_id = os.getenv("GCP_PROJECT_ID", "forensic-accounting-bot")
 
-# Initialize client using your specific service account JSON
-bq_client = bigquery.Client.from_service_account_json(credentials_path)
+# Initialize client using standard Google App Default Credentials (bypasses missing local key issues)
+bq_client = bigquery.Client(project=project_id)
 
 # --- 3. Safe MongoDB Setup ---
 def get_mongo_client():

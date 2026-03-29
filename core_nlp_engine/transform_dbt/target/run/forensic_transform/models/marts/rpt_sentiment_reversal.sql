@@ -1,6 +1,6 @@
 
 
-  create or replace view `forensic-accounting-bot-491604`.`forensic_data`.`rpt_sentiment_reversal`
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`rpt_sentiment_reversal`
   OPTIONS()
   as 
 
@@ -10,7 +10,7 @@ WITH YoY_Sentiment AS (
         fiscal_year,
         sentiment_score,
         LAG(sentiment_score) OVER (PARTITION BY ticker ORDER BY fiscal_year) as prev_year_sentiment
-    FROM `forensic-accounting-bot-491604`.`forensic_data`.`fct_anomaly_detection`
+    FROM `forensic-accounting-bot`.`forensic_data`.`fct_anomaly_detection`
 )
 SELECT 
     ticker,

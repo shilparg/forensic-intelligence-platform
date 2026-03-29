@@ -37,33 +37,50 @@ def extract_and_load_financials():
     market_data = []
     
     for ticker in tickers:
-        try:
-            print(f"   -> Extracting {ticker}...")
-            stock = yf.Ticker(ticker)
-            info = stock.info
-            
-            # Extract standard core metrics & advanced forensic metrics
-            market_data.append({
-                'ticker': ticker,
-                'short_ratio': info.get('shortRatio', 0),
-                'debt_to_equity': info.get('debtToEquity', 0),
-                'return_on_equity': info.get('returnOnEquity', 0),
-                'operating_margin': info.get('operatingMargins', 0),
-                'held_institutions': info.get('heldPercentInstitutions', 0),
-                # --- NEW Forensic Accounting Metrics ---
-                'insider_ownership': info.get('heldPercentInsiders', 0),  # Mass Executive Dumping Warning
-                'current_ratio': info.get('currentRatio', 0),     # Liquidity Risk
-                'quick_ratio': info.get('quickRatio', 0),         # Strict Liquidity Risk
-                'revenue_growth': info.get('revenueGrowth', 0),   # Pressure to fake sales
-                'earnings_growth': info.get('earningsGrowth', 0), # Pressure to fake EPS
-                'profit_margins': info.get('profitMargins', 0),   # Bottom line truth
-                'free_cashflow': info.get('freeCashflow', 0)      # Cash vs Accounting Profits
-            })
-            
-            # The throttle sits here natively, away from the ML model
-            time.sleep(1) 
-        except Exception as e:
-            print(f"   ❌ Yahoo API Failed for {ticker}: {e}")
+        success = False
+        retries = 3
+        backoff = 2
+        
+        for attempt in range(retries):
+            try:
+                print(f"   -> Extracting {ticker} (Attempt {attempt + 1})...")
+                stock = yf.Ticker(ticker)
+                info = stock.info
+                
+                # Reject truly empty response objects only
+                if not info or len(info) < 5:
+                   raise ValueError(f"Empty or near-empty info dict returned for {ticker}")
+
+                # Extract standard core metrics & advanced forensic metrics
+                market_data.append({
+                    'ticker': ticker,
+                    'short_ratio': info.get('shortRatio', 0),
+                    'debt_to_equity': info.get('debtToEquity', 0),
+                    'return_on_equity': info.get('returnOnEquity', 0),
+                    'operating_margin': info.get('operatingMargins', 0),
+                    'held_institutions': info.get('heldPercentInstitutions', 0),
+                    # --- NEW Forensic Accounting Metrics ---
+                    'insider_ownership': info.get('heldPercentInsiders', 0),  # Mass Executive Dumping Warning
+                    'current_ratio': info.get('currentRatio', 0),     # Liquidity Risk
+                    'quick_ratio': info.get('quickRatio', 0),         # Strict Liquidity Risk
+                    'revenue_growth': info.get('revenueGrowth', 0),   # Pressure to fake sales
+                    'earnings_growth': info.get('earningsGrowth', 0), # Pressure to fake EPS
+                    'profit_margins': info.get('profitMargins', 0),   # Bottom line truth
+                    'free_cashflow': info.get('freeCashflow', 0)      # Cash vs Accounting Profits
+                })
+                success = True
+                print(f"      ✅ Successfully fetched data for {ticker}")
+                break
+            except Exception as e:
+                print(f"      ⚠️ Attempt {attempt+1} failed for {ticker}: {e}")
+                if attempt < retries - 1:
+                    sleep_time = backoff ** (attempt + 1)
+                    print(f"      ⏳ Retrying in {sleep_time}s...")
+                    time.sleep(sleep_time)
+                else:
+                    print(f"      ❌ All attempts failed for {ticker}. Using fallback zeros.")
+        
+        if not success:
             # Insert standard fallback numericals directly to BigQuery
             market_data.append({
                 'ticker': ticker, 'short_ratio': 0, 'debt_to_equity': 0, 
@@ -71,6 +88,9 @@ def extract_and_load_financials():
                 'insider_ownership': 0, 'current_ratio': 0, 'quick_ratio': 0, 'revenue_growth': 0,
                 'earnings_growth': 0, 'profit_margins': 0, 'free_cashflow': 0
             })
+        
+        # Consistent rate limiting even on success
+        time.sleep(1.5)
 
     # Convert to pure tabular format for Silver
     df = pd.DataFrame(market_data)

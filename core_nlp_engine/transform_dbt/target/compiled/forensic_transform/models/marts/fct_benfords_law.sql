@@ -5,7 +5,7 @@ WITH extracted_digits AS (
         ticker,
         fiscal_year,
         CAST(digit AS INT64) as leading_digit
-    FROM `forensic-accounting-bot-491604`.`forensic_data`.`stg_sec_filings`,
+    FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`,
     -- The core mathematical extraction engine: Grabs the leading digit of ANY number mentioned in the 10-K
     UNNEST(REGEXP_EXTRACT_ALL(filing_text, r'\b([1-9])\d*')) AS digit
 ),

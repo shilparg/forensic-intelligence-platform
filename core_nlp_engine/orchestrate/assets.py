@@ -137,6 +137,10 @@ def ai_analysis_and_output(context: AssetExecutionContext):
     context.log.info("🧠 Phase 5a: Running Machine Learning (Isolation Forest)...")
     subprocess.run([PYTHON_EXE, os.path.join(ENGINE_DIR, "ml_engine/fraud_model.py")], 
                    check=True, env=os.environ)
+                   
+    context.log.info("📈 Phase 5a-B: Running Predictive ML Forecasts (XGBoost)...")
+    subprocess.run([PYTHON_EXE, os.path.join(ENGINE_DIR, "ml_engine/predictive_market_model.py")], 
+                   check=True, env=os.environ)
     
     context.log.info("📊 Phase 5b: Generating Multi-Ticker Executive Visuals...")
     # These scripts generate the .png files that Streamlit displays

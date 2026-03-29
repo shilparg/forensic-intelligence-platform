@@ -5,7 +5,7 @@
 
 
 select ticker
-from `forensic-accounting-bot-491604`.`forensic_data`.`stg_financials`
+from `forensic-accounting-bot`.`forensic_data`.`stg_financials`
 where ticker is null
 
 

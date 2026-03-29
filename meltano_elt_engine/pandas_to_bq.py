@@ -11,14 +11,20 @@ PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, ".."))
 # Load environment variables
 load_dotenv(os.path.join(PROJECT_ROOT, ".env"), override=True)
 
-# Authenticate with Google Cloud
-# Prioritize the key file we found in PROJECT_ROOT
-key_path = os.path.join(PROJECT_ROOT, "gcp-service-account.json")
-if os.path.exists(key_path):
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
-    print(f"🔐 Authenticated via Service Account: {key_path}")
-elif not os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):
-    raise FileNotFoundError(f"🚨 Could not find GCP key at {key_path} and no environment variable set.")
+# --- 2. Smart GCP Authentication Gateway ---
+# Automatically adapt between Local Dev (JSON keys) and Cloud environments (ADC)
+env_cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+if env_cred_path:
+    # Resolve relative paths against the project root
+    if not os.path.isabs(env_cred_path):
+        env_cred_path = os.path.join(PROJECT_ROOT, env_cred_path)
+
+    if os.path.exists(env_cred_path):
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = env_cred_path
+        print(f"🔐 Authenticated via local Service Account JSON file.")
+    else:
+        print(f"⚠️ Local key file not found. Falling back to Application Default Credentials (ADC).")
+        os.environ.pop("GOOGLE_APPLICATION_CREDENTIALS", None)
 
 # Locate the Meltano output file dynamically
 # Note: Ensure Meltano's target-jsonl is configured to output here

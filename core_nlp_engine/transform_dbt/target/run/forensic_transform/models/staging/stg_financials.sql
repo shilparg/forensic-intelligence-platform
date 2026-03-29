@@ -1,11 +1,11 @@
 
 
-  create or replace view `forensic-accounting-bot-491604`.`forensic_data`.`stg_financials`
+  create or replace view `forensic-accounting-bot`.`forensic_data`.`stg_financials`
   OPTIONS()
   as 
 
 WITH raw_financials AS (
-    SELECT * FROM `forensic-accounting-bot-491604`.`raw_sec_landing`.`raw_financials`
+    SELECT * FROM `forensic-accounting-bot`.`raw_sec_landing`.`raw_financials`
 )
 
 SELECT

@@ -26,12 +26,13 @@ def run_presentation_visuals():
     
     if not numeric_df.empty:
         corr_matrix = numeric_df.corr()
-        plt.figure(figsize=(10, 8))
-        plt.title("Forensic Triangulation: Metric Correlation Matrix", fontsize=14, pad=15)
+        plt.figure(figsize=(18, 14))
+        plt.title("Forensic Triangulation: Metric Correlation Matrix", fontsize=16, pad=15)
         
         sns.heatmap(
             corr_matrix, 
             annot=True, 
+            annot_kws={"size": 8},
             fmt=".2f", 
             cmap="coolwarm", 
             vmin=-1, vmax=1, 

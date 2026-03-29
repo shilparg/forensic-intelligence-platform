@@ -15,7 +15,7 @@ WITH forensic_metrics AS (
             ((1 - sentiment_score) * 50) + 
             (similarity_index * 50), 2
         ) as risk_score
-    FROM `forensic-accounting-bot-491604`.`forensic_data`.`stg_sec_filings` -- This creates the link to your Silver layer
+    FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings` -- This creates the link to your Silver layer
 )
 
 SELECT 

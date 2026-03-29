@@ -1,15 +1,15 @@
 
 
 WITH engine_a_text AS (
-    SELECT * FROM `forensic-accounting-bot-491604`.`forensic_data`.`stg_sec_filings`
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
 ),
 
 engine_b_financials AS (
-    SELECT * FROM `forensic-accounting-bot-491604`.`forensic_data`.`stg_financials`
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_financials`
 ),
 
 benfords_law AS (
-    SELECT * FROM `forensic-accounting-bot-491604`.`forensic_data`.`fct_benfords_law`
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`fct_benfords_law`
 ),
 
 text_calculations AS (

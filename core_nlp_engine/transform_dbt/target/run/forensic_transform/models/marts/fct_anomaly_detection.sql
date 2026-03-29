@@ -2,17 +2,16 @@
   
     
 
-    create or replace table `forensic-accounting-bot-491604`.`forensic_data`.`fct_anomaly_detection`
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_anomaly_detection`
       
     
     
 
-    
     OPTIONS()
     as (
       -- models/marts/fct_anomaly_detection.sql
 WITH metrics AS (
-    SELECT * FROM `forensic-accounting-bot-491604`.`forensic_data`.`int_forensic_metrics`
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`int_forensic_metrics`
 ),
 stats AS (
     -- Calculate Industry Averages for Benchmarking

@@ -58,8 +58,8 @@ def calculate_similarity(new_text, ticker):
     except:
         return 1.0
 
-def get_latest_10k_url(cik):
-    """Navigates the SEC JSON index to find the actual 10-K document URL."""
+def get_historical_10k_urls(cik, limit=3):
+    """Navigates the SEC JSON index to find the historical 10-K document URLs."""
     # SEC CIKs must be 10 digits
     formatted_cik = str(cik).zfill(10)
     url = f"https://data.sec.gov/submissions/CIK{formatted_cik}.json"
@@ -69,9 +69,10 @@ def get_latest_10k_url(cik):
     
     response = requests.get(url, headers=HEADERS)
     if response.status_code != 200: 
-        return None, None, None
+        return []
         
     filings = response.json()['filings']['recent']
+    urls = []
     for idx, form in enumerate(filings['form']):
         if form == '10-K':
             f_date = filings['filingDate'][idx]
@@ -80,8 +81,10 @@ def get_latest_10k_url(cik):
             doc_name = filings['primaryDocument'][idx]
             # Construct the URL for the actual HTML filing
             doc_url = f"https://www.sec.gov/Archives/edgar/data/{cik}/{acc_num}/{doc_name}"
-            return doc_url, f_date, f_year
-    return None, None, None
+            urls.append((doc_url, f_date, f_year))
+            if len(urls) >= limit:
+                break
+    return urls
 
 # --- 4. Main Extraction Logic ---
 def run_extraction(target_dict):
@@ -89,49 +92,50 @@ def run_extraction(target_dict):
     
     for ticker, cik in target_dict.items():
         print(f"   - Processing {ticker} (CIK: {cik})...")
-        doc_url, filing_date, actual_year = get_latest_10k_url(cik)
+        historical_filings = get_historical_10k_urls(cik, limit=3)
         
-        if not doc_url: 
+        if not historical_filings: 
             print(f"     ❌ No 10-K found for {ticker}.")
             continue
 
-        try:
-            # Respect rate limits before fetching the large HTML file
-            time.sleep(0.2)
-            response = requests.get(doc_url, headers=HEADERS)
-            soup = BeautifulSoup(response.content, features="lxml")
-            
-            # Clean text: remove extra whitespace and newlines
-            filing_text = re.sub(r'\s+', ' ', soup.get_text(separator=' ')).strip()
-            
-            # NLP Analysis
-            analysis = TextBlob(filing_text)
-            similarity = calculate_similarity(filing_text, ticker)
+        for doc_url, filing_date, actual_year in historical_filings:
+            try:
+                # Respect rate limits before fetching the large HTML file
+                time.sleep(0.2)
+                response = requests.get(doc_url, headers=HEADERS)
+                soup = BeautifulSoup(response.content, features="lxml")
+                
+                # Clean text: remove extra whitespace and newlines
+                filing_text = re.sub(r'\s+', ' ', soup.get_text(separator=' ')).strip()
+                
+                # NLP Analysis
+                analysis = TextBlob(filing_text)
+                similarity = calculate_similarity(filing_text, ticker)
 
-            # --- PREPARING THE FORENSIC PAYLOAD ---
-            payload = {
-                "ticker": ticker,
-                "cik": str(cik),
-                "fiscal_year": actual_year,
-                "sentiment_score": analysis.sentiment.polarity,
-                "subjectivity_score": analysis.sentiment.subjectivity,
-                "word_count": len(filing_text.split()), 
-                "similarity_index": similarity,
-                "extraction_timestamp": datetime.now(),
-                # We save a large sample (30k chars) for narrative drift comparison next year
-                "parsed_text_sample": filing_text[:30000]
-            }
+                # --- PREPARING THE FORENSIC PAYLOAD ---
+                payload = {
+                    "ticker": ticker,
+                    "cik": str(cik),
+                    "fiscal_year": actual_year,
+                    "sentiment_score": analysis.sentiment.polarity,
+                    "subjectivity_score": analysis.sentiment.subjectivity,
+                    "word_count": len(filing_text.split()), 
+                    "similarity_index": similarity,
+                    "extraction_timestamp": datetime.now(),
+                    # We save a large sample (30k chars) for narrative drift comparison next year
+                    "parsed_text_sample": filing_text[:30000]
+                }
 
-            # USE UPSERT: This prevents duplicate rows if you re-run the pipeline for the same year
-            collection.update_one(
-                {"ticker": ticker, "fiscal_year": actual_year}, 
-                {"$set": payload}, 
-                upsert=True
-            )
-            print(f"     ✅ Successfully extracted and saved FY{actual_year} data.")
+                # USE UPSERT: This prevents duplicate rows if you re-run the pipeline for the same year
+                collection.update_one(
+                    {"ticker": ticker, "fiscal_year": actual_year}, 
+                    {"$set": payload}, 
+                    upsert=True
+                )
+                print(f"     ✅ Successfully extracted and saved FY{actual_year} data.")
 
-        except Exception as e:
-            print(f"     ❌ Error extracting {ticker}: {e}")
+            except Exception as e:
+                print(f"     ❌ Error extracting {ticker} FY{actual_year}: {e}")
 
 # --- 5. Dagster CLI Integration ---
 if __name__ == "__main__":

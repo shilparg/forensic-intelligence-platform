@@ -1,1 +1,1 @@
-{"ops": {"determine_targets": {"config": {"run_mode": "custom", "custom_tickers": ["AAPL", "MSFT", "NVDA", "AVGO", "ORCL", "ADBE", "CRM", "AMD", "GOOGL", "META", "NFLX", "TSLA", "AMZN", "MCD", "JPM", "GS", "XOM", "CAT", "BA", "PLD"]}}}}
+{"ops": {"determine_targets": {"config": {"run_mode": "custom", "custom_tickers": ["AAPL", "MSFT", "NVDA", "AVGO", "ORCL", "ADBE", "CRM", "AMD", "INTC", "IBM", "CSCO", "TXN", "QCOM", "NOW", "SNOW", "PANW", "ZS", "DDOG", "MDB", "SHOP"]}}}}

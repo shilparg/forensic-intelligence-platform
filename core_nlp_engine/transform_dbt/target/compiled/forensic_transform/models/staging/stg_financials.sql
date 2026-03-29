@@ -1,7 +1,7 @@
 
 
 WITH raw_financials AS (
-    SELECT * FROM `forensic-accounting-bot-491604`.`raw_sec_landing`.`raw_financials`
+    SELECT * FROM `forensic-accounting-bot`.`raw_sec_landing`.`raw_financials`
 )
 
 SELECT

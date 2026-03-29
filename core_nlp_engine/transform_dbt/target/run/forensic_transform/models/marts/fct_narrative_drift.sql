@@ -2,18 +2,17 @@
   
     
 
-    create or replace table `forensic-accounting-bot-491604`.`forensic_data`.`fct_narrative_drift`
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_narrative_drift`
       
     
     
 
-    
     OPTIONS()
     as (
       -- models/marts/fct_narrative_drift.sql
 
 WITH staged_data AS (
-    SELECT * FROM `forensic-accounting-bot-491604`.`forensic_data`.`stg_sec_filings`
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`stg_sec_filings`
 ),
 
 drift_calculation AS (

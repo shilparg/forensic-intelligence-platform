@@ -2,7 +2,7 @@
 
 WITH unified_metrics AS (
     -- We reference the fully joined Hub we built in Phase 2
-    SELECT * FROM `forensic-accounting-bot-491604`.`forensic_data`.`int_forensic_metrics`
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`int_forensic_metrics`
 )
 
 SELECT

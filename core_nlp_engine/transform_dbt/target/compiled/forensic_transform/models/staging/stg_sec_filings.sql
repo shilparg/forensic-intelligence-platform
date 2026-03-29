@@ -3,7 +3,7 @@
 
 WITH raw_data AS (
     -- This references the source we will define in your schema.yml
-    SELECT * FROM `forensic-accounting-bot-491604`.`raw_sec_landing`.`raw_sec_filings`
+    SELECT * FROM `forensic-accounting-bot`.`raw_sec_landing`.`raw_sec_filings`
 )
 
 SELECT

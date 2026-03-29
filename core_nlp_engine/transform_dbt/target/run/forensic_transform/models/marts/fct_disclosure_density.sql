@@ -2,19 +2,18 @@
   
     
 
-    create or replace table `forensic-accounting-bot-491604`.`forensic_data`.`fct_disclosure_density`
+    create or replace table `forensic-accounting-bot`.`forensic_data`.`fct_disclosure_density`
       
     
     
 
-    
     OPTIONS()
     as (
       
 
 WITH unified_metrics AS (
     -- We reference the fully joined Hub we built in Phase 2
-    SELECT * FROM `forensic-accounting-bot-491604`.`forensic_data`.`int_forensic_metrics`
+    SELECT * FROM `forensic-accounting-bot`.`forensic_data`.`int_forensic_metrics`
 )
 
 SELECT
