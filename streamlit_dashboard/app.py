@@ -6,6 +6,7 @@ import os
 import seaborn as sns
 import matplotlib.pyplot as plt
 import altair as alt
+import plotly.express as px
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -97,6 +98,11 @@ with st.sidebar:
     if not display_df.empty:
         st.markdown("---")
         st.markdown("### 🔍 Global Filters")
+        
+        if 'fraud_probability_score' in display_df.columns:
+            paranoia_level = st.slider("⚠️ Audit Paranoia Level", min_value=0, max_value=100, value=75, help="Dynamically adjusts the AI's sensitivity for flagging a company. Lowering the number 'flags' more companies.")
+            display_df['fraud_risk_status'] = display_df['fraud_probability_score'].apply(lambda x: 'CRITICAL ANOMALY' if x >= paranoia_level else 'NORMAL')
+            
         selected_sector = st.multiselect("Filter by Sector", options=display_df['sector'].unique(), default=display_df['sector'].unique())
         if 'fiscal_year' in display_df.columns:
             selected_year = st.multiselect("Filter by Year", options=display_df['fiscal_year'].sort_values().unique(), default=display_df['fiscal_year'].unique())
@@ -128,6 +134,12 @@ if page == "📊 Executive Triage Dashboard":
 
         st.markdown("<br>", unsafe_allow_html=True)
 
+        if 'insider_ownership' in display_df.columns and 'sentiment_volatility' in display_df.columns:
+            panicking = display_df[(display_df['insider_ownership'] < 0.1) & (display_df['sentiment_volatility'] > 0.4) & (display_df['fraud_risk_status'] == 'CRITICAL ANOMALY')]
+            if len(panicking) > 0:
+                tickers_panic = ", ".join(panicking['ticker'].tolist())
+                st.error(f"⚠️ **INSIDER DUMPING ALERT:** The AI has detected extreme negative sentiment swings from the CEO while executive stock ownership is dangerously low for **{tickers_panic}**. Potential evidence of leadership panic.")
+
         # ---- PREDICTIVE LAYER WARNING BANNER ----
         if 'expected_short_spike_pct' in display_df.columns:
             max_spike = display_df['expected_short_spike_pct'].max()
@@ -138,8 +150,18 @@ if page == "📊 Executive Triage Dashboard":
         v1, v2 = st.columns([1, 1])
         with v1:
             st.markdown("### 🎯 Audit Priority Heatmap")
-            path = os.path.join(PLOTS_DIR, "audit_priority_heatmap.png")
-            if os.path.exists(path): st.image(path, use_container_width=True)
+            if 'fraud_probability_score' in display_df.columns:
+                heatmap = alt.Chart(display_df).mark_rect().encode(
+                    x=alt.X('ticker:O', sort='-color', title='Company Ticker', axis=alt.Axis(labelAngle=-45)),
+                    y=alt.Y('fraud_risk_status:N', title='AI Classification Status', sort='descending'),
+                    color=alt.Color('fraud_probability_score:Q', scale=alt.Scale(scheme='reds', domain=[0, 100]), title='Risk Score'),
+                    tooltip=['ticker', 'sector', 'fraud_probability_score', 'sentiment_score', 'debt_to_equity']
+                ).properties(height=350).interactive()
+                st.altair_chart(heatmap, use_container_width=True)
+            else:
+                path = os.path.join(PLOTS_DIR, "audit_priority_heatmap.png")
+                if os.path.exists(path): st.image(path, use_container_width=True)
+                
             with st.expander("💡 How to read this Heatmap"):
                 st.write("This shows a 'Risk Score' for each company. Darker/red colors mean the AI detected highly defensive language combined with suspicious financial numbers. Auditors should look at the red boxes first.")
 
@@ -147,10 +169,34 @@ if page == "📊 Executive Triage Dashboard":
             st.markdown("### 🕸️ AI Decision Matrix (Radar)")
             if not anomalies.empty:
                 sel_ticker = st.selectbox("Select flagged entity:", anomalies['ticker'].unique())
-                path = os.path.join(PLOTS_DIR, f"ai_radar_chart_{sel_ticker}.png")
-                if os.path.exists(path): st.image(path, use_container_width=True)
+                entity_data = anomalies[anomalies['ticker'] == sel_ticker].iloc[0].fillna(0)
+                
+                # Normalize metrics (0 to 1 scaling against max of population)
+                max_sr = max(display_df['short_ratio'].max(), 0.01) if 'short_ratio' in display_df else 1
+                max_de = max(display_df['debt_to_equity'].max(), 0.01) if 'debt_to_equity' in display_df else 1
+                max_wc = max(display_df['word_count'].max(), 1) if 'word_count' in display_df else 1
+                
+                sr_norm = min(entity_data.get('short_ratio', 0) / max_sr, 1.0)
+                de_norm = min(entity_data.get('debt_to_equity', 0) / max_de, 1.0)
+                wc_norm = min(entity_data.get('word_count', 0) / max_wc, 1.0)
+                sent_norm = abs(entity_data.get('sentiment_score', 0))
+                
+                radar_df = pd.DataFrame(dict(
+                    r=[sr_norm, de_norm, wc_norm, sent_norm],
+                    theta=['Short Ratio', 'Debt to Equity', 'Word Count', 'Abs Sentiment']
+                ))
+                fig = px.line_polar(radar_df, r='r', theta='theta', line_close=True)
+                fig.update_traces(fill='toself', line_color='#EF4444', fillcolor='rgba(239, 68, 68, 0.4)')
+                fig.update_layout(
+                    polar=dict(radialaxis=dict(visible=False, range=[0, 1])),
+                    showlegend=False,
+                    margin=dict(l=40, r=40, t=20, b=20),
+                    height=350
+                )
+                st.plotly_chart(fig, use_container_width=True)
+                
                 with st.expander("💡 How to read this Radar Chart"):
-                    st.write("The gray dashed line is the 'Normal Industry Average'. The red shape is the selected company. If the red shape spikes way outside the gray circle (e.g., extremely high Debt or extremely low Sentiment), it indicates a massive deviation from normal behavior.")
+                    st.write("The shape expands outwards as risk metrics skyrocket compared to industry peers. For example, if it stretches heavily towards 'Debt to Equity', it indicates leveraging anomalies. Hover anywhere to see axis values!")
             else:
                 st.success("✅ No critical anomalies detected in current batch.")
 
@@ -165,6 +211,11 @@ elif page == "🕵️ Forensic Analyst Deep-Dive":
         
         with tab1:
             st.markdown("#### Master Audit Ledger")
+            
+            # --- 🚨 Intelligent Data Extraction Warning ---
+            if 'revenue_growth' in display_df.columns and display_df['revenue_growth'].abs().sum() == 0:
+                st.error("⚠️ **Data Extraction Pipeline Warning:** Financial market data (Debt, Growth, Margins) is showing as exactly `0` across the board. This indicates the **Yahoo Finance extraction script (`yahoo_to_bq.py`)** was blocked by Yahoo's server rate limits during its last run, forcing the pipeline to use safe `0` fallback values. Please wait a few hours before re-triggering the pipeline or run it on a smaller subset of companies to avoid rate-limiting.")
+
             st.dataframe(
                 display_df,
                 column_config={
@@ -173,12 +224,46 @@ elif page == "🕵️ Forensic Analyst Deep-Dive":
                     "sentiment_score": st.column_config.ProgressColumn("Sentiment", min_value=-1.0, max_value=1.0, format="%.3f"),
                     "short_ratio": st.column_config.NumberColumn("Short Ratio %", format="%.2f"),
                     "expected_short_spike_pct": st.column_config.NumberColumn("Predicted Short Spike %", format="%+.1f%%"),
-                    "projected_short_ratio": st.column_config.NumberColumn("Projected Short Ratio", format="%.2f")
+                    "projected_short_ratio": st.column_config.NumberColumn("Projected Short Ratio", format="%.2f"),
+                    "sentiment_volatility": st.column_config.NumberColumn("Sentiment Volatility", format="%.4f"),
+                    "similarity_drift": st.column_config.NumberColumn("Similarity Drift", format="%.4f"),
+                    "benfords_deviation": st.column_config.NumberColumn("Benford's Deviation", format="%.4f"),
+                    "revenue_growth": st.column_config.NumberColumn("Revenue Growth", format="%.3f"),
+                    "earnings_growth": st.column_config.NumberColumn("Earnings Growth", format="%.3f"),
+                    "debt_to_equity": st.column_config.NumberColumn("Debt to Equity", format="%.2f"),
+                    "evidence_factors": st.column_config.TextColumn("SHAP Evidence Explainers")
                 },
                 use_container_width=True, hide_index=True
             )
-            csv = display_df.to_csv(index=False).encode('utf-8')
-            st.download_button("📥 Export Evidence (CSV)", data=csv, file_name="forensic_evidence.csv", mime="text/csv")
+            colA, colB = st.columns(2)
+            with colA:
+                csv = display_df.to_csv(index=False).encode('utf-8')
+                st.download_button("📥 Export Evidence (CSV)", data=csv, file_name="forensic_evidence.csv", mime="text/csv", use_container_width=True)
+            
+            with colB:
+                if 'evidence_factors' in display_df.columns:
+                    memo_target = st.selectbox("Select Target for AI Executive Memo", display_df['ticker'].unique(), label_visibility="collapsed")
+                    memo_data = display_df[display_df['ticker'] == memo_target].iloc[0]
+                    markdown_memo = f"""# Forensic Intelligence Platform: Executive Alert Memo
+## Target Entity: {memo_data['ticker']}
+**Risk Status:** {memo_data['fraud_risk_status']}
+**Probability Score:** {memo_data.get('fraud_probability_score', 'N/A')}%
+
+### Analytical Summary
+The AI has identified anomalous structural patterns in {memo_data['ticker']}'s SEC filings cross-referenced against market pressure.
+
+*   **Debt Load:** {memo_data.get('debt_to_equity', 'N/A')} D/E Ratio.
+*   **CEO Sentiment:** {memo_data.get('sentiment_score', 0):.3f}
+*   **Market Pressure (Short Ratio):** {memo_data.get('short_ratio', 'N/A')}%
+*   **Fabrication Deviation:** {memo_data.get('benfords_deviation', 'N/A')}
+
+### AI Explainability (SHAP Factors)
+**Key Drivers forcing the Anomaly Classification:**
+{memo_data.get('evidence_factors', 'No explicit SHAP drivers available.')}
+
+**Strategic Recommendation:** Schedule emergency risk review committee meeting to initiate manual ledger audit.
+"""
+                    st.download_button("📝 Download AI Audit Report (.md)", data=markdown_memo, file_name=f"{memo_target}_Audit_Memo.md", mime="text/markdown", use_container_width=True)
 
         with tab2:
             st.markdown("#### 🔢 Benford's Law Algorithmic Verification")
@@ -216,10 +301,21 @@ elif page == "🕵️ Forensic Analyst Deep-Dive":
 
         with tab4:
             st.markdown("#### The 'Smoking Gun' Density Matrix")
-            path = os.path.join(PLOTS_DIR, "forensic_density_matrix.png")
-            if os.path.exists(path): st.image(path, use_container_width=True)
+            if 'word_count' in display_df.columns and 'sentiment_score' in display_df.columns:
+                density_chart = alt.Chart(display_df).mark_circle(size=140).encode(
+                    x=alt.X('word_count:Q', title="Complexity (Word Count)"),
+                    y=alt.Y('sentiment_score:Q', title="Emotional Tone (Sentiment)"),
+                    color=alt.Color('fraud_risk_status:N', scale=alt.Scale(domain=['NORMAL', 'CRITICAL ANOMALY'], range=['#3B82F6', '#EF4444'])),
+                    size=alt.Size('fraud_probability_score:Q', title="Risk Score", scale=alt.Scale(range=[60, 400])),
+                    tooltip=['ticker', 'sector', 'word_count', 'sentiment_score', 'density_index', 'fraud_probability_score']
+                ).interactive()
+                st.altair_chart(density_chart, use_container_width=True)
+            else:
+                path = os.path.join(PLOTS_DIR, "forensic_density_matrix.png")
+                if os.path.exists(path): st.image(path, use_container_width=True)
+                
             with st.expander("💡 How to read this Density Matrix"):
-                st.write("This graph plots **Word Count (X-axis)** against **Sentiment (Y-axis)**. Fraudsters often use long, confusing sentences to hide bad news. If you see a red dot in the bottom right corner (Lots of words + Very negative/defensive sentiment), that is a 'Smoking Gun' for obfuscation.")
+                st.write("This graph plots **Word Count (X-axis)** against **Sentiment (Y-axis)**. Fraudsters often use long, confusing sentences to hide bad news. Look for red dots in the bottom right corner (Lots of words + Very negative/defensive sentiment) - that is a 'Smoking Gun' for deliberate obfuscation. Hover to view the specific ticker!")
 
         with tab5:
             st.markdown("#### Market Pressure vs. Narrative Tone")
@@ -230,8 +326,32 @@ elif page == "🕵️ Forensic Analyst Deep-Dive":
                 with st.expander("💡 How to read the Regression"):
                     st.write("Does Wall Street agree with the AI? This plots AI Sentiment against Wall Street Short Sellers. A downward trend line proves that when the AI detects negative CEO language, Wall Street investors are simultaneously betting against the company.")
             with c2:
-                path = os.path.join(PLOTS_DIR, "correlation_heatmap.png")
-                if os.path.exists(path): st.image(path, use_container_width=True)
+                numeric_cols = display_df.select_dtypes(include=['number']).columns
+                
+                # Drop columns that have 0 variance (e.g. all 0.0 values) to clean up matrix
+                valid_cols = [c for c in numeric_cols if display_df[c].nunique() > 1]
+                
+                if len(valid_cols) > 2:
+                    st.markdown("#### Dynamic Correlation Matrix")
+                    corr_df = display_df[valid_cols].corr().fillna(0)
+                    
+                    fig_corr = px.imshow(corr_df, 
+                                         text_auto='.2f', 
+                                         aspect="auto",
+                                         color_continuous_scale='RdBu_r', 
+                                         zmin=-1, zmax=1)
+                    fig_corr.update_layout(
+                        margin=dict(l=10, r=10, t=30, b=10), 
+                        height=500,
+                        title_x=0.5
+                    )
+                    fig_corr.update_xaxes(tickangle=-45)
+                    st.plotly_chart(fig_corr, use_container_width=True)
+                else:
+                    st.markdown("#### Market Pressure vs. Narrative Tone")
+                    path = os.path.join(PLOTS_DIR, "correlation_heatmap.png")
+                    if os.path.exists(path): st.image(path, use_container_width=True)
+                    
                 with st.expander("💡 How to read this Correlation Matrix"):
                     st.write("Dark red = strong positive correlation (both metrics rise together). Dark blue = strong negative correlation (one rises as the other falls). Near-white = no relationship. Look for unexpected correlations, e.g. Benford's Deviation and Short Ratio aligning suggests the market already suspects the same fraud the AI detected.")
 
@@ -362,6 +482,29 @@ elif page == "📈 Interactive Risk Distributions":
             st.scatter_chart(data=display_df, x=x_axis, y=y_axis, color="fraud_risk_status", use_container_width=True)
             with st.expander("💡 How to read this Scatter Chart"):
                 st.write("Each dot is a company. Red dots are AI-flagged anomalies, blue are normal. Clusters of red dots in the extreme corners (e.g. very high debt AND very high short ratio) reveal a pattern of companies in distress. Isolated red dots far from the blue cluster are unique outliers worth investigating.")
+
+        st.markdown("---")
+        st.markdown("### 3. Historical Risk Playback (Time-Series Animation)")
+        st.markdown("<div class='explanation-box'>Use the slider to scrub through fiscal years, visualizing how companies rapidly drift into the 'Red Risk Zone' over time.</div>", unsafe_allow_html=True)
+        
+        if 'fiscal_year' in display_df.columns:
+            years = sorted(display_df['fiscal_year'].dropna().unique().tolist())
+            if len(years) > 1:
+                selected_anim_year = st.select_slider("Play Risk History:", options=years, value=years[-1])
+                anim_df = display_df[display_df['fiscal_year'] == selected_anim_year]
+                
+                ts_chart = alt.Chart(anim_df).mark_circle().encode(
+                    x=alt.X('debt_to_equity:Q', title="Debt to Equity (Financial Leveraging)", scale=alt.Scale(domain=[display_df['debt_to_equity'].min(), display_df['debt_to_equity'].max()])),
+                    y=alt.Y('sentiment_score:Q', title="CEO Tone (Sentiment)", scale=alt.Scale(domain=[-1, 1])),
+                    color=alt.Color('fraud_risk_status:N', scale=alt.Scale(domain=['NORMAL', 'CRITICAL ANOMALY'], range=['#3B82F6', '#EF4444'])),
+                    size=alt.Size('fraud_probability_score:Q', scale=alt.Scale(domain=[0,100], range=[80, 500])),
+                    tooltip=['ticker', 'fiscal_year', 'fraud_probability_score', 'debt_to_equity', 'sentiment_score']
+                ).properties(height=350).interactive()
+                st.altair_chart(ts_chart, use_container_width=True)
+            else:
+                st.info("Additional years needed for time-series playback. Only 1 year of data is currently buffered.")
+        else:
+            st.warning("Time-Series animation requires 'fiscal_year' data tracked over multiple years.")
 
 # ==========================================
 # PAGE 5: CLOUD DATA WAREHOUSE METRICS

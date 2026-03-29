@@ -4,7 +4,7 @@ forensic_profile:  # <--- This must match the 'profile' in dbt_project.yml
     dev:
       type: bigquery
       method: service-account
-      project: "{{ env_var('GCP_PROJECT_ID') }}" 
+      project: forensic-accounting-bot 
       dataset: forensic_data           
       threads: 4
       keyfile: ../../gcp-service-account.json 

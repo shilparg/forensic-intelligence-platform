@@ -11,9 +11,11 @@ __pycache__/
 
 # --- Pipeline Artifacts (Dagster, dbt, Meltano) ---
 *.egg-info/
-transform_dbt/target/
-transform_dbt/dbt_packages/
-transform_dbt/logs/
+core_nlp_engine/analysis/plots/*.png
+core_nlp_engine/transform_dbt/logs/
+core_nlp_engine/transform_dbt/target/
+core_nlp_engine/transform_dbt/dbt_packages/
+#impute_zeros.py
 .meltano/
 deleted_files/
 *.db

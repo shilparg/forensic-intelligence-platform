@@ -58,6 +58,6 @@ FROM text_calculations t
 -- Join the Benfords Math exactly on same year
 LEFT JOIN benfords_law b 
     ON t.ticker = b.ticker AND t.fiscal_year = b.fiscal_year
--- Join the point-in-time Market Financials across all years for that ticker
-LEFT JOIN engine_b_financials f 
+-- Ensure we only score tracking targets with successfully extracted Market Financials
+INNER JOIN engine_b_financials f 
     ON t.ticker = f.ticker

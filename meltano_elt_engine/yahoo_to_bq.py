@@ -38,8 +38,8 @@ def extract_and_load_financials():
     
     for ticker in tickers:
         success = False
-        retries = 3
-        backoff = 2
+        retries = 4
+        backoff = 3
         
         for attempt in range(retries):
             try:
@@ -73,6 +73,11 @@ def extract_and_load_financials():
                 break
             except Exception as e:
                 print(f"      ⚠️ Attempt {attempt+1} failed for {ticker}: {e}")
+                if "429" in str(e) or "Too Many Requests" in str(e) or "Empty" in str(e):
+                    # Hard pause for API throttling
+                    print(f"      🛑 Rate limiting detected. Triggers 15s cooldown...")
+                    time.sleep(15)
+                    
                 if attempt < retries - 1:
                     sleep_time = backoff ** (attempt + 1)
                     print(f"      ⏳ Retrying in {sleep_time}s...")
@@ -89,8 +94,8 @@ def extract_and_load_financials():
                 'earnings_growth': 0, 'profit_margins': 0, 'free_cashflow': 0
             })
         
-        # Consistent rate limiting even on success
-        time.sleep(1.5)
+        # Consistent rate limiting even on success (Increased to defeat Yahoo's aggressive IP blocks)
+        time.sleep(4.0)
 
     # Convert to pure tabular format for Silver
     df = pd.DataFrame(market_data)
