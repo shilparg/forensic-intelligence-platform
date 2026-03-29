@@ -1,7 +1,11 @@
 version: 2
+
 sources:
-  - name: raw_sec_landing
-    database: "{{ env_var('GCP_PROJECT_ID') }}" 
-    schema: forensic_data                 
+  - name: sec_sources                # Logical group name in dbt
+    database: "{{ env_var('GCP_PROJECT_ID') }}" # Dynamically reads your .env file
+    schema: raw_sec_landing          # The Silver dataset where MongoDB & Meltano dump raw data
     tables:
-      - name: raw_filings
+      - name: raw_sec_filings        # Engine A's unstructured text data
+        description: "Raw SEC 10-K HTML text filings ingested via Python scraping pipeline."
+      - name: raw_financials         # Engine B's structured market metrics
+        description: "Raw Yahoo Finance market pressure data ingested via Meltano."

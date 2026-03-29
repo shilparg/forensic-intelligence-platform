@@ -3,7 +3,7 @@
 
 WITH raw_data AS (
     -- This references the source we will define in your schema.yml
-    SELECT * FROM {{ source('raw_sec_landing', 'raw_filings') }}
+    SELECT * FROM {{ source('sec_sources', 'raw_sec_filings') }}
 )
 
 SELECT
@@ -23,3 +23,5 @@ SELECT
 FROM raw_data
 -- Safety check: ensure we don't process empty rows
 WHERE ticker IS NOT NULL
+-- Deduplicate multiple runs of the same API data
+QUALIFY ROW_NUMBER() OVER(PARTITION BY ticker, fiscal_year ORDER BY ticker) = 1

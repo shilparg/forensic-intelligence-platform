@@ -260,7 +260,7 @@ SELECT ticker, fiscal_year, LENGTH(parsed_text_sample) as word_count,
   -- Calculate word count growth/shrinkage from previous year
   LENGTH(parsed_text_sample) - LAG(LENGTH(parsed_text_sample)) 
     OVER (PARTITION BY ticker ORDER BY fiscal_year) as narrative_drift
-FROM `{os.getenv("GCP_PROJECT_ID")}.forensic_data.raw_filings`
+FROM `{os.getenv("GCP_PROJECT_ID")}.raw_sec_landing.raw_filings`
                 """, language="sql")
         else:
             st.info("Fiscal Year column not found for time-series drift.")
@@ -282,7 +282,7 @@ SELECT ticker, fiscal_year,
     REGEXP_EXTRACT(LOWER(parsed_text_sample), r'total debt.{{0,50}}?\$([0-9,.]+)') AS extracted_debt,
     -- Extract Liabilities
     REGEXP_EXTRACT(LOWER(parsed_text_sample), r'total liabilit.{{0,50}}?\$([0-9,.]+)') AS extracted_liabilities
-FROM `{os.getenv("GCP_PROJECT_ID")}.raw_sec_landing.raw_sec_filings`
+FROM `{os.getenv("GCP_PROJECT_ID")}.raw_sec_landing.raw_filings`
                 """, language="sql")
 
 # ==========================================
