@@ -38,6 +38,7 @@ load_dotenv(os.path.join(root_dir, ".env"))
 ML_OUTPUT_PATH = os.path.join(root_dir, "core_nlp_engine", "ml_engine", "ai_scored_forensic_dataset.csv")
 PLOTS_DIR = os.path.join(root_dir, "core_nlp_engine", "analysis", "plots")
 DAGSTER_SCRIPT = os.path.join(root_dir, "core_nlp_engine", "orchestrate", "assets.py")
+DOCS_DIR = os.path.join(root_dir, "documentation")
 
 @st.cache_data
 def load_data():
@@ -362,7 +363,7 @@ The AI has identified anomalous structural patterns in {memo_data['ticker']}'s S
             else:
                 st.warning("Benford's Law metrics are pending dbt BigQuery pipeline execution.")
 
-        with tab3:
+        with tab4:
             st.markdown("#### 🏛️ Executive Insider Trading Risk vs Panic")
             st.markdown("<div class='explanation-box'>Cross-examines the CEO's 'Trailing 3-Year Sentiment Volatility' (textual panic) against how much stock executives are actively abandoning.</div>", unsafe_allow_html=True)
             
@@ -379,7 +380,7 @@ The AI has identified anomalous structural patterns in {memo_data['ticker']}'s S
             else:
                 st.warning("Insider Trading metrics are pending Medallion pipeline execution.")
 
-        with tab4:
+        with tab5:
             st.markdown("#### The 'Smoking Gun' Density Matrix")
             if 'word_count' in display_df.columns and 'sentiment_score' in display_df.columns:
                 density_chart = alt.Chart(display_df).mark_circle(size=140).encode(
@@ -393,7 +394,6 @@ The AI has identified anomalous structural patterns in {memo_data['ticker']}'s S
             else:
                 path = os.path.join(PLOTS_DIR, "forensic_density_matrix.png")
                 if os.path.exists(path): st.image(path, use_container_width=True)
-                
             with st.expander("💡 How to read this Density Matrix"):
                 st.write("This graph plots **Word Count (X-axis)** against **Sentiment (Y-axis)**. Fraudsters often use long, confusing sentences to hide bad news. Look for red dots in the bottom right corner (Lots of words + Very negative/defensive sentiment) - that is a 'Smoking Gun' for deliberate obfuscation. Hover to view the specific ticker!")
 
@@ -1110,7 +1110,6 @@ elif page == "🏗️ System Architecture & Data Flow":
     
     st.markdown("---")
     st.markdown("### 📊 Medallion Architecture Data Map")
-    st.markdown("### 📊 Medallion Architecture Data Map")
     
     m1, m2, m3 = st.columns(3)
     with m1:
@@ -1135,6 +1134,17 @@ elif page == "🏗️ System Architecture & Data Flow":
         </div>
         """, unsafe_allow_html=True)
 
+    st.markdown("---")
+    st.markdown("### 🗺️ Master Technical Blueprint")
+    st.markdown("<div class='explanation-box'>The 'Industrial Grid' below illustrates the end-to-end forensic lifecycle, from dual-input ingestion (SEC/Yahoo) to multi-channel AI alerting. Use this as your primary map during the technical defense.</div>", unsafe_allow_html=True)
+    
+    # Technical Blueprint (Primary Visual)
+    path_blueprint = os.path.join(DOCS_DIR, "detailed_architecture_blueprint.png")
+    if os.path.exists(path_blueprint):
+        st.image(path_blueprint, use_container_width=True, caption="Forensic Intelligence Platform: Master Technical Blueprint")
+    else:
+        st.warning("Technical Blueprint is currently being synchronized in the /documentation/ hub.")
+    
     st.markdown("---")
     st.markdown("### 🧬 Architectural Defense: Challenges & Innovations")
     

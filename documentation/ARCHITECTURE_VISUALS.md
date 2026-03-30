@@ -77,12 +77,12 @@ graph LR
     Z --> Output[CRITICAL ANOMALY DETECTED]
 ```
 
+## 📐 4. Master Technical Blueprint (The Industrial Grid)
+*(High-fidelity engineering schematic for technical defense)*
+
+![Master Technical Blueprint](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/detailed_architecture_blueprint.png)
+
 ---
-
-## 🖼️ 4. Premium Executive Schematic
-*(Marketing-grade 3D visual generated for your presentation deck)*
-
-![Executive Architecture Schematic](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/forensic_architecture_3d.png)
 
 ---
 
