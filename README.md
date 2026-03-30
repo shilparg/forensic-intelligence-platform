@@ -1,227 +1,147 @@
 ***
 
-# 🕵️‍♂️ Forensic AI: SEC Financial Anomaly Detector
+### 📚 Project Documentation Hub
+All technical manuals, presentation decks, and installation guides are located in the **[documentation/](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/)** directory:
+- **[Installation Manual](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/INSTALLATION_GUIDE.md)**: How to set up and run the platform.
+- **[Presentation Slide Deck](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/Capstone_Presentation_Master.md)**: The "World-Class" capstone pitch.
+- **[Technical Code Explainer](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/CODE_EXPLAINER_MASTER.md)**: Deep-dive for dev teams.
+- **[Defense Q&A Master](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/QA_Defense_Master.md)**: Presentation preparation cheat-sheet.
+
+---
+
+# 🕵️‍♂️ Forensic Intelligence Platform: SEC Financial Anomaly Detector
 **Authors:** Shilpa Kangya & Kamlesh Kangya  
 **Version:** Enterprise Capstone v3.0  
 
 ## 📖 1. Executive Summary & Business Value
-Traditional financial auditing relies heavily on structured numerical data, often missing the "human element" of financial fraud: **Executive Obfuscation**. This platform introduces a **Decoupled Triangulation Architecture** that cross-references qualitative CEO narrative tone (extracted via AI) with quantitative market pressure. 
+Traditional financial auditing relies heavily on structured numerical data, often missing the "human element" of executive fraud: **Narrative Obfuscation**. This platform introduces a **Decoupled Triangulation Architecture** that cross-references qualitative CEO narrative tone (extracted via NLP) with quantitative market pressure. 
 
-By identifying mathematical anomalies where management is highly defensive while simultaneously facing massive market pessimism and high debt, the system isolates high-risk entities and automatically dispatches Gen-AI crafted executive memos to the audit team.
+By identifying mathematical anomalies where management uses defensive language while simultaneously facing high debt and massive market pessimism, the system isolates high-risk entities and automatically dispatches Gen-AI crafted executive memos to the audit team.
 
 ---
 
-## 🏗️ 2. Enterprise Architecture & Data Flow
+## 🛠️ Tech Stack & Toolchain
+- **Data Engineering**: Dagster (Orchestration), Meltano (ELT), dbt Core (Transformation).
+- **Backend & Cloud**: Google BigQuery (Data Warehouse), MongoDB Atlas (NoSQL Staging).
+- **Machine Learning**: Scikit-Learn (Isolation Forest), XGBoost (Market Forecasting).
+- **NLP & Gen-AI**: Google Gemini 1.5 Pro (Audit Memos), TextBlob (Sentiment Polarity).
+- **Frontend**: Streamlit (Enterprise Dashboard), Seaborn/Plotly (Statistical Visualization).
+- **Infrastructure**: SMTP/SendGrid (Automated Alerting Pipeline).
+
+---
+
+### 🏗️ 4. System Architecture & "Structural Defense"
+The platform's architecture is built on a **Decoupled 6-Phase Pipeline** (Orchestrated by Dagster). In the dashboard, we categorize our technical journey into two distinct columns to demonstrate engineering maturity:
+
+#### 🛠️ Industrial Challenges (The Hurdles)
+- **SSL Handshake Blocks**: Bypassed using custom environment-injected `certifi` layers.
+- **1-Second AI Scale**: Solved the Yahoo 429 rate-limit bottleneck by re-engineering retrieval to a batch-fetching model.
+- **State Sync**: Solved Dagster-to-UI variable collisions via a **Dual-JSON state splitter**.
+
+#### 💡 Forensic Innovations (The Brilliance)
+- **The Medallion 'Gold' Join**: Using dbt SQL to join massive unstructured NoSQL text with rigid financial OLAP columns.
+- **SHAP Explainable AI (XAI)**: Providing mathematically weighted feature attribution for every anomaly.
+- **The Triangulation Principle**: Cross-referencing qualitative sentiment with quantitative financials and predictive market pressure.
+
+---
+
+## 🏗️ 2. Enterprise Architecture & Data Flow (The 6-Phase Pipeline)
 The system operates on a Medallion Data Architecture (Bronze -> Silver -> Gold), physically separating the unstructured NLP pipelines from the structured financial pipelines before joining them in the cloud.
 
 ### Step-by-Step Data Flow:
-1. **Engine A (Unstructured NLP - The Text):** * Scrapes SEC 10-K HTML/Text filings.
-   * Feeds text into **FinBERT** (Financial NLP Transformer) to calculate `sentiment_score` (defensiveness) and `subjectivity_score`.
-   * Calculates `word_count` to measure disclosure density.
-2. **Engine B (Structured ELT - The Numbers):** * Uses **Meltano** to extract quantitative market data (Short Interest Ratio, Debt-to-Equity, Institutional Holdings) from Yahoo Finance.
-   * *Critical Engineering Fix:* Patched the Meltano MongoDB loader `pip_url` with the `certifi` package to bypass enterprise SSL handshake blocks.
-3. **Bronze Layer (Ingestion):** Both engines dump their raw, untransformed JSON data into a **MongoDB Atlas** cluster (NoSQL is required for the messy, variable-length HTML).
-4. **Silver/Gold Layer (BigQuery Transformation):** * Data is synced to **Google BigQuery**.
-   * We execute advanced SQL to clean, extract, and join the textual and financial data into a single `forensic_dataset` table.
-5. **Machine Learning (The Decider):** An **Isolation Forest** ML model evaluates the joined dataset. It mathematically isolates outlier companies (`CRITICAL ANOMALY`).
-6. **Gen-AI & Alerting:** **Gemini 1.5 Pro/Flash** synthesizes the ML output into a consolidated 3-bullet executive memo.
+1.  **Phase 1: Target Identification & Sector Mapping**: Maps Tickers to CIKs using the SEC Master Index and initializes sector-level benchmarks for ML comparison.
+4.  **Phase 4: dbt Transformation Layer**: Executes 10+ SQL models in BigQuery to compute corporate risk metrics.
+    *   **Benford's Law Algorithm**: Uses `REGEXP_EXTRACT_ALL` to mine leading digits from 10-K text and compares them against the **Log10 Logarithmic Curve**. A minimum threshold of 100 digits ensures the statistical significance of the deviation score.
+    *   **Narrative Drift**: Uses `LAG()` window functions to track year-over-year obfuscation patterns.
+    *   **Volatility**: Tracks standard deviation of executive tone over a 3-year trailing window.
+5.  **Phase 5: Machine Learning (The Dual-Process Logic)**:
+    *   **Isolation Forest (Unsupervised)**: Detects immediate structural anomalies in the joined dataset.
+    *   **XGBoost (Supervised)**: Forecasts future market pressure and short-interest spikes based on historical patterns.
+6.  **Phase 6: Reporting & Gen-AI Alerting**: **Gemini 1.5** synthesizes the ML outputs into a 24-hour executive memo, dispatched via the automated Email Alerter.
+
+### 🧠 Explainable AI (XAI) Integration
+Unlike traditional "black box" models, this platform utilizes **SHAP (SHapley Additive exPlanations)**. For every entity flagged as a `CRITICAL ANOMALY`, the system calculates the exact feature contribution percentage (e.g., "Narrative Drift (42%) | Benford's Deviation (30%)"). This provides auditors with the "Why" behind the "What," significantly reducing manual investigation time.
+
+### ⚡ Feature Spotlight: The Dynamic Thresholding Engine
+The platform includes a **Real-Time Audit Paranoia Slider** in the UI. This is not just a visual filter; it dynamically re-calculates the `fraud_risk_status` by shifting the decision boundary of the anomaly scores, allowing auditors to adjust sensitivity for different market conditions.
 
 ---
 
-## ✨ 3. Frontend: The 7-Page Streamlit Dashboard
+## 🛠️ 3. Engineering Challenges & Technical Solutions
+Building a cross-domain forensic platform introduced several industrial engineering hurdles:
+
+### Challenge 1: SSL Handshake Blocks in Secure Environments
+**The Problem**: Meltano's default MongoDB extractor failed in enterprise-secure environments due to certificate validation errors.
+**The Fix**: Engineered a custom `pip_url` patch in `meltano.yml` that injects `certifi` and `dnspython` directly into the extraction environment.
+
+### Challenge 2: Yahoo Finance Rate Limiting
+**The Problem**: Frequent extraction runs led to Yahoo's servers blocking the IP, resulting in `0` values across the board.
+**The Fix**: Implemented a **Safe-Fallback Mechanism** in the Python extractor and added a "Data Quality Intelligence" warning in the Streamlit UI to notify users when fallback data is being displayed.
+
+### Challenge 3: Streamlit-Dagster State Syncing
+**The Problem**: Dagster's strict-type configuration engine
+### 6. Frontend Connection: Streamlit & The Glossary
+Streamlit acts as the "Command Center." To ensure the audit team understands the technology, we have implemented:
+- **`ui_state.json`**: A bridge between the UI and the Dagster backend.
+- **Educational Glossary**: A 5-tab reference guide covering **Financials**, **Data Science**, **AI Concepts**, **System Architecture**, and a dedicated **🔤 Abbreviations & Acronyms** cheat sheet.
+
+### Challenge 4: Data Join Complexity (NoSQL to OLAP)
+**The Problem**: Joining messy, variable-length SEC text from MongoDB with rigid financial columns in BigQuery.
+**The Fix**: Leveraged **dbt (Data Build Tool)** to perform the "Gold" layer join inside BigQuery after the data was cleaned and standardized in the "Silver" layer.
+
+### Challenge 5: The "Throttling Loop" (Scalability Optimization)
+**The Problem**: Early versions of the ML engine fetched data via individual API calls per ticker, leading to severe **HTTP 429 (Too Many Requests)** errors and 15-minute wait times.
+**The Fix**: Re-architected the ML engine to fetch a **Unified Forensic View** directly from BigQuery in a single batch. Data retrieval time was reduced from 15 minutes to **under 1 second**, ensuring the platform can scale to thousands of tickers.
+
+---
+
+## ✨ 4. Frontend: The Dashboard Experience
 The UI is styled with custom Enterprise CSS to look like a production SaaS application.
 
-1. **📊 Executive Summary:** High-level triage screen featuring an **Audit Priority Heatmap** and dynamic KPIs (Critical Anomalies, Avg Sentiment).
-2. **🕵️ Forensic Deep-Dive:** Contains the Master Audit Ledger (exportable to CSV), Market Correlation regression, and the "Smoking Gun" Density Matrix.
-3. **📈 Interactive Analytics (Seaborn):** A dynamic plotting lab for generating Violin, Box, and KDE plots to analyze statistical distributions.
-4. **☁️ Cloud SQL Visualizer:** Simulates BigQuery operations for non-technical users. It visualizes the output of our `LAG()` window functions and Regex extractions.
-5. **📖 Educational Glossary:** Translates Data Science/Finance jargon for business stakeholders.
-6. **🏗️ Architecture & Flow:** A visual HTML/CSS map of the Medallion data flow.
-7. **⚙️ Orchestration Control:** The command center. Users upload custom CSV watchlists, toggle email alerts, and trigger the background Dagster pipeline.
+1.  **📊 High-Level Risk Overview (Triage)**: High-level triage screen featuring an **Audit Priority Heatmap** and dynamic KPIs.
+2.  **🕵️ Anomaly Investigation Lab**: Contains the Master Audit Ledger, Benford's Law algorithmic verification, and Market Correlation regression.
+3.  **🔮 Predictive Risk & Trend Forecasting**: XGBoost-powered forward-looking market projections.
+4.  **📈 Statistical Anomaly Distributions**: Advanced Seaborn plotting lab for Violin, Box, and KDE plots.
+5.  **☁️ Data Lineage & Traceability**: Simulates BigQuery operations and visualizes SQL `LAG()` window functions and regex extractions.
+6.  **📖 Educational Glossary**: Translates DS/Finance jargon for business stakeholders.
+7.  **🏗️ System Architecture & Data Flow**: A visual map of the 6-phase pipeline.
+8.  **⚙️ Medallion Pipeline & Extraction Control**: Command center for triggering Dagster runs and toggling notification preferences.
 
 ---
 
-## 🗂️ 4. Project Directory Structure
-
-```text
-forensic_ai_capstone/
-├── .env                              # Master configuration file (Ignored by Git)
-├── run_config.json                   # Strict-type payload for Dagster orchestration
-├── ui_state.json                     # Lightweight state manager for Streamlit/Alerter
-├── target_tickers.csv                # Custom watchlist upload for pipeline runs
-├── meltano_elt_engine/
-│   └── meltano.yml                   # ELT configuration (Yahoo Finance -> MongoDB)
-├── core_nlp_engine/
-│   ├── orchestrate/
-│   │   └── assets.py                 # Dagster pipeline definitions
-│   ├── ml_engine/
-│   │   ├── fraud_model.py            # Isolation Forest ML implementation
-│   │   └── ai_scored_forensic_dataset.csv # Final output consumed by Streamlit
-│   └── analysis/
-│       ├── forensic_alerter.py       # Gemini Gen-AI Memo & Email Dispatcher
-│       └── plots/                    # Output directory for Matplotlib/Seaborn charts
-├── bigquery_sql_models/              # dbt / BigQuery Transformation Layer
-│   ├── Accounting_Narrative_Drift.sql
-│   ├── Find_Key_Financial_Terms.sql
-│   └── Red_Flag_Report.sql
-└── streamlit_dashboard/
-    └── app.py                        # The 7-page interactive frontend application
-```
-
----
-
-## 🚀 5. Installation, Setup & Team Build Guide
-
-### Step 1: Infrastructure Setup
-1. Create a **MongoDB Atlas** cluster (M0 free tier) for the Bronze layer.
-2. Set up a **Google BigQuery** project. Create datasets: `raw_sec_landing` and `forensic_data`.
-3. Create a `.env` file in the root directory. **CRITICAL:** Do not place quotation marks around the `MONGO_URI` string.
-
-```env
-# Database Connections
-MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/?retryWrites=true&w=majority
-GOOGLE_APPLICATION_CREDENTIALS=./gcp-service-account.json
-
-# AI Credentials
-GEMINI_API_KEY=your_google_gemini_key
-
-# Notification Truth Table (Master Switch)
-EMAIL_ALERTS_ENABLED=false     # Set 'true' for prod, 'false' for safe live-demos
-EMAIL_PROVIDER=gmail           # Options: 'gmail' or 'sendgrid'
-AUDIT_EMAIL_RECIPIENT=audit.team@example.com
-
-# Email Routing Credentials
-GMAIL_USER=your_bot_email@gmail.com
-GMAIL_APP_PASSWORD=your_16_char_app_password
-SENDGRID_API_KEY=your_sendgrid_key
-SENDGRID_FROM_EMAIL=alerts@yourdomain.com
-SMTP_NAME="Forensic AI Auditor"
-```
-
-### Step 2: Dependencies & Initialization
-```bash
-# 1. Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# 2. Install Python requirements
-pip install streamlit pandas seaborn matplotlib dagster dagster-webserver google-generativeai pymongo sendgrid
-
-# 3. Initialize Meltano (Ensures MongoDB certifi patch is active)
-cd meltano_elt_engine
-meltano install
-```
-
----
-
-## 💻 6. Execution Instructions
-
-**1. Start the Orchestrator:**
-To view the background pipeline execution natively, start the Dagster UI in a terminal:
-```bash
-export DAGSTER_HOME=~/.dagster
-dagster-webserver -f core_nlp_engine/orchestrate/assets.py
-```
-
-**2. Launch the Frontend:**
-In a separate terminal:
-```bash
-streamlit run streamlit_dashboard/app.py
-```
-
-**3. Run an Audit:**
-Navigate to the **"⚙️ Orchestration Control"** page, select your target tickers, toggle notification preferences, and click **"🚀 Execute Forensic Pipeline"**.
-
----
-
-## 🧠 7. Cloud SQL Engineering (The BigQuery Vault)
-This project proves advanced Data Warehousing capabilities by executing logic natively in the cloud prior to ML ingestion:
-* **The Narrative Drift Tracker (`LAG()`):** Uses Window Functions (`LAG(LENGTH(text)) OVER (PARTITION BY ticker ORDER BY fiscal_year)`) to track year-over-year changes in disclosure length. Spikes indicate "Obfuscation".
-* **Regex Financial Extraction:** Uses `REGEXP_EXTRACT(LOWER(text), r'total debt.{0,50}?\$([0-9,.]+)')` to mine precise dollar amounts directly out of unstructured HTML paragraphs.
-* **Weighted Risk Scoring:** A custom SQL formula: `((1 - Sentiment) * 40) + (Subjectivity * 30) + (Similarity * 30)` to rank audit priority natively.
-* **Metadata Discovery:** Uses `INFORMATION_SCHEMA` to audit the BigQuery table structure itself.
-
----
-
-## ⚙️ 8. Orchestration & Security: The "Shared Brain"
-Integrating a Streamlit UI directly with Dagster creates "Strict Type" configuration errors. 
-
-**The Architectural Fix (Config Splitter):** When the user clicks "Execute", Streamlit generates *two* JSON files: 
-* `run_config.json`: Contains strictly-typed instructions for Dagster.
-* `ui_state.json`: Contains the UI toggle states, which bypasses Dagster and is read silently by the Python Alerter script.
-
-**Daemon Binding:** We forced the Python `subprocess` to share the exact same environment as the local machine using `my_env["DAGSTER_HOME"] = os.path.expanduser("~/.dagster")` so the Live Tracker link works flawlessly.
-
----
-
-## 🔒 9. The Smart Notification "Truth Table"
-Automated emails pose a severe spam/security risk during live demos. We engineered a **Dual-Switch Control System**.
-
-| `.env` Master Switch | Streamlit UI Toggle | System Action | Dashboard UI State |
-| :--- | :--- | :--- | :--- |
-| **FALSE** | *(Disabled)* | 🔕 **NO EMAIL** | Warning box displayed: "System Override." Toggle locked. |
-| **TRUE** | **FALSE** | 🔕 **NO EMAIL** | Toggle is active. User left it off. Logs memo locally. |
-| **TRUE** | **TRUE** | 📧 **SEND EMAIL** | User opted-in. Gemini drafts memo & dispatches. |
-
----
-
-## 📉 10. Statistical & Plot Interpretation Guide
-To prove the mathematical accuracy of the AI flags, we utilize advanced Seaborn/Matplotlib visualization. Here is the logic for interpreting the dashboard:
-
-* **The Audit Priority Heatmap (2D Density):** Our triage screen. Darker/red colors mean the AI detected highly defensive language combined with suspicious financial numbers. 
-* **AI Decision Matrix (Radar Chart):** The gray dashed line represents the 'Normal Industry Average'. The red shape is the selected company. If the red shape spikes outside the gray circle, it visually proves a massive deviation.
-* **The 'Smoking Gun' Density Matrix (Scatter Plot):** Plots Word Count against Sentiment. A red dot isolated in the bottom right corner (Lots of words + Very negative/defensive sentiment) is a 'Smoking Gun' for narrative obfuscation.
-* **Market Pressure vs. Narrative Tone (Regression Line):** Does Wall Street agree with our AI? A downward trend line proves that when the AI detects negative CEO language, Wall Street investors are simultaneously betting heavily against the company.
-* **Advanced Distributions (Violin & KDE Plots):** Basic charts just show a dot. Seaborn allows us to visualize the *Statistical Shape* of the fraud risk. A Violin plot proves whether a flagged company is just a slight deviation or completely detached from the interquartile range.
-* **The Narrative Drift Tracker (Bar Chart):** Simulates the output of a BigQuery `LAG()` window function over time. Massive upward spikes indicate sudden 'Obfuscation'—management is suddenly writing 50% more text to explain the exact same financials.
-
----
-
-## 📖 11. Visual Terms & Glossary
-* **Isolation Forest:** "The detective." It doesn't look for 'good' or 'bad'; it looks for 'different' or 'weird'.
-* **Sentiment Score:** "The CEO's mood." It measures if the narrative is confident or defensive.
-* **Short Ratio:** "The Market's Vote." If this is high, the smartest investors in the world are betting against the company.
-* **Cloud SQL Visualizer:** "The Engine Room." Proves that the backend data warehouse is doing the heavy lifting.
-
----
-
-## 🎤 12. Presentation Defense (Anticipated Q&A)
+## 🎤 5. Presentation Defense (Coaching Q&A)
 
 **Q: Why use a "Triangulation" model?**
 > **A:** Because one data point can lie. A CEO might have a "bad day", or a company might have high debt for growth. But when you have **Negative Sentiment + High Debt + High Short Interest**, the probability of a "Smoking Gun" is mathematically much higher.
 
 **Q: Why use MongoDB AND BigQuery? Isn't one database enough?**
-> **A:** We used a "Best-of-Breed" pipeline. MongoDB is a NoSQL database, which is required to ingest highly variable, messy SEC HTML text. However, NoSQL is poor for analytics. We use BigQuery (an OLAP warehouse) to run structured SQL transformations and window functions at scale.
+> **A:** MongoDB is required to ingest highly variable, messy SEC HTML text (NoSQL). However, NoSQL is poor for analytics. We use BigQuery (an OLAP warehouse) to run structured SQL transformations and window functions at scale.
 
 **Q: How do you prevent the AI from "Hallucinating" fraud?**
-> **A:** We use **Triangulation**. The Gen-AI (Gemini) does *not* make the decision. The mathematical **Isolation Forest** model detects the anomaly first based strictly on statistical deviation. Gemini only acts as an "Audit Translator," turning those complex numbers into a readable memo.
+> **A:** The Gen-AI (Gemini) does *not* make the decision. The mathematical model detects the anomaly first based strictly on statistical deviation. Gemini only acts as an "Audit Translator," turning those complex numbers into a readable memo.
 
-**Q: Your 'Narrative Drift' focuses on word count. Couldn't a company just be more detailed without being fraudulent?**
-> **A:** Yes, which is why a word count spike alone isn't a red flag. But when a spike happens *simultaneously* with a drop in CEO Sentiment and an increase in the Short Ratio, the probability of 'Narrative Obfuscation' increases significantly. The math filters out the noise.
+**Q: What is "Narrative Drift" and why does it matter?**
+> **A:** It tracks year-over-year changes in disclosure length. Spikes indicate "Obfuscation"—management suddenly adding 50% more text to explain the exact same financials. We calculate this in BigQuery using the `LAG()` window function.
 
-**Q: Why did you use Seaborn instead of standard Streamlit charts?**
-> **A:** Streamlit charts are great for simple trends, but Seaborn allows us to visualize **Statistical Distributions**. By using Violin and KDE plots, we don't just show a dot; we prove the 'Shape of Fraud'.
-
-**Q: Why have a Master Switch in `.env` if the user has a toggle on the screen?**
-> **A:** DevOps safety. The `.env` switch is a server-level lock to prevent accidental spamming of real executives during development or a live demo. By having both, we ensure the system is 'Secure by Default.'
-
-**Q: Why separate `run_config.json` and `ui_state.json`?**
-> **A:** Dagster is a strictly-typed orchestrator. If we pass UI-specific variables into its config payload, it throws a `ConfigValidationError` and crashes. Splitting the state allows our UI to govern social features without breaking the industrial data pipeline.
+**Q: Why separate the ML models?**
+> **A:** We use **Isolation Forest** to find *what is weird today* (Unsupervised) and **XGBoost** to predict *what that weirdness predicts for the market tomorrow* (Supervised). This gives auditors both present-state and forward-looking intelligence.
 
 ---
 
-## ☑️ 13. Final Build Checklist
-* [ ] MongoDB Atlas connection string verified (No quotes in `.env`).
-* [ ] `GOOGLE_APPLICATION_CREDENTIALS` path verified.
-* [ ] BigQuery Schema Discovery query run to verify table structure.
-* [ ] `ui_state.json` exists to prevent Dagster validation crashes.
-* [ ] `EMAIL_ALERTS_ENABLED` set to `false` for the live presentation.
+## 📖 6. Visual Terms & Glossary
+*   **Isolation Forest**: "The detective." It doesn't look for 'good' or 'bad'; it looks for 'different' or 'weird'.
+*   **FinBERT**: "The Financial Specialist." A deep-learning model that understands the exact nuance of accounting and market language.
+*   **SHAP (XAI)**: "The Reasoner." Explains exactly why the AI flagged a specific company.
+*   **Sentiment Score**: "The CEO's mood." It measures if the narrative is confident or defensive.
+*   **Short Ratio**: "The Market's Vote." If this is high, the smartest investors in the world are betting against the company.
+*   **Data Lineage & Traceability**: "The Engine Room." Proves that the backend data warehouse is doing the heavy lifting.
+
+---
+
+## 🔒 7. Security & Governance (IAM)
+To maintain the integrity of the forensic ledger, this platform enforces a strict **Principle of Least Privilege (PoLP)**:
+*   **Pipeline Bot**: Dedicated service account limited to BigQuery Write/Job permissions.
+*   **Dashboard Viewer**: Read-only service account for Streamlit to ensure the UI cannot modify forensic data.
+*   **Credential Management**: All keys injected via environment variables and strictly git-ignored.
 
 ***
-
-## ☑️ 14. 🔐 Security & Governance (IAM)
-To maintain the integrity of the forensic ledger, this platform enforces a strict **Principle of Least Privilege (PoLP)** using Google Cloud IAM:
-
-* **The Orchestration Bot (`forensic-pipeline-bot`):** A dedicated Service Account utilized by Dagster and Meltano. It is strictly limited to `BigQuery Data Editor` and `BigQuery Job User` roles, allowing it to write to tables and execute ML compute, but preventing it from modifying the underlying dataset architecture.
-* **The Dashboard Viewer (`forensic-dashboard-viewer`):** The Streamlit frontend operates on a completely separate, read-only Service Account restricted to the `BigQuery Data Viewer` role. This ensures that a compromised frontend UI cannot maliciously alter or delete the underlying forensic evidence.
-* **Credential Management:** All service account JSON keys are injected via local environment variables (`GOOGLE_APPLICATION_CREDENTIALS`) and strictly `.gitignore`'d to prevent credential leakage.

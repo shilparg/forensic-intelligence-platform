@@ -9,7 +9,9 @@ __pycache__/
 *.pyc
 .pytest_cache/
 
-# --- Pipeline Artifacts (Dagster, dbt, Meltano) ---
+# --- Pipeline & UI Transient State ---
+ui_state.json
+run_config.json
 *.egg-info/
 core_nlp_engine/analysis/plots/*.png
 core_nlp_engine/transform_dbt/logs/
