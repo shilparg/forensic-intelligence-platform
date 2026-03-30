@@ -33,6 +33,12 @@ We utilize a "Dual-Model Architecture" to ensure we are capturing both structura
 **Concept:** Real-world fraud is a "Cold Start" problem. We don’t have thousands of labeled examples of corporate crime. 
 **Logic:** We use **Isolation Forest**. Instead of training the AI on "what fraud looks like," we train it on "what normal looks like." The model then isolates the outliers that are mathematically most difficult to fit into the normal crowd. 
 
+**The 10-Feature Forensic Space:**
+The AI analyzes a multi-dimensional vector for every company:
+1.  **Engine A (Textual)**: `sentiment_score`, `density_index`.
+2.  **Engine B (Market)**: `short_ratio`, `debt_to_equity`, `return_on_equity`, `operating_margin`, `insider_ownership`, `current_ratio`.
+3.  **Engine C (Forensic Math)**: `benfords_deviation`, `sentiment_volatility` (Historical Tone Drift).
+
 ### 2. Supervised Risk Forecasting (XGBoost)
 **Concept:** Forensic metrics are leading indicators of market behavior (e.g., short-selling spikes).
 **Logic:** We use **XGBoost (Extreme Gradient Boosting)**. This model is trained on historical patterns. If the AI detects a specific combination of Narrative Fear and Debt, it forecasts how much a professional short-seller is likely to bet against that company in the next 12 months.
@@ -61,7 +67,7 @@ The platform physically separates its "qualitative" and "quantitative" pipelines
     - Stores the massive raw HTML/Text in **MongoDB** (NoSQL), which excels at handling high-volume, variable-length text.
 - **Engine B (Structured)**: `run_meltano_structured_sync`
     - Uses **Meltano** to pull live market metrics (Short Ratio, Debt-to-Equity, etc.) from Yahoo Finance via `yahoo_to_bq.py`.
-    - Directly targets **Google BigQuery** for immediate analytical readiness.
+    - **Structural Flattening**: Uses a specialized Python flattener (`pandas_to_bq.py`) to convert raw NoSQL JSONB Mongo data into structural BigQuery columns for SQL analytical readiness.
 
 ### ☁️ Phase 3: Cloud Synchronization (Migration)
 - **Function**: `cloud_sync` calling `mongo_to_bigquery.py`
@@ -103,9 +109,12 @@ Traditional "Cron jobs" are dangerous for forensic work. If one step fails, the 
 ### 3. The Math of Forensics: Benford's Law SQL
 In `fct_benfords_law.sql`, we use:
 ```sql
-REGEXP_EXTRACT_ALL(filing_text, r'\b([1-9])\d*')
+UNNEST(REGEXP_EXTRACT_ALL(filing_text, r'\b([1-9])\d*')) AS digit
 ```
-This mines every single leading digit mentioned in a 100-page filing. We then compare the distribution to the **Logarithmic Benford Curve**. If a CEO is "making up" numbers, they will mathematically fail this test because humans cannot naturally simulate logarithmic distribution.
+This mines every single leading digit mentioned in a 100-page filing. By unnesting these digits directly in BigQuery's analytical engine, we can process thousands of documents in seconds. 
+
+> [!IMPORTANT]
+> **Statistical Significance (The Coach Requirement):** We implement a `WHERE total_digits > 100` constraint. This ensures the sample size of numbers in a filing is large enough to satisfy the **Law of Large Numbers**, preventing false anomalies caused by small datasets.
 
 ### 4. AI Interpretability: SHAP vs. Black Box
 Machine Learning often tells you *what* is wrong but not *why*. We use **SHAP (SHapley Additive exPlanations)**. It breaks down the 1.0 (Anomaly) score into its component parts. This allows the auditor to defend their finding: *"I am auditing Company X because the AI attributed 60% of its risk to its defensive Narrative Tone."*

@@ -6,6 +6,9 @@ All technical manuals, presentation decks, and installation guides are located i
 - **[Presentation Slide Deck](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/Capstone_Presentation_Master.md)**: The "World-Class" capstone pitch.
 - **[Technical Code Explainer](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/CODE_EXPLAINER_MASTER.md)**: Deep-dive for dev teams.
 - **[Defense Q&A Master](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/QA_Defense_Master.md)**: Presentation preparation cheat-sheet.
+- **[Architecture & Visual Flow](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/ARCHITECTURE_VISUALS.md)**: Technical & Executive diagrams.
+- **[Technical Data Walkthrough](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/FORENSIC_DATA_WALKTHROUGH.ipynb)**: Jupyter Notebook investigation.
+- **[Environment Check Utility](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/ENVIRONMENT_CHECK_UTILITY.ipynb)**: Pre-flight connection & dependency test.
 
 ---
 
@@ -21,12 +24,12 @@ By identifying mathematical anomalies where management uses defensive language w
 ---
 
 ## 🛠️ Tech Stack & Toolchain
-- **Data Engineering**: Dagster (Orchestration), Meltano (ELT), dbt Core (Transformation).
-- **Backend & Cloud**: Google BigQuery (Data Warehouse), MongoDB Atlas (NoSQL Staging).
-- **Machine Learning**: Scikit-Learn (Isolation Forest), XGBoost (Market Forecasting).
-- **NLP & Gen-AI**: Google Gemini 1.5 Pro (Audit Memos), TextBlob (Sentiment Polarity).
-- **Frontend**: Streamlit (Enterprise Dashboard), Seaborn/Plotly (Statistical Visualization).
-- **Infrastructure**: SMTP/SendGrid (Automated Alerting Pipeline).
+- **Data Engineering**: **Dagster** (Assets-as-Code Orchestration), **Meltano** (Singer-Spec Infrastructure & Structural JSONB Flattening), **dbt Core** (Analytical Transformation).
+- **Backend & Cloud**: **Google BigQuery** (High-Performance OLAP & SQL Analytical Scaling), **MongoDB Atlas** (NoSQL Unstructured Staging).
+- **Machine Learning**: **Scikit-Learn** (Sector-Aware Isolation Forest), **XGBoost** (Predictive Market Forecasts).
+- **NLP & Gen-AI**: **Google Gemini 1.5 Pro** (Gen-AI Audit Memos), **TextBlob** (Sentiment & Density Polarity).
+- **Frontend**: **Streamlit** (Enterprise Command Center), **Seaborn/Plotly** (Statistical Anomaly Distributions).
+- **Infrastructure**: **SMTP/SendGrid** (Automated Forensic Alerting Pipeline), **GCP IAM** (Principle of Least Privilege Security).
 
 ---
 

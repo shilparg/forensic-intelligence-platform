@@ -116,4 +116,13 @@ This document serves as the "Defense Master List" for the Capstone project. It c
 **Q28: [🎓 COACH] If you had 6 more months, what is the #1 feature you would add?**
 > **Answer:** **Automated Regulatory Filing Generation**. I would use the Gemini AI to not only write an internal audit memo but to automatically populate an **SEC Form 4 (Insider Trading Reporting)** draft for the auditor to review, completing the entire workflow from "Detection" to "Legal Submission."
 
+**Q29: [🎓 COACH] Why use a 100-digit threshold for the Benford's Law model?**
+> **Answer:** This is to satisfy the **Law of Large Numbers**. Benford's Law is a statistical distribution that only becomes reliable over large datasets. By enforcing a 100-digit minimum, we ensure that an "Anomaly" is a genuine deviation from the logarithmic curve rather than a statistical fluke caused by a short filing with only 10-20 numbers.
+
+**Q30: [⚙️ CTO] How do you handle JSONB flattening at industrial scale?**
+> **Answer:** We use a specialized **Python-Pandas flattener** (`pandas_to_bq.py`) injected into our Meltano flow. This bypasses the complexity of native SQL JSON parsing by flattening the nested Mongo document structure into a purely relational schema *before* it hits BigQuery. This makes the downstream dbt models significantly faster and easier to maintain.
+
+**Q31: [🤖 CTO] Why the 0.10 "Contamination" parameter in the Isolation Forest?**
+> **Answer:** The contamination parameter represents the expected proportion of outliers in the dataset. By setting it to **0.10 (10%)**, we are telling the AI to prioritize identifying the "Most Extreme" irregularities. This reduces "Alert Fatigue" for auditors by focusing only on the highest-risk entities rather than flagging every minor deviation.
+
 ---

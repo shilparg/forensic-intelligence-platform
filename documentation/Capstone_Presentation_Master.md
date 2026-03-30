@@ -22,7 +22,9 @@ We built an **Industrial Data Factory** that solves this via **Triangulation**:
 
 ## ☁️ Slide 3: Medallion Architecture (The Engineering)
 The platform is built on an enterprise-grade **Medallion Data Factory**:
-*   **🥉 Bronze (Ingestion)**: MongoDB stores messy, unstructured SEC HTML text.
+*   **🥉 Bronze (Ingestion)**: 
+    *   **Engine A**: MongoDB stores messy, unstructured SEC HTML text.
+    *   **Engine B**: Meltano pulls structured Yahoo Finance market metrics.
 *   **🥈 Silver (Standardization)**: Google BigQuery cleans and standardizes the streams.
 *   **🥇 Gold (Insight)**: dbt Joins narrative and market data into a definitive forensic view.
 *   **⚙️ Orchestration**: **Dagster** manages the complete asset-as-code lifecycle.
@@ -60,6 +62,7 @@ We utilize two distinct model architectures to capture both present and future r
 ## 📊 Slide 7: Technical Highlights & Scalability
 Engineering hurdles conquered during development:
 *   **15-Minute to 1-Second Scale**: Re-architected data retrieval to batch BigQuery fetches, bypassing API rate limits.
+*   **Meltano ELT Engine**: Established a 4x faster quantitative extraction layer using the Singer spec.
 *   **SSL Handshake Patch**: Custom environment-injected `certifi` layer for MongoDB security.
 *   **Data Fidelity Meter**: Real-time "Trust Meter" for auditors to verify data completeness.
 
@@ -86,11 +89,11 @@ Engineering hurdles conquered during development:
 **The Forensic Intelligence Platform** is more than a dashboard; it's a transparency layer for the global financial market. 
 
 - **Scaling**: Integrating FinBERT for deeper technical nuance.
-- **Vision**: Global SEC-wide monitoring with real-time Gen-AI alerts.
+- **Vision**: Global SEC-wide monitoring with real-time Streaming & Gen-AI alerts.
 
 ---
 
-## 🏛️ Slide 10: Stakeholder Impact Summary (The Value Matrix)
+## 🏛️ Slide 11: Stakeholder Impact Summary (The Value Matrix)
 
 | **⚙️ THE CTO PERSPECTIVE** (Engineering Excellence) | **📊 THE CFO PERSPECTIVE** (Risk & Finance) |
 | :--- | :--- |
@@ -98,6 +101,15 @@ Engineering hurdles conquered during development:
 | **Data Integrity**: Medallion architecture prevents "Data Swamp" scenarios. | **Resource Efficiency**: Automating the "First Pass" of a 10-K audit. |
 | **Extensibility**: Modular Python/dbt design allows for new forensic modules. | **Defensibility**: SHapley values provide a legal audit trail for AI decisions. |
 | **Observability**: Real-time asset health monitoring via Dagster. | **Compliance**: Aligns with SEC/SOX modernization requirements. |
+
+---
+
+## 🎓 Slide 12: Academic & Methodological Rigour (Coach Focus)
+
+We prioritized data validity over "Black Box" predictions by implementing:
+*   **dbt-expectations Framework**: Automated testing for `not_null` and `accepted_values` across all forensic SQL models.
+*   **Python-Pandas Unification**: Eliminated context-switching by using a single "Assets-as-Code" language for Ingestion, NLP, and ML.
+*   **The Benford Constraint**: Implementing a 100-digit minimum threshold to satisfy the law-of-large-numbers required for forensic accuracy.
 
 **Thank You — Q&A**
 ---
