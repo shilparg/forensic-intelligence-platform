@@ -124,6 +124,15 @@ Streamlit is a web UI, but Dagster is a heavy-duty backend. To connect them, we 
 - **`run_config.json`**: Tells Dagster which tickers to run.
 - **`ui_state.json`**: Persists UI settings (like email alerts on/off) so that the backend `forensic_alerter.py` knows the user's current preferences even when the web session is closed.
 
+### 6. The Auditor Command Center (UI/UX Architecture)
+Streamlit serves as the high-stakes interface between the auditor and the Dagster pipeline. 
+- **Reactive State Management**: We leverage `st.session_state` to ensure the dashboard remains interactive without losing work. Toggle-based configurations are synced to `ui_state.json`, creating a persistent "Memory" between the frontend and the backend bot.
+- **Multi-Library Visualization Strategy**: 
+    - **Seaborn**: Used for high-density statistical anomaly distributions (Violin/Box plots).
+    - **Plotly**: Used for interactive, time-series market forecasting (XGBoost results).
+    - **Altair**: Used for relational heatmaps and forensic triage matrices.
+- **Data Signal Fidelity Engine**: A real-time verification layer that scans the dataset for non-zero completeness. It warns the auditor if the "Confidence" of the current run is low due to upstream API throttling.
+
 ---
 
 ## 🎓 Summary for Team Briefing

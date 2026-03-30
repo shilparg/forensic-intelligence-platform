@@ -9,6 +9,7 @@ All technical manuals, presentation decks, and installation guides are located i
 - **[Architecture & Visual Flow](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/ARCHITECTURE_VISUALS.md)**: Technical & Executive diagrams.
 - **[Technical Data Walkthrough](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/FORENSIC_DATA_WALKTHROUGH.ipynb)**: Jupyter Notebook investigation.
 - **[Environment Check Utility](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/ENVIRONMENT_CHECK_UTILITY.ipynb)**: Pre-flight connection & dependency test.
+- **[Streamlit UI User Manual](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/STREAMLIT_USER_MANUAL.md)**: Feature-by-feature forensic visual guide.
 
 ---
 
