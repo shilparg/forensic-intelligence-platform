@@ -69,6 +69,7 @@ Engineering hurdles conquered during development:
 ---
 
 ## 🏢 Slide 8: The Auditor Command Center (UI/UX)
+*   **Triple-Engine Viz Stack**: Leveraging Altair (Speed), Plotly (Interaction), and **Seaborn (Deep Statistical Proofs)**.
 *   **High-Level Risk Triage**: Heatmap-driven executive overview.
 *   **Anomaly Investigation Lab**: Six forensic tabs for deep-dive evidence gathering.
 *   **Comparative Risk Combat**: Overlaying an anomaly against a stable peer for visual proof.

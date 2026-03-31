@@ -10,6 +10,8 @@ dagster-graphql>=1.6.13
 meltano>=3.4.0  
 dagster-meltano>=1.5.5
 graphene>=3.0
+# Add this line to fix the Meltano/Snowplow Tracker conflict
+snowplow-tracker==1.0.4
 
 # --- Extraction & Database ---
 requests>=2.31.0

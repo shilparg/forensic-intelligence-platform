@@ -37,11 +37,12 @@ We utilize a "Dual-Model Architecture" to ensure we are capturing both structura
 The AI analyzes a multi-dimensional vector for every company:
 1.  **Engine A (Textual)**: `sentiment_score`, `density_index`.
 2.  **Engine B (Market)**: `short_ratio`, `debt_to_equity`, `return_on_equity`, `operating_margin`, `insider_ownership`, `current_ratio`.
-3.  **Engine C (Forensic Math)**: `benfords_deviation`, `sentiment_volatility` (Historical Tone Drift).
+3.  **Engine C (Forensic Math)**: `benfords_deviation`, `sentiment_volatility` (Historical Tone Drift). This is the **Convergence Layer** where cleaned SEC text and Yahoo metrics are mathematically joined to find hidden anomalies.
 
 ### 2. Supervised Risk Forecasting (XGBoost)
 **Concept:** Forensic metrics are leading indicators of market behavior (e.g., short-selling spikes).
-**Logic:** We use **XGBoost (Extreme Gradient Boosting)**. This model is trained on historical patterns. If the AI detects a specific combination of Narrative Fear and Debt, it forecasts how much a professional short-seller is likely to bet against that company in the next 12 months.
+**Logic:** We use **XGBoost (Extreme Gradient Boosting)** as a **Forensic Forecaster**. It is a supervised model trained on historical patterns. If the AI detects a specific combination of Narrative Fear (A) and Benford's Deviation (C), it forecasts how much a professional short-seller is likely to bet against that company in the next 12 months.
+
 
 ### 3. Explainable AI (The SHAP Concept)
 **Concept:** Auditors cannot testify in court or to a board based on a "Black Box." 
@@ -63,7 +64,7 @@ The platform operates as a massive industrial data factory, moving from raw iden
 ### 🏗️ Phase 2: Dual-Engine Data Ingestion
 The platform physically separates its "qualitative" and "quantitative" pipelines to prevent bottlenecks.
 - **Engine A (Unstructured)**: `run_unstructured_extraction`
-    - Scrapes textual SEC 10-K filings using `extract_sec_data.py`.
+    - Scrapes the **MD&A (Management's Discussion & Analysis)** section of SEC 10-K filings using `extract_sec_data.py`.
     - Stores the massive raw HTML/Text in **MongoDB** (NoSQL), which excels at handling high-volume, variable-length text.
 - **Engine B (Structured)**: `run_meltano_structured_sync`
     - Uses **Meltano** to pull live market metrics (Short Ratio, Debt-to-Equity, etc.) from Yahoo Finance via `yahoo_to_bq.py`.
@@ -106,8 +107,17 @@ Traditional "Cron jobs" are dangerous for forensic work. If one step fails, the 
 - **MongoDB (NoSQL)**: We use this because SEC filings are messy. One 10-K might be 50KB, another might be 5MB. MongoDB stores this "unstructured" text easily.
 - **BigQuery (OLAP)**: We use this for the "Gold" layer because it is optimized for massive SQL transformations. You cannot run a "Benford's Law" regex across 10,000 documents in MongoDB as fast as you can in BigQuery.
 
-### 3. The Math of Forensics: Benford's Law SQL
-In `fct_benfords_law.sql`, we use:
+### 3. Isolation Forest: The Multi-Dimensional Detective
+Traditional fraud detection relies on "Rules" (e.g., *Is debt > X?*). Our **Isolation Forest** (Model 1) uses a multi-dimensional approach to find what "normal" looks like.
+
+- **Engine C Integration**: The model treats `benfords_deviation` and `sentiment_volatility` as core coordinates in its search space.
+- **The "Cold Start" Solution**: Because real fraud is rare, we don't train on past labeled examples. Instead, we isolate the points that are mathematically most difficult to fit into the "Normal" crowd. A high Benford's Deviation often becomes the primary reason a record is isolated.
+- **Probability Scoring**: We invert the model's `decision_function` to create a human-readable **0-100% Risk Probability** score, making it easier for auditors to triage.
+
+### 4. Engine C: The Convergence Layer (Forensic Math)
+Engine C is not a single file, but a **Logical Layer** in the dbt transformation phase. It is where the "Bronze" data from SEC and Yahoo Finance are refined into "Gold" insights.
+
+**Benford's Law SQL:** In `fct_benfords_law.sql`, we use:
 ```sql
 UNNEST(REGEXP_EXTRACT_ALL(filing_text, r'\b([1-9])\d*')) AS digit
 ```
@@ -115,6 +125,14 @@ This mines every single leading digit mentioned in a 100-page filing. By unnesti
 
 > [!IMPORTANT]
 > **Statistical Significance (The Coach Requirement):** We implement a `WHERE total_digits > 100` constraint. This ensures the sample size of numbers in a filing is large enough to satisfy the **Law of Large Numbers**, preventing false anomalies caused by small datasets.
+
+### 4. The XGBoost Forecaster: Predicting the "Short Attack"
+While the Isolation Forest (Model 1) identifies **current** anomalies, XGBoost (Model 2) provides **forward-looking intelligence**.
+
+- **The Features**: It consumes the outputs of Engine A, B, and C as its feature set.
+- **The Prediction**: It is trained to predict the `short_ratio` (the intensity of professional short-selling). 
+- **The Output**: It calculates an `expected_short_spike_pct`. If Engine C shows a high mathematical deviation, XGBoost forecasts a corresponding spike in market skepticism. 
+
 
 ### 4. AI Interpretability: SHAP vs. Black Box
 Machine Learning often tells you *what* is wrong but not *why*. We use **SHAP (SHapley Additive exPlanations)**. It breaks down the 1.0 (Anomaly) score into its component parts. This allows the auditor to defend their finding: *"I am auditing Company X because the AI attributed 60% of its risk to its defensive Narrative Tone."*
@@ -127,11 +145,18 @@ Streamlit is a web UI, but Dagster is a heavy-duty backend. To connect them, we 
 ### 6. The Auditor Command Center (UI/UX Architecture)
 Streamlit serves as the high-stakes interface between the auditor and the Dagster pipeline. 
 - **Reactive State Management**: We leverage `st.session_state` to ensure the dashboard remains interactive without losing work. Toggle-based configurations are synced to `ui_state.json`, creating a persistent "Memory" between the frontend and the backend bot.
-- **Multi-Library Visualization Strategy**: 
-    - **Seaborn**: Used for high-density statistical anomaly distributions (Violin/Box plots).
-    - **Plotly**: Used for interactive, time-series market forecasting (XGBoost results).
-    - **Altair**: Used for relational heatmaps and forensic triage matrices.
+- **The Multi-Library Visualization Strategy**: 
+    - **Seaborn**: Used for **High-Fidelity Statistical Proving**. Unlike basic web charts, Seaborn provides professional "Violin Plots" and "KDE Densities" that prove the statistical significance of our anomaly detection layer.
+    - **Plotly**: Used for interactive, "Zoomable" time-series market forecasting (XGBoost results).
+    - **Altair**: Used for relational heatmaps and "Audit Matrix" grids on the Triage page.
 - **Data Signal Fidelity Engine**: A real-time verification layer that scans the dataset for non-zero completeness. It warns the auditor if the "Confidence" of the current run is low due to upstream API throttling.
+
+### 7. Engineering Achievement: 15-Minute to 1-Second Scale
+One of the core technical breakthroughs of this project was the **Architectural Re-platforming** of how the AI models retrieve their data.
+
+- **The Traditional Bottleneck (15+ Minutes)**: Initially, the AI script used "Serial Fetching"—looping through each ticker and making individual requests to databases or APIs. This was throttled by network latency and API rate limits (HTTP 429).
+- **The Modern Solution (1-Second)**: We moved the "Intelligence" into the **BigQuery/dbt Layer**. By pre-joining the Engine A, B, and C features into a single "Gold" table, the [fraud_model.py](file:///home/kangy/data_analytics/capstone/forensic-intelligence-platform/core_nlp_engine/ml_engine/fraud_model.py) now performs a **single, batched SQL fetch**.
+- **The Result**: The AI can now score 10,000 companies as fast as it scores 10, bypassing API rate limits entirely and bringing the retrieval time down from 15 minutes to approximately **1 second**.
 
 ---
 

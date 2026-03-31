@@ -195,7 +195,7 @@ if page == "📊 High-Level Risk Overview (Triage)":
                     x=alt.X('ticker:O', sort='-color', title='Company Ticker', axis=alt.Axis(labelAngle=-45)),
                     y=alt.Y('fraud_risk_status:N', title='AI Classification Status', sort='descending'),
                     color=alt.Color('fraud_probability_score:Q', scale=alt.Scale(scheme='reds', domain=[0, 100]), title='Risk Score'),
-                    tooltip=['ticker', 'sector', 'fraud_probability_score', 'sentiment_score', 'debt_to_equity']
+                    tooltip=['ticker', 'fiscal_year', 'sector', 'fraud_probability_score', 'sentiment_score', 'debt_to_equity']
                 ).properties(height=350).interactive()
                 st.altair_chart(heatmap, use_container_width=True)
             else:
@@ -388,7 +388,7 @@ The AI has identified anomalous structural patterns in {memo_data['ticker']}'s S
                     y=alt.Y('sentiment_score:Q', title="Emotional Tone (Sentiment)"),
                     color=alt.Color('fraud_risk_status:N', scale=alt.Scale(domain=['NORMAL', 'CRITICAL ANOMALY'], range=['#3B82F6', '#EF4444'])),
                     size=alt.Size('fraud_probability_score:Q', title="Risk Score", scale=alt.Scale(range=[60, 400])),
-                    tooltip=['ticker', 'sector', 'word_count', 'sentiment_score', 'density_index', 'fraud_probability_score']
+                    tooltip=['ticker', 'fiscal_year', 'sector', 'word_count', 'sentiment_score', 'density_index', 'fraud_probability_score']
                 ).interactive()
                 st.altair_chart(density_chart, use_container_width=True)
             else:
@@ -421,8 +421,9 @@ The AI has identified anomalous structural patterns in {memo_data['ticker']}'s S
                                          color_continuous_scale='RdBu_r', 
                                          zmin=-1, zmax=1)
                     fig_corr.update_layout(
-                        margin=dict(l=10, r=10, t=30, b=10), 
-                        height=500,
+                        title="Statistical Correlation of Forensic Markers",
+                        margin=dict(l=10, r=10, t=60, b=10), 
+                        height=540,
                         title_x=0.5
                     )
                     fig_corr.update_xaxes(tickangle=-45)
@@ -463,8 +464,8 @@ elif page == "🔮 Predictive Risk & Trend Forecasting":
                             var_name='Timeline', value_name='Short Interest (%)')
         
         melted_df['Timeline'] = melted_df['Timeline'].replace({
-            'short_ratio': '1. Current Short Ratio', 
-            'projected_short_ratio': '2. Projected Short Attack'
+            'short_ratio': '📉 PRESENT', 
+            'projected_short_ratio': '🔮 AI PROJECTION'
         })
         
         altair_slope = alt.Chart(melted_df).mark_line(point=alt.OverlayMarkDef(filled=False, fill="white", size=100)).encode(
@@ -552,7 +553,7 @@ elif page == "📈 Statistical Anomaly Distributions":
                 x=x_axis,
                 y=y_axis,
                 color=alt.Color("fraud_risk_status:N", scale=alt.Scale(domain=["NORMAL", "CRITICAL ANOMALY"], range=["#3B82F6", "#EF4444"])),
-                tooltip=["ticker", x_axis, y_axis, "fraud_risk_status"]
+                tooltip=["ticker", "fiscal_year", x_axis, y_axis, "fraud_risk_status"]
             ).interactive()
             st.altair_chart(altair_chart, use_container_width=True)
             with st.expander("💡 How to read this Correlation Plot"):

@@ -95,8 +95,8 @@ Use these definitions when explaining the 3D Schematic to non-technical stakehol
     *   *Pitch:* "The central brain that manages the 6-phase lifecycle of an audit, ensuring total data traceability."
 
 *   **🎙️ NLP ENGINE (Engine A)**:
-    *   *Technical Mapping:* **SEC Text Scraper & Sentiment Logic**.
-    *   *Pitch:* "The Qualitative engine that 'listens' to the CEO's tone and disclosures for signs of obfuscation."
+    *   *Technical Mapping:* **SEC MD&A Scraper & Sentiment Logic**.
+    *   *Pitch:* "The Qualitative engine that 'listens' to the **MD&A (Management's Discussion & Analysis)** section for signs of obfuscation and tone-drift."
 
 *   **📊 QUANT ENGINE (Engine B)**:
     *   *Technical Mapping:* **Meltano ELT & Yahoo Finance Sync**.

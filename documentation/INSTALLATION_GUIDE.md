@@ -58,7 +58,10 @@ SEC_USER_AGENT=ForensicBot (your-email@example.com)
 
 ## 🚀 4. Executing the Platform
 
-The platform is designed to be run in two main parts: The **Data Factory** (Backend) and the **Command Center** (Frontend).
+The platform is designed to be run in two main parts: The **Data Factory** (Backend) and the **Command Center** (Frontend). 
+
+### 🎯 Input: Ticker Selection
+Before running, ensure your **`target_tickers.csv`** file in the project root contains the symbols you wish to audit (e.g., TSLA, SNOW). 
 
 ### Part A: The Data Factory (Pipeline Orchestration)
 > [!IMPORTANT]

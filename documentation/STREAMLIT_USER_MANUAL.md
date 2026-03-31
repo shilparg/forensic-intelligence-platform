@@ -20,10 +20,13 @@ This manual provides a professional, feature-by-feature guide to the **Forensic 
 
 ## 📊 Page 1: High-Level Risk Overview (Triage)
 
-### 🧬 Data Signal Fidelity
-- **⚙️ Feature & Options**: A real-time data-completeness meter.
-- **🖱️ Usage**: Automatically updates based on the current BigQuery/API run.
 - **🕵️ Observation**: A low percentage (e.g. 40%) is a "Data Hazard" warning. It means your audit results are based on partial information (missing debt or sentiment). Always aim for 85%+ before finalizing a fraud diagnosis.
+
+### 🚩 Critical Alert Banners
+- **⚙️ Feature & Options**: Automated floating alerts on the Triage page.
+- **🕵️ Observation (Insider Dumping)**: Triggers if the AI detects CEO panic sentiment while executives are selling stock.
+- **🕵️ Observation (XGBoost Spike)**: Triggers if the predictive engine forecasts a massive (+20% or more) market attack.
+- **🕵️ Observation (Extraction Block)**: Triggers if Yahoo Finance has rate-limited the pipeline, warning the auditor that financial metrics are currently based on "Safe Fallback" (0) values.
 
 ### 🎯 Audit Priority Heatmap
 - **⚙️ Feature & Options**: Altair-powered grid mapping `Ticker` vs `Risk Status`.
@@ -72,7 +75,7 @@ This manual provides a professional, feature-by-feature guide to the **Forensic 
 ## 📈 Page 4: Statistical Anomaly Distributions
 
 ### 🎻 Advanced Seaborn Visualizer
-- **⚙️ Feature & Options**: Dropdowns for Plot Type (Violin/Box/KDE) and Axis variables.
+- **⚙️ Feature & Options**: Dropdowns for Plot Type (Violin/Box/KDE) and Axis variables. Uses the **Seaborn Statistical Engine**.
 - **🕵️ Observation (Violin)**: Proves the AI's "Discrimination Power." If the 'Critical Anomaly' violin is physically separated or a different shape than the 'Normal' violin, you have successfully proven that your flags represent a distinct statistical population.
 
 ### ⏳ Historical Risk Playback
