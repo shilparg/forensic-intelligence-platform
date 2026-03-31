@@ -1,4 +1,4 @@
-# 🕵️‍♂️ Forensic Intelligence Platform: Enterprise Capstone Defense
+# 🕵️‍♂️ Capstone Pitch: Forensic Intelligence Platform
 **Authors:** Shilpa Kangya & Kamlesh Kangya  
 **Vision:** Beyond Financials — Triangulating Narrative Fear with Quantitative Facts.
 

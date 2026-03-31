@@ -1,4 +1,4 @@
-# 🕵️‍♂️ Streamlit Dashboard: Comprehensive Forensic User Manual (Extended)
+# 🕵️‍♂️ Capstone Pitch: Streamlit User Manual (Extended)
 
 This manual provides a professional, feature-by-feature guide to the **Forensic Intelligence Platform**. Each section includes the technical options available and the "Professional Observation" (Audit Red Flag) to look for.
 

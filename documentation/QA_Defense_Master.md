@@ -1,4 +1,4 @@
-# 🛡️ Forensic Intelligence Platform: Master Presentation Q&A
+# 🛡️ Capstone Pitch: Master Q&A Defense
 
 This document serves as the "Defense Master List" for the Capstone project. It categorizes potential questions from coaches and audiences into four critical domains: Architecture, Data Science, Visual Interpretation, and Business Value.
 

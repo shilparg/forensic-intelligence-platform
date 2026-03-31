@@ -1,4 +1,4 @@
-# 📘 Forensic Intelligence Platform: Technical Code Explainer & Briefing Guide
+# 📘 Capstone Pitch: Technical Code Explainer & Briefing Guide
 
 This document provides a deep-dive explanation of the **Forensic Intelligence Platform's** architecture, code flow, and technical implementation. It is designed to help you and your team understand the "How" and "Why" behind the platform.
 

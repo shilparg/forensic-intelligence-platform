@@ -1,4 +1,4 @@
-# 🗺️ Forensic Intelligence Platform: Architecture & Data Flow
+# 🗺️ Capstone Pitch: Architecture & Data Flow
 
 This document contains the visual blueprints of the **Forensic Intelligence Platform**. Use these diagrams in your presentation to explain the "Triangulation" logic and the "Industrial Data Factory" architecture.
 
