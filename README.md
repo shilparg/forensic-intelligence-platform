@@ -7,7 +7,7 @@
 ### 📚 Project Documentation Hub
 All technical manuals, presentation decks, and installation guides are located in the **[documentation/](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/)** directory:
 - **[Installation Manual](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/INSTALLATION_GUIDE.md)**: How to set up and run the platform.
-- **[Presentation Slide Deck](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/Capstone_Presentation_Master.md)**: The "World-Class" capstone pitch.
+- **[Presentation Slide Deck](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/Capstone_Presentation_Master.md)**: The Capstone pitch.
 - **[Technical Code Explainer](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/CODE_EXPLAINER_MASTER.md)**: Deep-dive for dev teams.
 - **[Defense Q&A Master](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/QA_Defense_Master.md)**: Presentation preparation cheat-sheet.
 - **[Architecture & Visual Flow](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/ARCHITECTURE_VISUALS.md)**: Technical & Executive diagrams.
