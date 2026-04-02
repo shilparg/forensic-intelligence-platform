@@ -22,7 +22,6 @@ echo "🏗️ Staging Platform Core Logic..."
 git add core_nlp_engine/
 git add meltano_elt_engine/
 git add streamlit_dashboard/
-git add scout.py
 git add scripts/
 git add documentation/
 git add notebooks/
