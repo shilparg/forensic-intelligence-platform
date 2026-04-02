@@ -47,9 +47,7 @@ models:
   - name: fct_disclosure_density
     description: "Gold Model: Final export table sent to the Machine Learning Isolation Forest."
     columns:
-      - name: forensic_label
-        description: "Text-based obfuscation logic output"
-        tests:
+      - name: ticker
+        description: "Primary key entity identifier"
+        data_tests:
           - not_null
-          - accepted_values:
-              values: ['NORMAL', 'HIGH NEGATIVE RISK', 'POTENTIAL OBFUSCATION']

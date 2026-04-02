@@ -12,7 +12,7 @@ client = bigquery.Client()
 print("🔍 Inspecting BigQuery Table Schema...")
 try:
     project_id = os.getenv("GCP_PROJECT_ID")
-    dataset_id = os.getenv("BQ_DATASET_ID", "forensic_data")
+    dataset_id = os.getenv("BQ_FINAL_DATASET", "forensic_data")
     query = f"SELECT * FROM `{project_id}.{dataset_id}.fct_disclosure_density` LIMIT 1"
     df = client.query(query).to_dataframe()
     

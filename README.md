@@ -93,7 +93,7 @@ The UI provides an executive-grade experience across 8 specialized modules:
 
 ## 🔒 8. Security & Data Governance
 - **Principle of Least Privilege (PoLP)**: Dedicated service accounts for Pipeline (Write) and Dashboard (Read).
-- **Environment Integrity**: All credentials git-ignored; state managed via persistent `ui_state.json` bridge.
+- **Environment Integrity**: All credentials git-ignored; system state is managed via **Variable-Driven Portability**, allowing zero-code re-targeting of BigQuery datasets.
 - **Traceability**: Full asset lineage tracked via Dagster to ensure every Risk Score is verifiable.
 
 ---
@@ -101,9 +101,13 @@ The UI provides an executive-grade experience across 8 specialized modules:
 ## 🚀 9. Installation & Deployment
 Refer to the **[INSTALLATION_GUIDE.md](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/INSTALLATION_GUIDE.md)** for environment setup, GCP authorization, and local orchestration instructions.
 
+## 🔮 10. Future Roadmap (v2.0 - v4.0)
+The platform is built on an extensible **Industrial Data Factory** architecture. For a deep dive into the **Alternative Data Integration**, **Real-Time Sentiment Streaming**, and **Multi-Modal AI** plans, refer to the:
+👉 **[FUTURE_ROADMAP.md](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/FUTURE_ROADMAP.md)**
+
 ---
 
-## 🔤 10. Glossary & Visual Terms
+## 🔤 11. Glossary & Visual Terms
 - **Industrial Data Factory**: The Dagster-orchestrated 6-phase lifecycle.
 - **Quant Engine**: The Meltano-powered structured financial pipeline.
 - **NLP Engine**: The SEC text-mining sentiment logic.

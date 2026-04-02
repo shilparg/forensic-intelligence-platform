@@ -88,8 +88,24 @@ To provide institutional-grade reporting, we utilize a three-tiered visualizatio
 
 ---
 
-## 🏁 8. Conclusion: The "Industrial Data Factory" Vision
+## 8. Variable-Driven Portability: The "Zero-Code" Command
+The platform's transition from hardcoded strings to environment-variable mapping represents a significant leap in its industrial engineering:
+
+*   **Engineering Rationale**: By parameterizing the BigQuery dataset and table names, we decouple the logic (the "Action") from the destination (the "Target"). 
+*   **Production Readiness**: This allows the exact same codebase to target a `staging_environment` during development and a `production_environment` during final deployment, simply by swapping the `.env` file.
+*   **User Portability**: New users can deploy the factory in their own GCP projects without searching and replacing strings across multiple engines.
+
+---
+
+## 🏁 9. Conclusion: The "Industrial Data Factory" Vision
 The Forensic Intelligence Platform is not a simple script; it is a **Decoupled Data Factory**. By separating **Ingestion**, **Transformation**, and **Intelligence**, we have built a system that is:
 1.  **Defensible**: Every score has a SQL and SHAP audit trail.
 2.  **Scalable**: Capable of processing thousands of filings in seconds.
 3.  **Hybrid**: Bridging the gap between the "CEO's Tone" and the "CFO's Ledger."
+
+---
+
+## 🔮 10. Vision for Platform v2.0
+The immediate next stage of this architecture involves **Deep UI-to-Engine Integration**, allowing the Streamlit interface to directly recalibrate the anomaly detection strictness of the **IA Engine**, ensuring a "Human-in-the-Loop" experience for expert auditors.
+
+***

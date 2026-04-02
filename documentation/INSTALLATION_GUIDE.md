@@ -47,16 +47,36 @@ Before beginning, ensure you have the following accounts and tools:
 ### B. Environment Variables (.env)
 Create a file named `.env` in the project root and populate it with your specific credentials:
 ```env
+# Google Cloud Platform Authentication
 GCP_PROJECT_ID=your-project-id
 GOOGLE_APPLICATION_CREDENTIALS=gcp-service-account.json
+
+# Databases & APIs
 MONGO_URI=your-mongodb-atlas-connection-string
 GEMINI_API_KEY=your-gemini-api-key
 SEC_USER_AGENT=ForensicBot (your-email@example.com)
+
+# BigQuery Medallion Layer Configuration (Standardized)
+BQ_RAW_DATASET=raw_sec_landing
+BQ_FINAL_DATASET=forensic_data
+BQ_RAW_FILINGS_TABLE=raw_sec_filings
+BQ_RAW_FINANCIALS_TABLE=raw_financials
 ```
 
 ---
 
-## 🚀 4. Executing the Platform
+## ⚙️ 4. Configuration Reference (Advanced)
+
+| Variable | Default Value | Description |
+| :--- | :--- | :--- |
+| `BQ_RAW_DATASET` | `raw_sec_landing` | The BigQuery dataset representing the **Silver Layer** (cleaned landing zone). |
+| `BQ_FINAL_DATASET` | `forensic_data` | The BigQuery dataset representing the **Gold Layer** (final AI-scored output). |
+| `BQ_RAW_FILINGS_TABLE` | `raw_sec_filings` | The table name for unstructured SEC MD&A text. |
+| `BQ_RAW_FINANCIALS_TABLE` | `raw_financials` | The table name for structured market metrics (Yahoo Finance). |
+
+---
+
+## 🚀 5. Executing the Platform
 
 The platform is designed to be run in two main parts: The **Data Factory** (Backend) and the **Command Center** (Frontend). 
 

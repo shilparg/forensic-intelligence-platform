@@ -76,8 +76,8 @@ print(f"✨ Flattened {len(df)} records into {len(df.columns)} clean columns.")
 
 # --- 4. Push to BigQuery ---
 project_id = os.getenv("GCP_PROJECT_ID")
-dataset_id = os.getenv("BQ_RAW_DATASET_ID")
-table_name = "raw_sec_filings"
+dataset_id = os.getenv("BQ_RAW_DATASET", "raw_sec_landing")
+table_name = os.getenv("BQ_RAW_FILINGS_TABLE", "raw_sec_filings")
 table_id = f"{project_id}.{dataset_id}.{table_name}"
 
 client = bigquery.Client(project=project_id)

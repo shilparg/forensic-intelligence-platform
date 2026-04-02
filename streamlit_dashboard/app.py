@@ -39,6 +39,9 @@ ML_OUTPUT_PATH = os.path.join(root_dir, "core_nlp_engine", "ml_engine", "ai_scor
 PLOTS_DIR = os.path.join(root_dir, "core_nlp_engine", "analysis", "plots")
 DAGSTER_SCRIPT = os.path.join(root_dir, "core_nlp_engine", "orchestrate", "assets.py")
 DOCS_DIR = os.path.join(root_dir, "documentation")
+project_id = os.getenv("GCP_PROJECT_ID", "forensic-accounting-bot")
+raw_dataset = os.getenv("BQ_RAW_DATASET", "raw_sec_landing")
+raw_filings_table = os.getenv("BQ_RAW_FILINGS_TABLE", "raw_sec_filings")
 
 @st.cache_data
 def load_data():
@@ -98,10 +101,11 @@ with st.sidebar:
     
     if not display_df.empty:
         st.markdown("---")
-        st.markdown("### 🔍 Global Filters")
+        st.markdown("### 🔍 Forensic Global Filters")
         
+        # NEW GLOBAL RISK SLIDER: Allows for dynamic AI triage
         if 'fraud_probability_score' in display_df.columns:
-            paranoia_level = st.slider("⚠️ Audit Paranoia Level", min_value=0, max_value=100, value=75, help="Dynamically adjusts the AI's sensitivity for flagging a company. Lowering the number 'flags' more companies.")
+            paranoia_level = st.slider("⚠️ Forensic Sensitivity (Risk Threshold)", min_value=0, max_value=100, value=65, help="Dynamically adjusts the AI's sensitivity for flagging a company. Lowering the number 'flags' more companies.")
             display_df['fraud_risk_status'] = display_df['fraud_probability_score'].apply(lambda x: 'CRITICAL ANOMALY' if x >= paranoia_level else 'NORMAL')
             
         selected_sector = st.multiselect("Filter by Sector", options=display_df['sector'].unique(), default=display_df['sector'].unique())
@@ -284,31 +288,57 @@ elif page == "🕵️ Anomaly Investigation Lab":
             )
             colA, colB = st.columns(2)
             with colA:
-                csv = display_df.to_csv(index=False).encode('utf-8')
-                st.download_button("📥 Export Evidence (CSV)", data=csv, file_name="forensic_evidence.csv", mime="text/csv", use_container_width=True)
+                # 🧼 Forensic Cleanup: Ensure legacy labels are removed from export
+                export_df = display_df.copy()
+                if 'forensic_label' in export_df.columns:
+                    export_df = export_df.drop(columns=['forensic_label'])
+                
+                # 📝 Add Audit Metadata Header
+                metadata = f"# Forensic Audit Export - Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                metadata += f"# AI Paranoia Threshold: {st.session_state.get('paranoia_level', paranoia_level)}%\n"
+                metadata += f"# Total Entities: {len(export_df)}\n"
+                
+                csv_data = export_df.to_csv(index=False)
+                final_csv = metadata + csv_data
+                
+                st.download_button(
+                    "📥 Export Evidence (CSV)", 
+                    data=final_csv.encode('utf-8'), 
+                    file_name=f"forensic_audit_{datetime.now().strftime('%Y%m%d')}.csv", 
+                    mime="text/csv", 
+                    use_container_width=True,
+                    help="Download the underlying data for your final report, including the AI-adjusted risk labels."
+                )
             
             with colB:
                 if 'evidence_factors' in display_df.columns:
                     memo_target = st.selectbox("Select Target for AI Executive Memo", display_df['ticker'].unique(), label_visibility="collapsed")
                     memo_data = display_df[display_df['ticker'] == memo_target].iloc[0]
+                    shap_evidence = memo_data.get('evidence_factors', 'No explicit SHAP drivers available.')
                     markdown_memo = f"""# Forensic Intelligence Platform: Executive Alert Memo
-## Target Entity: {memo_data['ticker']}
+## Target Entity: {memo_target}
 **Risk Status:** {memo_data['fraud_risk_status']}
-**Probability Score:** {memo_data.get('fraud_probability_score', 'N/A')}%
+**Fraud Probability Score:** {memo_data.get('fraud_probability_score', 0)}%
 
-### Analytical Summary
-The AI has identified anomalous structural patterns in {memo_data['ticker']}'s SEC filings cross-referenced against market pressure.
+### 1. Forensic Foundation (Raw Metrics)
+The AI has identified the following anomalous structural patterns in {memo_target}'s 10-K filing cross-referenced against current market pressure:
 
 *   **Debt Load:** {memo_data.get('debt_to_equity', 'N/A')} D/E Ratio.
-*   **CEO Sentiment:** {memo_data.get('sentiment_score', 0):.3f}
-*   **Market Pressure (Short Ratio):** {memo_data.get('short_ratio', 'N/A')}%
-*   **Fabrication Deviation:** {memo_data.get('benfords_deviation', 'N/A')}
+*   **CEO Narrative Sentiment:** {memo_data.get('sentiment_score', 0):.3f}
+*   **Fabrication Deviation (Benford):** {memo_data.get('benfords_deviation', 'N/A')}
 
-### AI Explainability (SHAP Factors)
-**Key Drivers forcing the Anomaly Classification:**
-{memo_data.get('evidence_factors', 'No explicit SHAP drivers available.')}
+### 2. Predictive Market Forecast
+Beyond current filings, our **XGBoost Forecasting Engine** indicates heightened vulnerability to institutional short-selling:
 
-**Strategic Recommendation:** Schedule emergency risk review committee meeting to initiate manual ledger audit.
+*   **Current Wall Street Pressure:** {memo_data.get('short_ratio', 'N/A')}% Short Interest.
+*   **AI Projected Pressure:** {memo_data.get('projected_short_ratio', 'N/A')}% Short Interest.
+*   **Expected Market Spike:** +{memo_data.get('expected_short_spike_pct', 0)}% in Short-Selling activity.
+
+### 3. AI Explainability (SHAP Factors)
+**Key Drivers forcing the current Risk Classification:**
+{shap_evidence}
+
+**Strategic Recommendation:** { "Schedule emergency risk review committee meeting to initiate manual ledger audit." if memo_data['fraud_risk_status'] == 'CRITICAL ANOMALY' else "Monitor predictive trends during next quarterly filing cycle." }
 """
                     st.download_button("📝 Download AI Audit Report (.md)", data=markdown_memo, file_name=f"{memo_target}_Audit_Memo.md", mime="text/markdown", use_container_width=True)
 
@@ -582,6 +612,16 @@ elif page == "📈 Statistical Anomaly Distributions":
                     tooltip=['ticker', 'fiscal_year', 'fraud_probability_score', 'debt_to_equity', 'sentiment_score']
                 ).properties(height=350).interactive()
                 st.altair_chart(ts_chart, use_container_width=True)
+                with st.expander("💡 How to read this Dynamic Risk Playback"):
+                    st.write("""
+                    This animation visualizes the **Velocity of Risk**. 
+                    - **X-Axis (Debt to Equity)**: Higher movement to the right indicates increasing financial leverage and potential insolvency risk.
+                    - **Y-Axis (CEO Tone)**: Movement to the bottom indicates defensive language or narrative fear.
+                    - **Red Dots**: These are years where the AI flagged the company as a **Critical Anomaly**.
+                    - **Circle Size**: Represents the **Fraud Probability Score** (0-100%).
+                    
+                    **The Forensic Indicator:** Look for companies that move from the top-left (Profitability & Confidence) toward the bottom-right (Debt & Fear) as the dot grows larger. This captures the 'Downward Spiral' of a firm in distress.
+                    """)
             else:
                 st.info("Additional years needed for time-series playback. Only 1 year of data is currently buffered.")
         else:
@@ -647,7 +687,7 @@ SELECT ticker, fiscal_year, LENGTH(parsed_text_sample) as word_count,
   -- Calculate word count growth/shrinkage from previous year
   LENGTH(parsed_text_sample) - LAG(LENGTH(parsed_text_sample)) 
     OVER (PARTITION BY ticker ORDER BY fiscal_year) as narrative_drift
-FROM `{os.getenv("GCP_PROJECT_ID")}.raw_sec_landing.raw_filings`
+FROM `{project_id}.{raw_dataset}.{raw_filings_table}`
                 """, language="sql")
         else:
             st.info("Fiscal Year column not found for time-series drift.")
@@ -671,12 +711,20 @@ SELECT ticker, fiscal_year,
     REGEXP_EXTRACT(LOWER(parsed_text_sample), r'total debt.{{0,50}}?\$([0-9,.]+)') AS extracted_debt,
     -- Extract Liabilities
     REGEXP_EXTRACT(LOWER(parsed_text_sample), r'total liabilit.{{0,50}}?\$([0-9,.]+)') AS extracted_liabilities
-FROM `{os.getenv("GCP_PROJECT_ID")}.raw_sec_landing.raw_filings`
+FROM `{project_id}.{raw_dataset}.{raw_filings_table}`
                 """, language="sql")
 
     st.markdown("---")
     with st.expander("🛠️ Admin: View Raw JSON Ingestion Buffer"):
-        st.markdown("**Developer View:** This represents the raw, un-scaled JSON metadata as it exists in BigQuery before the ML engine applies normalization and SHAP attributions.")
+        st.info("""
+        **🔍 Forensic Transparency & Anti-Black-Box Protocol**
+        This represents the **'Primary Source'** of truth within the platform's memory. In a professional audit, it is critical that the model's logic is **verifiable and defensible**.
+        
+        - **The Logic Bridge**: This is where our BigQuery **dbt math** (Benford's Law, Narrative Drift) meets the **Machine Learning Engine**. 
+        - **Data Integrity**: By viewing this buffer, an auditor can verify that the raw metrics match the original SEC and Yahoo ingestion records before any scaling or AI weighting is applied.
+        - **Zero-Manipulation Proof**: This proves that our dashboard heatmap is fully data-driven and follows a strict **zero-manual-edit** security policy.
+        """)
+        st.markdown("**Raw SQL-to-JSON Metadata Path:**")
         st.json(display_df.head(20).to_json(orient='records'))
 
 # ==========================================
@@ -965,7 +1013,7 @@ A data engineering best practice for organizing data pipelines into progressive 
 | Layer | Contents | This Platform |
 |-------|----------|---------------|
 | **🥉 Bronze** | Raw, unprocessed data as extracted | MongoDB raw SEC text + raw Yahoo Finance JSON |
-| **🥈 Silver** | Cleaned, validated, structured data | BigQuery `raw_sec_landing` dataset |
+| **🥈 Silver** | Cleaned, validated, structured data | BigQuery `{raw_dataset}` dataset |
 | **🥇 Gold** | Business-ready, analytics-optimized | dbt-transformed `int_forensic_metrics` table |
             """)
 

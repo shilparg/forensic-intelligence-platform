@@ -20,18 +20,10 @@ This manual provides a professional, feature-by-feature guide to the **Forensic 
 
 ## 📊 Page 1: High-Level Risk Overview (Triage)
 
-- **🕵️ Observation**: A low percentage (e.g. 40%) is a "Data Hazard" warning. It means your audit results are based on partial information (missing debt or sentiment). Always aim for 85%+ before finalizing a fraud diagnosis.
-
-### 🚩 Critical Alert Banners
-- **⚙️ Feature & Options**: Automated floating alerts on the Triage page.
-- **🕵️ Observation (Insider Dumping)**: Triggers if the AI detects CEO panic sentiment while executives are selling stock.
-- **🕵️ Observation (XGBoost Spike)**: Triggers if the predictive engine forecasts a massive (+20% or more) market attack.
-- **🕵️ Observation (Extraction Block)**: Triggers if Yahoo Finance has rate-limited the pipeline, warning the auditor that financial metrics are currently based on "Safe Fallback" (0) values.
-
 ### 🎯 Audit Priority Heatmap
 - **⚙️ Feature & Options**: Altair-powered grid mapping `Ticker` vs `Risk Status`.
 - **🖱️ Usage**: Hover over any box to see the exact Sentiment and Debt-to-Equity scores.
-- **🕵️ Observation**: Look for "The Red Zone." If a specific company is deep red across multiple years or categories, it indicates **Persistent Structural Instability**.
+- **🕵️ Observation**: Look for "The Red Zone." If a specific company is deep red across multiple years, it indicates **Persistent Structural Instability**. This is your primary triage tool for prioritizing where to spend your limited audit hours.
 
 ### 🕸️ AI Decision Matrix (Radar)
 - **⚙️ Feature & Options**: Plotly line-polar graph with 4 axes (Short Ratio, Debt/Equity, Word Count, Abs Sentiment).
@@ -42,10 +34,9 @@ This manual provides a professional, feature-by-feature guide to the **Forensic 
 
 ## 🕵️ Page 2: Anomaly Investigation Lab
 
-### ⚔️ Comparative Risk Combat
-- **⚙️ Feature & Options**: Dual-trace radar chart comparing a "Suspect" vs. a "Stable Peer."
-- **🖱️ Usage**: Select the Flagged Entity (Red) and the Benchmark Entity (Blue).
-- **🕵️ Observation**: This is the "Aha!" moment. By overlaying a suspect like *Suspect X* against *Market Leader Y*, you can prove exactly where the suspect's behavior detaches from the industry "standard shape."
+### 📁 Master Data Matrix
+- **⚙️ Feature & Options**: Full DataFrame view of the entire BigQuery Gold layer.
+- **🕵️ Observation**: This is your "Ground Truth." Unlike the visual triage screens, this ledger shows every tracked company (Normal or Critical). It is the source for the **CSV Evidence Export**, which now includes an AI-Paranoia Metadata header to ensure audit traceability.
 
 ### 🔢 Benford's Law Analysis
 - **⚙️ Feature & Options**: Scatter plot showing fabrication deviation against tone.
@@ -54,41 +45,23 @@ This manual provides a professional, feature-by-feature guide to the **Forensic 
 
 ### 🚬 The 'Smoking Gun' Density Matrix
 - **⚙️ Feature & Options**: 3-dimensional bubble chart (Words vs. Tone vs. Risk Score).
-- **🖱️ Usage**: Bubble size represents the total AI Risk Priority.
 - **🕵️ Observation**: Look for the **"Obfuscation Quadrant"** (High Word Count + Negative Sentiment). Large red bubbles in this zone show management attempting to "drown" bad news in a massive volume of legal text.
 
 ---
 
-## 🔮 Page 3: Predictive Risk & Trend Forecasting
+## ⏳ Page 4: Historical Risk Playback (Time-Series)
 
-### 🔮 The Predictive Radar (XGBoost Metrics)
-- **⚙️ Feature & Options**: Metric cards highlighting the most vulnerable target.
-- **🕵️ Observation**: If the "Expected Short Spike" is high (e.g. +20%), but the "Current Short Ratio" is low, it means the **AI has found a hidden flaw** that the market has not yet pricing in. This is a "Leading Indicator."
-
-### 📉 Market Trajectory (Slope Chart)
-- **⚙️ Feature & Options**: Altair line chart connecting Current -> Future states.
-- **🖱️ Usage**: High-level visual for CFOs.
-- **🕵️ Observation**: A steep upward slope is a "Sell Signal." It visually demonstrates the AI's confidence that a massive short-seller attack is imminent.
-
----
-
-## 📈 Page 4: Statistical Anomaly Distributions
-
-### 🎻 Advanced Seaborn Visualizer
-- **⚙️ Feature & Options**: Dropdowns for Plot Type (Violin/Box/KDE) and Axis variables. Uses the **Seaborn Statistical Engine**.
-- **🕵️ Observation (Violin)**: Proves the AI's "Discrimination Power." If the 'Critical Anomaly' violin is physically separated or a different shape than the 'Normal' violin, you have successfully proven that your flags represent a distinct statistical population.
-
-### ⏳ Historical Risk Playback
-- **⚙️ Feature & Options**: An animated time-slider (if multi-year data is present).
-- **🕵️ Observation**: Use this to find **"The Tipping Point."** You can watch a company that looked "Normal" in 2022 suddenly drift and spike into the "Red Zone" in 2024.
+### 📽️ The Velocity of Risk (Animation)
+- **⚙️ Feature & Options**: An interactive time-slider (X: Debt, Y: Tone, Size: Probability).
+- **🕵️ Observation (The Downward Spiral)**: Watch for the **"South-East Drift."** The most dangerous forensic signal is a dot moving from the top-left (High Sentiment, Low Debt) toward the bottom-right (Low Sentiment, High Debt) while **growing in size**. This visually captures a management team attempting to "talk their way out" of insolvency.
 
 ---
 
 ## ☁️ Page 5: Data Lineage & Traceability
 
-### 🔄 Narrative Drift Tracker
-- **⚙️ Feature & Options**: Bar chart showing Year-Over-Year word count changes.
-- **🕵️ Observation**: Look for **"The Disclosure Spike."** A sudden increase of 5,000+ words in a single year usually indicates management adding massive new risk disclaimers after a secret failure.
+### 🛠️ Admin: JSON Ingestion Buffer
+- **⚙️ Feature & Options**: Raw JSON payload expander.
+- **🕵️ Observation (Anti-Black-Box Protocol)**: This proves the platform's **Zero-Manipulation Policy**. By showing the raw data before the ML Engine scales it, we provide an "Immaculate Audit Trail" that can be defended in a court of law or a regulatory review.
 
 ### ⚙️ Backend SQL Code Blocks
 - **⚙️ Feature & Options**: Clickable expanders.

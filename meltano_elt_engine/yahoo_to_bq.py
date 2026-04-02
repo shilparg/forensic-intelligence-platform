@@ -51,6 +51,14 @@ def extract_and_load_financials():
                 if not info or len(info) < 5:
                    raise ValueError(f"Empty or near-empty info dict returned for {ticker}")
 
+                # --- MULTI-TIER GROWTH LOGIC (RIVN/EV-SAFE) ---
+                # Non-profitable companies have 0 earningsGrowth. We fallback to Revenue Growth.
+                e_growth = info.get('earningsGrowth', info.get('earningsQuarterlyGrowth', 0))
+                r_growth = info.get('revenueGrowth', info.get('revenueQuarterlyGrowth', 0))
+                
+                # If earnings growth is 0, we use Revenue Growth as the "Momentum Proxy"
+                stable_growth = e_growth if e_growth and e_growth != 0 else r_growth
+
                 # Extract standard core metrics & advanced forensic metrics
                 market_data.append({
                     'ticker': ticker,
@@ -63,8 +71,8 @@ def extract_and_load_financials():
                     'insider_ownership': info.get('heldPercentInsiders', 0),  # Mass Executive Dumping Warning
                     'current_ratio': info.get('currentRatio', 0),     # Liquidity Risk
                     'quick_ratio': info.get('quickRatio', 0),         # Strict Liquidity Risk
-                    'revenue_growth': info.get('revenueGrowth', 0),   # Pressure to fake sales
-                    'earnings_growth': info.get('earningsGrowth', 0), # Pressure to fake EPS
+                    'revenue_growth': r_growth,                       # Captured separately for the AI
+                    'earnings_growth': stable_growth,                 # Tiered fallback applied
                     'profit_margins': info.get('profitMargins', 0),   # Bottom line truth
                     'free_cashflow': info.get('freeCashflow', 0)      # Cash vs Accounting Profits
                 })
@@ -102,8 +110,8 @@ def extract_and_load_financials():
     
     # --- 3. Loading to Silver Layer (BigQuery) ---
     project_id = os.getenv("GCP_PROJECT_ID")
-    dataset_id = os.getenv("BQ_RAW_DATASET_ID", "raw_sec_landing")
-    table_name = "raw_financials"
+    dataset_id = os.getenv("BQ_RAW_DATASET", "raw_sec_landing")
+    table_name = os.getenv("BQ_RAW_FINANCIALS_TABLE", "raw_financials")
     table_id = f"{project_id}.{dataset_id}.{table_name}"
     
     print(f"🚀 Pushing {len(df)} numerical records securely directly to {table_id}...")

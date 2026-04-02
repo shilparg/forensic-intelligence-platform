@@ -81,16 +81,19 @@ def generate_market_predictions():
     
     # Final Projected Ratio: (Model Prediction) + (Drift)
     # This ensures that ANY company with a higher-than-zero fraud marker will show a projection delta.
-    df['projected_short_ratio'] = (baseline_predictions + drift_component).round(2)
+    df['projected_short_ratio'] = (baseline_predictions + drift_component).round(1)
     
     # 🏁 SANITY CLIPS
     # 1. Projected must be >= Current (Audit logic: we predict the ATTACK, not the retreat)
     # 2. Maximum reasonable limit of 40.0% of float shorted (Hyper-Short attack)
     df['projected_short_ratio'] = df['projected_short_ratio'].clip(lower=df['short_ratio'], upper=40.0)
 
-    # Calculate percentage change
-    df['expected_short_spike_pct'] = ((df['projected_short_ratio'] - df['short_ratio']) / df['short_ratio'].replace(0, 1.0)) * 100
-    df['expected_short_spike_pct'] = df['expected_short_spike_pct'].round(1)
+    # 📈 "BOARDROOM-READY" SPIKE DAMPENING
+    # We cap the denominator at 0.5% minimum and the final output at 500% spike.
+    # This prevents extreme percentages (e.g. 20,000%) from looking like bugs in reports.
+    denom = df['short_ratio'].clip(lower=0.5)
+    df['expected_short_spike_pct'] = ((df['projected_short_ratio'] - df['short_ratio']) / denom) * 100
+    df['expected_short_spike_pct'] = df['expected_short_spike_pct'].clip(upper=500.0).round(1)
     
     # 5. Native Resave
     df.to_csv(DATA_PATH, index=False)

@@ -21,7 +21,7 @@ def run_ml_pipeline():
     print("🧠 Fetching Unfied Forensic Data (Engine A + Engine B) from BigQuery...")
     # Because of dbt Phase 2, this table now natively contains the 13 Yahoo metrics AND Benfords Law!
     project_id = os.getenv("GCP_PROJECT_ID")
-    dataset_id = os.getenv("BQ_DATASET_ID", "forensic_data")
+    dataset_id = os.getenv("BQ_FINAL_DATASET", "forensic_data")
     query = f"SELECT * FROM `{project_id}.{dataset_id}.fct_disclosure_density`"
     
     # 1-second execution! (No more 429 throttling loops)

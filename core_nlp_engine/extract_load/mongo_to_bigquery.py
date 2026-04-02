@@ -52,8 +52,9 @@ collection = db["raw_sec_filings"]
 # --- 4. Main Sync Logic ---
 def sync_mongo_to_bigquery():
     project_id = bq_client.project
-    dataset_id = os.getenv("BQ_RAW_DATASET_ID", "raw_sec_landing")
-    table_id = f"{project_id}.{dataset_id}.raw_sec_filings"
+    dataset_id = os.getenv("BQ_RAW_DATASET", "raw_sec_landing")
+    table_name = os.getenv("BQ_RAW_FILINGS_TABLE", "raw_sec_filings")
+    table_id = f"{project_id}.{dataset_id}.{table_name}"
 
     # NEW: Ensure the dataset exists before loading (prevents 404 errors)
     dataset = bigquery.Dataset(f"{project_id}.{dataset_id}")

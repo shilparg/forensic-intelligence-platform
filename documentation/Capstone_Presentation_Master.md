@@ -63,7 +63,7 @@ We utilize two distinct model architectures to capture both present and future r
 Engineering hurdles conquered during development:
 *   **15-Minute to 1-Second Scale**: Re-architected data retrieval to batch BigQuery fetches, bypassing API rate limits.
 *   **Meltano ELT Engine**: Established a 4x faster quantitative extraction layer using the Singer spec.
-*   **SSL Handshake Patch**: Custom environment-injected `certifi` layer for MongoDB security.
+*   **Environment Variable Standardization**: Re-architected all 4 platform layers (Ingestion, dbt, ML, UI) for total portability, enabling zero-code deployment across any GCP/Local environment.
 *   **Data Fidelity Meter**: Real-time "Trust Meter" for auditors to verify data completeness.
 
 ---
