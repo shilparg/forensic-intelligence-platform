@@ -7,9 +7,9 @@
 ### 📚 Project Documentation Hub
 All technical manuals, presentation decks, and installation guides are located in the **[documentation/](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/)** directory:
 - **[Installation Manual](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/INSTALLATION_GUIDE.md)**: How to set up and run the platform.
-- **[Presentation Slide Deck](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/Capstone_Presentation_Master.md)**: The Capstone pitch.
+- **[Presentation Slide Deck](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/CAPSTONE_PRESENTATION_MASTER.md)**: The Capstone pitch.
 - **[Technical Code Explainer](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/CODE_EXPLAINER_MASTER.md)**: Deep-dive for dev teams.
-- **[Defense Q&A Master](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/QA_Defense_Master.md)**: Presentation preparation cheat-sheet.
+- **[Defense Q&A Master](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/QA_DEFENSE_MASTER.md)**: Presentation preparation cheat-sheet.
 - **[Architecture & Visual Flow](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/ARCHITECTURE_VISUALS.md)**: Technical & Executive diagrams.
 - **[Streamlit UI User Manual](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/STREAMLIT_USER_MANUAL.md)**: Feature-by-feature forensic visual guide.
 - **[Technical Data Walkthrough](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/notebooks/02_FORENSIC_WALKTHROUGH.ipynb)**: Jupyter Notebook investigation.
@@ -75,7 +75,7 @@ The UI provides an executive-grade experience across 8 specialized modules:
 ---
 
 ## 🎤 7. Defense Quick-Sheet (Rapid Q&A)
-*Full deep-dive available in **[QA_Defense_Master.md](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/QA_Defense_Master.md)***.
+*Full deep-dive available in **[QA_DEFENSE_MASTER.md](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/QA_DEFENSE_MASTER.md)***.
 
 **Q: Why use "Triangulation"?**  
 > **A:** One signal can lie. But when **Negative Narrative + High Debt + Wall Street Pessimism** converge, the mathematical probability of risk skyrockets.
