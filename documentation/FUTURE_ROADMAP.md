@@ -7,6 +7,7 @@ The Forensic Intelligence Platform is designed as an extensible **Industrial Dat
 ## 🚀 Phase 2: Engine Deep-Integration (Performance)
 *   **UI-Driven AI Sensitivity**: Connecting the Streamlit "Forensic Sensitivity" slider directly to the `Isolation Forest` contamination parameter. Changing the slider will trigger a targeted Dagster re-scan of the anomaly layer.
 *   **Multi-Document NLP Ingestion**: Expanding Engine A to ingest 10-Q (Quarterly), 8-K (Current Events), and Proxy Statements for high-frequency, 360-degree sentiment tracking.
+*   **Sector-Contextual Anomaly Detection**: Upgrading the Isolation Forest AI to be "Industry-Aware." Instead of global comparisons, the AI will evaluate a company's Risk Drift relative to its specific industrial peers (e.g., comparing Healthcare Debt to Healthcare Medians).
 *   **Cross-Filing Narrative Linkage**: Detecting "Narrative Contradictions" when a CEO changes their story between a voluntary press release and a mandatory SEC filing.
 
 ## 📡 Phase 3: Alternative Data & Real-Time Signals

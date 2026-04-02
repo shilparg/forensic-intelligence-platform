@@ -16,6 +16,11 @@ This manual provides a professional, feature-by-feature guide to the **Forensic 
 - **🖱️ Usage**: Click to generate a text-based report of all "Critical Anomalies" currently in the view.
 - **🕵️ Observation**: This creates your "Evidence Paper Trail." It translates the visual dashboard into a formal document for Board-level reporting.
 
+### 🔍 Forensic Global Filters
+- **⚙️ Feature & Options**: Multiselect dropdowns for **Sector** and **Fiscal Year**.
+- **🖱️ Usage**: Filter the dashboard to focus on a specific industry (e.g., *Healthcare*).
+- **🕵️ Observation**: This allows for **Regional or Sector-Specific Deep-Dives**. If you are an industry specialist, you can immediately hide irrelevant sectors to focus on your specific domain.
+
 ---
 
 ## 📊 Page 1: High-Level Risk Overview (Triage)
@@ -66,3 +71,17 @@ This manual provides a professional, feature-by-feature guide to the **Forensic 
 ### ⚙️ Backend SQL Code Blocks
 - **⚙️ Feature & Options**: Clickable expanders.
 - **🕵️ Observation**: This is your "Defense Mode." If a coach asks how you calculated Benford's Law, you open this to show the exact BigQuery REGEXP logic. It proves the platform is **Scientifically Transparent**.
+
+---
+
+## ⚙️ Page 6: Medallion Pipeline & Extraction Control
+*This section controls the industrial ingestion of the platform.*
+
+### 🎯 Target Selection Panel
+- **⚙️ Feature & Options**: Radio Buttons for **Benchmark** or **Custom CSV Watchlist**.
+- **🖱️ Usage**: Choose between a static FAANG peer group or upload a CSV with specific tickers you wish to audit.
+- **🕵️ Observation**: This is the "Orchestration Control." It allows the auditor to dynamically define the scope of the day's investigation.
+
+### 📧 Automated Notification Toggle
+- **⚙️ Feature & Options**: A persistent UI toggle that connects to the `forensic_alerter.py` backend.
+- **🕵️ Observation**: If toggled **ON**, the AI will automatically dispatch an executive memo for every flagged anomaly discovered in the run.

@@ -39,6 +39,9 @@ The AI analyzes a multi-dimensional vector for every company:
 2.  **Engine B (Market)**: `short_ratio`, `debt_to_equity`, `return_on_equity`, `operating_margin`, `insider_ownership`, `current_ratio`.
 3.  **Engine C (Forensic Math)**: `benfords_deviation`, `sentiment_volatility` (Historical Tone Drift). This is the **Convergence Layer** where cleaned SEC text and Yahoo metrics are mathematically joined to find hidden anomalies.
 
+> [!NOTE]
+> **V3.0 Global Batch Scaling**: The current AI uses **Global Batch Normalization** (StandardScaler). All companies processed in a single run are scaled together, allowing the AI to identify the "Extreme Outliers" of the entire portfolio. Our **v4.0 Roadmap** includes **Sector-Contextual Normalization** for industry-relative isolation.
+
 ### 2. Supervised Risk Forecasting (XGBoost)
 **Concept:** Forensic metrics are leading indicators of market behavior (e.g., short-selling spikes).
 **Logic:** We use **XGBoost (Extreme Gradient Boosting)** as a **Forensic Forecaster**. It is a supervised model trained on historical patterns. If the AI detects a specific combination of Narrative Fear (A) and Benford's Deviation (C), it forecasts how much a professional short-seller is likely to bet against that company in the next 12 months.
@@ -58,7 +61,8 @@ The platform operates as a massive industrial data factory, moving from raw iden
 - **Function**: `determine_targets` in `assets.py`
 - **Logic**: 
     1. Fetches the official **SEC Master Index** (`company_tickers.json`) to map human-readable Tickers (e.g., AAPL) to Central Index Keys (CIKs).
-    2. Generates `sector_metadata.json`. This is crucial for the ML Engine later, as it ensures the AI compares a "Tech" company against other "Tech" companies rather than a "Utility" firm.
+    2. **Target Selection Modes**: Supports either a **Static Peer Group** (FAANG) for benchmarking or a **Custom CSV Upload** for targeted auditor deep-dives.
+    3. Generates `sector_metadata.json`. This is crucial for the ML Engine later, as it ensures the AI compares a "Tech" company against other "Tech" companies rather than a "Utility" firm.
 - **Output**: A JSON map of active targets and a cached metadata file.
 
 ### 🏗️ Phase 2: Dual-Engine Data Ingestion

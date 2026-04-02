@@ -125,4 +125,13 @@ This document serves as the "Defense Master List" for the Capstone project. It c
 **Q31: [🤖 CTO] Why the 0.10 "Contamination" parameter in the Isolation Forest?**
 > **Answer:** The contamination parameter represents the expected proportion of outliers in the dataset. By setting it to **0.10 (10%)**, we are telling the AI to prioritize identifying the "Most Extreme" irregularities. This reduces "Alert Fatigue" for auditors by focusing only on the highest-risk entities rather than flagging every minor deviation.
 
+**Q32: [⚖️ AUDITOR] How does your AI handle different industries in the same batch?**
+> **Answer:** The current v3.0 platform uses **Global Batch Normalization**. When an auditor uploads a mixed watchlist, the AI identifies the absolute outliers of the entire group. This is ideal for finding the **"Worst of the Worst"** in a diversified portfolio. For v4.0, we have documented a roadmap for **Sector-Contextual Normalization** to perform purely industry-relative audits.
+
+**Q33: [⚙️ CTO] Can I select specific industries for the extraction pipeline?**
+> **Answer:** Yes. The platform supports **Targeted Watchlists**. Auditors can upload a custom CSV containing any tickers from any sectors (e.g., just JNJ and PFE for Healthcare). The AI will then automatically re-scale its forensic model specifically for those targets, essentially performing a **de facto Industry Audit**.
+
+**Q34: [🎓 COACH/CTO] What is the plan for supporting "Dynamic Sectors" at scale?**
+> **Answer:** We have documented a **Multi-Sector Future Architecture (v4.0)**. The strategy involves transitioning from a monolithic batch to **Dagster Partitioning**, where each sector has its own independent asset track, schedule, and specialized ML sub-model.
+
 ---

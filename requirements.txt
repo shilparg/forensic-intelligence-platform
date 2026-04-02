@@ -1,6 +1,6 @@
 # --- Core UI & Data ---
 streamlit>=1.32.0
-pandas>=2.1.0
+pandas>=2.3.0
 numpy>=1.26.0
 
 # --- The Orchestration Layer (Updated to fix Telemetry Bug) ---
@@ -17,7 +17,7 @@ snowplow-tracker==1.0.4
 requests>=2.31.0
 beautifulsoup4>=4.12.3
 lxml
-yfinance>=0.2.37
+yfinance==1.2.0
 pymongo>=4.16.0
 dnspython>=2.0.0
 certifi
@@ -32,10 +32,10 @@ dbt-bigquery==1.9.2
 pandas-gbq>=0.22.0
 
 # --- Machine Learning & AI ---
-textblob>=0.18.0.post0  # Force modern Python 3.12 compatibility
-scikit-learn>=1.4.0
-xgboost>=2.0.0
-shap>=0.45.0
+textblob>=0.19.0
+scikit-learn>=1.6.0
+xgboost>=3.1.0
+shap>=0.51.0
 google-generativeai
 
 # --- Visualization & Alerting ---
