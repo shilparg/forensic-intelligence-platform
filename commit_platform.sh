@@ -25,10 +25,11 @@ git add streamlit_dashboard/
 git add scout.py
 git add scripts/
 git add documentation/
+git add notebooks/
 
 # 3. Stage Project Metadata & Utilities
 echo "📂 Staging Project Utilities..."
-git add README.md .gitignore requirements.txt commit_platform.sh
+git add README.md .gitignore requirements.txt requirements_install.txt commit_platform.sh
 
 # 4. Final Professional Commit
 echo "🚀 committing changes..."
