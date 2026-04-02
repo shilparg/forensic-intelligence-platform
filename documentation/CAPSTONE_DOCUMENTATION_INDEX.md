@@ -7,10 +7,10 @@ Welcome to the **Master Documentation Index**. This portal centralizes all techn
 ## 🚀 1. Presentation & Pitch Assets
 *Use these documents during your Capstone presentation.*
 
-*   **[📽️ Capstone Presentation Master](Capstone_Presentation_Master.md)**: Your 12-slide main pitch deck.
-*   **[🧠 LLM Forensic Presentation](LLM_Forensic_Presentation.md)**: Specialized deep-dive into Gemini 1.5 Pro, SHAP, and AI explainability.
+*   **[📽️ Capstone Presentation Master](CAPSTONE_PRESENTATION_MASTER.md)**: Your 12-slide main pitch deck.
+*   **[🧠 LLM Forensic Presentation](LLM_FORENSIC_PRESENTATION.md)**: Specialized deep-dive into Gemini 1.5 Pro, SHAP, and AI explainability.
 *   **[📉 ROI Proof Metrics](ROI_PROOF_METRICS.md)**: Mathematical evidence for the "400-Hour Savings" claim.
-*   **[🛡️ QA Defense Master](QA_Defense_Master.md)**: A categorized list of 30+ "Curated Answers" for coaches and technical judges.
+*   **[🛡️ QA Defense Master](QA_DEFENSE_MASTER.md)**: A categorized list of 30+ "Curated Answers" for coaches and technical judges.
 
 ---
 
