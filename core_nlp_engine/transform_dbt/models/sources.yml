@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: sec_sources                # Logical group name in dbt
-    database: forensic-accounting-bot # Dynamically reads your .env file
+    database: "{{ env_var('GCP_PROJECT_ID') }}" # Dynamically reads your .env file
     schema: raw_sec_landing          # The Silver dataset where MongoDB & Meltano dump raw data
     tables:
       - name: raw_sec_filings        # Engine A's unstructured text data

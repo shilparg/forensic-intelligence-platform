@@ -17,15 +17,18 @@ echo "🕵️ Starting Forensic Submission Pipeline..."
 echo "🧹 Cleaning Git Cache for state files..."
 git rm --cached ui_state.json run_config.json 2>/dev/null
 
-# 2. Stage Documentation Hub (Master Docs, 3D Visuals, Notebooks)
-echo "📂 Staging Documentation hub..."
+# 2. Stage High-Level Components (ML Engine, ELT Models, Dashboard)
+echo "🏗️ Staging Platform Core Logic..."
+git add core_nlp_engine/
+git add meltano_elt_engine/
+git add streamlit_dashboard/
+git add scout.py
+git add scripts/
 git add documentation/
 
-# 3. Stage Core Technical Files
-echo "🏗️ Staging Core Project Assets..."
-git add README.md .gitignore requirements.txt 
-git add streamlit_dashboard/app.py 
-git add core_nlp_engine/analysis/sector_metadata.json
+# 3. Stage Project Metadata & Utilities
+echo "📂 Staging Project Utilities..."
+git add README.md .gitignore requirements.txt commit_platform.sh
 
 # 4. Final Professional Commit
 echo "🚀 committing changes..."

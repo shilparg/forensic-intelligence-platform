@@ -4,9 +4,9 @@ forensic_profile:  # <--- This must match the 'profile' in dbt_project.yml
     dev:
       type: bigquery
       method: service-account
-      project: forensic-accounting-bot 
-      dataset: forensic_data           
+      project: "{{ env_var('GCP_PROJECT_ID') }}"
+      dataset: "{{ env_var('BQ_DATASET_ID') }}"
       threads: 4
-      keyfile: ../../gcp-service-account.json 
+      keyfile: "../../{{ env_var('GOOGLE_APPLICATION_CREDENTIALS') }}"
       location: asia-southeast1
       use_storage_api: true  # Add this line

@@ -3,25 +3,26 @@ default_environment: dev
 project_id: forensic-accounting-platform
 
 environments:
-  - name: dev
+- name: dev
 
 plugins:
   extractors:
-    - name: tap-mongodb
-      variant: meltano-labs
-      namespace: tap_mongodb
-      pip_url: git+https://github.com/MeltanoLabs/tap-mongodb.git dnspython certifi
-      capabilities:
-        - state
-        - discover
-        - catalog
-      config:
-        database: forensic_accounting
-        mongodb_connection_string: ${MONGO_URI}
+  - name: tap-mongodb
+    namespace: tap_mongodb
+    variant: meltano-labs
+    pip_url: git+https://github.com/MeltanoLabs/tap-mongodb.git dnspython certifi
+    capabilities:
+    - state
+    - discover
+    - catalog
+    config:
+      database: forensic_accounting
+      mongodb_connection_string: ${MONGO_URI}
 
   loaders:
-    - name: target-jsonl
-      variant: andyh1203
-      pip_url: target-jsonl
-      config:
-        destination_path: ./output
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
+    config:
+      destination_path: ./output
+send_anonymous_usage_stats: false

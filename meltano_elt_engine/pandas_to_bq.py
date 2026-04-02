@@ -75,8 +75,8 @@ if "_id" in df.columns:
 print(f"✨ Flattened {len(df)} records into {len(df.columns)} clean columns.")
 
 # --- 4. Push to BigQuery ---
-project_id = os.getenv("GCP_PROJECT_ID", "forensic-accounting-bot")
-dataset_id = "raw_sec_landing"
+project_id = os.getenv("GCP_PROJECT_ID")
+dataset_id = os.getenv("BQ_RAW_DATASET_ID")
 table_name = "raw_sec_filings"
 table_id = f"{project_id}.{dataset_id}.{table_name}"
 

@@ -5,13 +5,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Connect to BigQuery using your root credentials
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "gcp-service-account.json"
+key_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "gcp-service-account.json")
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
 client = bigquery.Client()
 
 print("🔍 Inspecting BigQuery Table Schema...")
 try:
     project_id = os.getenv("GCP_PROJECT_ID")
-    query = f"SELECT * FROM `{project_id}.forensic_data.fct_disclosure_density` LIMIT 1"
+    dataset_id = os.getenv("BQ_DATASET_ID", "forensic_data")
+    query = f"SELECT * FROM `{project_id}.{dataset_id}.fct_disclosure_density` LIMIT 1"
     df = client.query(query).to_dataframe()
     
     print("\n✅ TABLE FOUND! Here are the exact column names:")

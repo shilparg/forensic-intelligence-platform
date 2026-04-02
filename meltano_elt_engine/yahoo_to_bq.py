@@ -101,8 +101,8 @@ def extract_and_load_financials():
     df = pd.DataFrame(market_data)
     
     # --- 3. Loading to Silver Layer (BigQuery) ---
-    project_id = os.getenv("GCP_PROJECT_ID", "forensic-accounting-bot")
-    dataset_id = "raw_sec_landing"
+    project_id = os.getenv("GCP_PROJECT_ID")
+    dataset_id = os.getenv("BQ_RAW_DATASET_ID", "raw_sec_landing")
     table_name = "raw_financials"
     table_id = f"{project_id}.{dataset_id}.{table_name}"
     
