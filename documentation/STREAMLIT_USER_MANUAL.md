@@ -33,7 +33,15 @@ This manual provides a professional, feature-by-feature guide to the **Forensic 
 ### 🕸️ AI Decision Matrix (Radar)
 - **⚙️ Feature & Options**: Plotly line-polar graph with 4 axes (Short Ratio, Debt/Equity, Word Count, Abs Sentiment).
 - **🖱️ Usage**: Select a flagged entity from the dropdown. 
-- **🕵️ Observation**: Look for the **"Asymmetric Explosion."** A stable company forms a small, centered circle. A fraud-risk company will "spike" aggressively toward one or two corners—visually isolating whether the risk is caused by narrative (words) or financials (debt).
+- **🕵️ Observation**: Look for the **"Asymmetric Explosion."** A stable company forms a small, centered circle. A fraud-risk company will "spike" aggressively toward the **Short Ratio (Engine C)** or **Debt/Equity (Engine B)** corners—visually isolating whether the risk is caused by market pressure or internal financials.
+
+---
+
+## 🔮 Page 3: Predictive Risk & Trend Forecasting
+
+### 📉 Forward-Looking Market Projection (Slope Chart)
+- **⚙️ Feature & Options**: An Altair-powered slope chart comparing **Present Short Interest** vs. **AI-Projected Future Shorting**.
+- **🕵️ Observation**: A rising slope indicates that the **XGBoost Engine** predicts Wall Street is about to "Attack" the stock. This is a leading indicator for traders to exit positions before the narrative collapse hits the news.
 
 ---
 
@@ -51,6 +59,14 @@ This manual provides a professional, feature-by-feature guide to the **Forensic 
 ### 🚬 The 'Smoking Gun' Density Matrix
 - **⚙️ Feature & Options**: 3-dimensional bubble chart (Words vs. Tone vs. Risk Score).
 - **🕵️ Observation**: Look for the **"Obfuscation Quadrant"** (High Word Count + Negative Sentiment). Large red bubbles in this zone show management attempting to "drown" bad news in a massive volume of legal text.
+
+---
+
+## 📊 Page 5: Statistical Anomaly Distributions
+
+### 📈 Advanced Seaborn Visualizer
+- **⚙️ Feature & Options**: Dynamic plot generation (Violin, Box, KDE) across 15+ forensic dimensions.
+- **🕵️ Observation (Statistical Significance)**: Use the **Violin Plot** to compare "Normal" vs. "Critical Anomaly" groups. If the shapes are drastically different, it proves the Isolation Forest is successfully separating the "Signal" (Fraud) from the "Noise" (Market Volatility).
 
 ---
 

@@ -5,15 +5,14 @@
 ***
 
 ### 📚 Project Documentation Hub
-All technical manuals, presentation decks, and installation guides are located in the **[documentation/](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/)** directory:
-- **[Installation Manual](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/INSTALLATION_GUIDE.md)**: How to set up and run the platform.
-- **[Presentation Slide Deck](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/CAPSTONE_PRESENTATION_MASTER.md)**: The Capstone pitch.
-- **[Technical Code Explainer](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/CODE_EXPLAINER_MASTER.md)**: Deep-dive for dev teams.
-- **[Defense Q&A Master](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/QA_DEFENSE_MASTER.md)**: Presentation preparation cheat-sheet.
-- **[Architecture & Visual Flow](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/ARCHITECTURE_VISUALS.md)**: Technical & Executive diagrams.
-- **[Streamlit UI User Manual](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/STREAMLIT_USER_MANUAL.md)**: Feature-by-feature forensic visual guide.
-- **[Technical Data Walkthrough](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/notebooks/02_FORENSIC_WALKTHROUGH.ipynb)**: Jupyter Notebook investigation.
-- **[Environment Check Utility](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/notebooks/01_ENVIRONMENT_CHECK.ipynb)**: Pre-flight connection & dependency test.
+All technical manuals, presentation decks, and installation guides are located in the **[documentation/](documentation/)** directory:
+- **[Installation Manual](documentation/INSTALLATION_GUIDE.md)**: How to set up and run the platform.
+- **[Presentation Slide Deck](documentation/CAPSTONE_PRESENTATION_MASTER.md)**: The Capstone pitch.
+- **[Technical Code Explainer](documentation/CODE_EXPLAINER_MASTER.md)**: Deep-dive for dev teams.
+- **[Architecture & Visual Flow](documentation/ARCHITECTURE_VISUALS.md)**: Technical & Executive diagrams.
+- **[Streamlit UI User Manual](documentation/STREAMLIT_USER_MANUAL.md)**: Feature-by-feature forensic visual guide.
+- **[Technical Data Walkthrough](notebooks/02_FORENSIC_WALKTHROUGH.ipynb)**: Jupyter Notebook investigation.
+- **[Environment Check Utility](notebooks/01_ENVIRONMENT_CHECK.ipynb)**: Pre-flight connection & dependency test.
 
 ---
 
@@ -74,40 +73,23 @@ The UI provides an executive-grade experience across 8 specialized modules:
 
 ---
 
-## 🎤 7. Defense Quick-Sheet (Rapid Q&A)
-*Full deep-dive available in **[QA_DEFENSE_MASTER.md](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/QA_DEFENSE_MASTER.md)***.
-
-**Q: Why use "Triangulation"?**  
-> **A:** One signal can lie. But when **Negative Narrative + High Debt + Wall Street Pessimism** converge, the mathematical probability of risk skyrockets.
-
-**Q: Why use MongoDB AND BigQuery?**  
-> **A:** MongoDB handles messy, variable 10-K text (NoSQL). BigQuery handles high-scale SQL transformations (OLAP). We use the best tool for each data type.
-
-**Q: How do you solve the AI "Black Box" problem?**  
-> **A:** We use **SHAP (XAI)**. It assigns a specific percentage weight to every feature, giving auditors a defensible "audit trail" for AI decisions.
-
-**Q: What is "Narrative Drift"?**  
-> **A:** It detects year-over-year textual changes using SQL `LAG()` window functions. Sudden "wordiness" indicates management trying to bury bad news.
-
----
-
-## 🔒 8. Security & Data Governance
+## 🔒 7. Security & Data Governance
 - **Principle of Least Privilege (PoLP)**: Dedicated service accounts for Pipeline (Write) and Dashboard (Read).
 - **Environment Integrity**: All credentials git-ignored; system state is managed via **Variable-Driven Portability**, allowing zero-code re-targeting of BigQuery datasets.
 - **Traceability**: Full asset lineage tracked via Dagster to ensure every Risk Score is verifiable.
 
 ---
 
-## 🚀 9. Installation & Deployment
-Refer to the **[INSTALLATION_GUIDE.md](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/INSTALLATION_GUIDE.md)** for environment setup, GCP authorization, and local orchestration instructions.
+## 🚀 8. Installation & Deployment
+Refer to the **[INSTALLATION_GUIDE.md](documentation/INSTALLATION_GUIDE.md)** for environment setup, GCP authorization, and local orchestration instructions.
 
-## 🔮 10. Future Roadmap (v2.0 - v4.0)
+## 🔮 9. Future Roadmap (v2.0 - v4.0)
 The platform is built on an extensible **Industrial Data Factory** architecture. For a deep dive into the **Alternative Data Integration**, **Real-Time Sentiment Streaming**, and **Multi-Modal AI** plans, refer to the:
-👉 **[FUTURE_ROADMAP.md](file:///home/shilpakk/data_analytic/capstone/forensic-intelligence-platform/documentation/FUTURE_ROADMAP.md)**
+👉 **[FUTURE_ROADMAP.md](documentation/FUTURE_ROADMAP.md)**
 
 ---
 
-## 🔤 11. Glossary & Visual Terms
+## 🔤 10. Glossary & Visual Terms
 - **Industrial Data Factory**: The Dagster-orchestrated 6-phase lifecycle.
 - **Quant Engine**: The Meltano-powered structured financial pipeline.
 - **NLP Engine**: The SEC text-mining sentiment logic.

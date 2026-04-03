@@ -159,7 +159,7 @@ Streamlit serves as the high-stakes interface between the auditor and the Dagste
 One of the core technical breakthroughs of this project was the **Architectural Re-platforming** of how the AI models retrieve their data.
 
 - **The Traditional Bottleneck (15+ Minutes)**: Initially, the AI script used "Serial Fetching"—looping through each ticker and making individual requests to databases or APIs. This was throttled by network latency and API rate limits (HTTP 429).
-- **The Modern Solution (1-Second)**: We moved the "Intelligence" into the **BigQuery/dbt Layer**. By pre-joining the Engine A, B, and C features into a single "Gold" table, the [fraud_model.py](file:///home/kangy/data_analytics/capstone/forensic-intelligence-platform/core_nlp_engine/ml_engine/fraud_model.py) now performs a **single, batched SQL fetch**.
+- **The Modern Solution (1-Second)**: We moved the "Intelligence" into the **BigQuery/dbt Layer**. By pre-joining the Engine A, B, and C features into a single "Gold" table, the [fraud_model.py](../core_nlp_engine/ml_engine/fraud_model.py) now performs a **single, batched SQL fetch**.
 - **The Result**: The AI can now score 10,000 companies as fast as it scores 10, bypassing API rate limits entirely and bringing the retrieval time down from 15 minutes to approximately **1 second**.
 
 ---
